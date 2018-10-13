@@ -7,47 +7,67 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import {
+  View,
+  StatusBar
+} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double test tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-import { Provider } from 'mobx-react'
-import * as stores from '../stores'
+import { Provider } from 'mobx-react';
+import * as stores from '../stores';
+import { createStackNavigator } from 'react-navigation';
+import HomeScreen from '../scenes/Home';
+import Home1Screen from '../scenes/Home1';
+import Home2Screen from '../scenes/Home2';
+import Home3Screen from '../scenes/Home3';
 
 export default class App extends Component {
   render() {
     return (
       <Provider {...stores}>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Welcome to React Native!</Text>
-          <Text style={styles.instructions}>To get started, edit App.js</Text>
-          <Text style={styles.instructions}>{instructions}</Text>
+        <View style={{ flex: 1, }}>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="#4F6D7A"
+          />
+          <RootStack />
         </View>
       </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+const RootStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: 'Home',
+        header: null
+      },
+    },
+    Home1: {
+      screen: Home1Screen,
+      navigationOptions: {
+        title: 'Home1',
+        header: null
+      },
+    },
+    Home2: {
+      screen: Home2Screen,
+      navigationOptions: {
+        title: 'Home2',
+        header: null
+      },
+    },
+    Home3: {
+      screen: Home3Screen,
+      navigationOptions: {
+        title: 'Home3',
+        header: null
+      },
+    },
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  {
+    initialRouteName: 'Home',
+  }
+);

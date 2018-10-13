@@ -1,10 +1,19 @@
+import { AsyncStorage } from "react-native"
+
 const LS_CHAIN = 'lsChain'
 
 export const TESTNET = 'test'
 export const MAINNET = 'main'
 
 class Chain {
-  _current = localStorage.getItem(LS_CHAIN) || MAINNET
+  _current = async () => {
+    try {
+      await AsyncStorage.getItem(LS_CHAIN) || MAINNET;
+     } catch (error) {
+       // Error retrieving data
+     }
+  }
+  
   get current() {
     return this._current
   }
@@ -12,7 +21,15 @@ class Chain {
   switch = () => {
     const nextChain = this.current === MAINNET ? TESTNET : MAINNET
     this._current = nextChain
-    localStorage.setItem(LS_CHAIN, nextChain)
+
+    _storeData = async () => {
+      try {
+        await AsyncStorage.setItem(LS_CHAIN, nextChain);
+      } catch (error) {
+        // Error saving data
+      }
+    }
+
   }
 }
 

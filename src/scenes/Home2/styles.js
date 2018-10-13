@@ -1,6 +1,6 @@
 import {
+  StyleSheet,
   Dimensions,
-  StyleSheet
 } from 'react-native';
 const { width } = Dimensions.get('window');
 export default styles = StyleSheet.create({
@@ -11,9 +11,14 @@ export default styles = StyleSheet.create({
   headerText: {
     color: '#fff',
     fontSize: 24,
-    marginTop: 20,
     fontWeight: 'bold',
     marginLeft: 10
+  },
+  subHeaderText: {
+    color: '#949494',
+    fontSize: 12,
+    marginLeft: 10,
+    marginRight: 10
   },
   bulletText: {
     color: '#6c6c6c',
@@ -56,19 +61,19 @@ export default styles = StyleSheet.create({
     margin: 10
   },
   nextButtonView: {
-    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 10
   },
   nextButtonText: {
-    color: 'white',
+    color: '#fff',
     fontWeight: 'bold',
   },
   touchableButton: {
     width: 120,
     height: 36,
     borderWidth: 1,
-    backgroundColor: '#2e8be6',
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center'
@@ -80,6 +85,12 @@ export default styles = StyleSheet.create({
   },
   blockChainImage: {
     width: 190,
-    height: 170
-  }
+    height: 150
+  },
+  backButton: {
+    backgroundColor: '#333'
+  },
+  nextButton: {
+    backgroundColor: '#2e8be6'
+  },
 });

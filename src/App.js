@@ -1,70 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import { createStackNavigator } from 'react-navigation';
-import HomeScreen from './scenes/Home';
-import Home1Screen from './scenes/Home1';
-import Home2Screen from './scenes/Home2';
-import Home3Screen from './scenes/Home3';
+import * as stores from './stores'
+import { Provider } from 'mobx-react/native';
+import { StyleProvider } from 'native-base';
+import getTheme from '../native-base-theme/components';
+import Routes from './routes';
+import platform from '../native-base-theme/variables/platform';
 import {
   Platform,
   View,
   StatusBar
 } from 'react-native';
 
+import WelcomeMessages from './scenes/onBoardingPages/WelcomeMessages/WelcomeMessages'
 
 export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1, }}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="#4F6D7A"
-        />
-        <RootStack />
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="#4F6D7A"
+          />
+          <Provider {...stores}>
+            <StyleProvider style={getTheme(platform)}>
+              <Routes />
+            </StyleProvider>
+          </Provider>
       </View>
     );
   }
 }
-
-const RootStack = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        title: 'Home',
-        header: null
-      },
-    },
-    Home1: {
-      screen: Home1Screen,
-      navigationOptions: {
-        title: 'Home1',
-        header: null
-      },
-    },
-    Home2: {
-      screen: Home2Screen,
-      navigationOptions: {
-        title: 'Home2',
-        header: null
-      },
-    },
-    Home3: {
-      screen: Home3Screen,
-      navigationOptions: {
-        title: 'Home3',
-        header: null
-      },
-    },
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);

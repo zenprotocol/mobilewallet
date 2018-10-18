@@ -4,26 +4,44 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "test": "jest",
+    "lint": "eslint -c .eslintrc.js './src/**/*.js'",
+    "build:ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
+    "build:android": "react-native bundle --entry-file index.android.js --platform android --dev false --bundle-output android/main.jsbundle --assets-dest android",
+    "flow": "flow"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/runtime": "7.1.2",
-    "@zen/zenjs": "0.0.24",
+    "@zen/zenjs": "0.0.25",
     "assert": "^1.4.1",
     "decimal.js": "^10.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "history": "4.7.2",
     "mobx": "^4.5.0",
     "mobx-react": "^5.2.8",
+    "native-base": "2.8.1",
+    "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "0.57.1",
-    "react-native-app-intro": "^1.1.5",
+    "react-native-app-intro-slider": "^1.0.1",
     "react-navigation": "^2.18.0",
-    "stream": "0.0.2"
+    "stream": "0.0.2",
+    "sweetalert": "2.1.0"
   },
   "devDependencies": {
+    "@babel/preset-flow": "7.0.0",
+    "babel-cli": "6.26.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "10.0.1",
     "babel-jest": "23.6.0",
+    "eslint": "5.7.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "7.11.1",
+    "eslint-plugin-react-native": "^3.5.0",
+    "flow-bin": "^0.83.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.47.0",
     "react-test-renderer": "16.5.0"

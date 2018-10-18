@@ -10,7 +10,7 @@ import _WALLET_SRC from '../assets/img/image-wallet.png'
 import _SECURITY_SRC from '../assets/img/image-security.png'
 import _ATTENTION_SRC from '../assets/img/image-attention.png'
 
-export const LOGO_SRC = _LOGO_SRC
+// export const LOGO_SRC = _LOGO_SRC
 export const CREATE_WALLET_SRC = _CREATE_WALLET_SRC
 export const IMPORT_WALLET_SRC = _IMPORT_WALLET_SRC
 export const CANCEL_ICON_SRC = _CANCEL_ICON_SRC

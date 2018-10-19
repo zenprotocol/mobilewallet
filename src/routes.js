@@ -5,10 +5,15 @@ import { StackNavigator } from 'react-navigation';
 
 import WelcomeMessages from './scenes/onBoardingPages/WelcomeMessages/WelcomeMessages'
 
-
 const stackNavigatorConfig = {
   initialRouteName: 'WelcomeMessages',
+  navigationOptions: {
+    header: ({state}) => {
+      return {title: state.params && state.params.title}
+    }
+  }
 };
+
 const Navigator = StackNavigator(
   {
     WelcomeMessages: { screen: WelcomeMessages },

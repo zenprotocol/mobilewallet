@@ -1,21 +1,21 @@
-import swal from 'sweetalert'
+import swal from 'sweetalert';
 
 // import history from '../services/history'
-import { networkStore, secretPhraseStore } from '../stores'
-import chain from '../services/chain'
-import routes from '../constants/routes'
+import { networkStore, secretPhraseStore } from '../stores';
+import chain from '../services/chain';
+import routes from '../constants/routes';
 
 const switchChain = async () => {
   const shouldSwitch = await shouldSwitchModal()
   if (!shouldSwitch) {
-    return
+    return;
   }
-  chain.switch()
-  secretPhraseStore.reset()
+  chain.switch();
+  secretPhraseStore.reset();
   // history.push(routes.LOADING)
-}
+};
 
-export default switchChain
+export default switchChain;
 
 function shouldSwitchModal() {
   return swal({
@@ -25,5 +25,5 @@ function shouldSwitchModal() {
     icon: 'warning',
     dangerMode: true,
     buttons: true,
-  })
+  });
 }

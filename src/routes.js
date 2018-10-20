@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react/native';
 import { StackNavigator } from 'react-navigation';
 
 import WelcomeMessages from './scenes/onBoardingPages/WelcomeMessages/WelcomeMessages'
+import ImportOrCreateWallet from './scenes/onBoardingPages/ImportOrCreateWallet/ImportOrCreateWallet'
 
 const stackNavigatorConfig = {
   initialRouteName: 'WelcomeMessages',
@@ -17,6 +18,7 @@ const stackNavigatorConfig = {
 const Navigator = StackNavigator(
   {
     WelcomeMessages: { screen: WelcomeMessages },
+    ImportOrCreateWallet: { screen: ImportOrCreateWallet },
   },
   {
     stackNavigatorConfig,

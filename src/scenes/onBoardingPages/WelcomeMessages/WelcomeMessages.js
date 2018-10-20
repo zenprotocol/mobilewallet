@@ -97,6 +97,10 @@ export default class WelcomeMessages extends Component {
     </Container>
   );
 
+  _onDone = () => {
+    this.props.navigation.navigate("ImportOrCreateWallet");
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -105,6 +109,7 @@ export default class WelcomeMessages extends Component {
           renderItem={this.renderSlideItem}
           bottomButton
           buttonStyle={styles.button}
+          onDone={this._onDone}
           />
         <NetBottomBar/>
       </View>

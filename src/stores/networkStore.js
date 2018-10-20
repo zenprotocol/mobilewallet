@@ -8,6 +8,7 @@ import chain from '../services/chain'
 const initialState = getInitialState()
 
 class NetworkStore {
+  @observable currentChain
   @observable blocks = initialState.blocks
   @observable headers = initialState.headers
   @observable difficulty = initialState.difficulty

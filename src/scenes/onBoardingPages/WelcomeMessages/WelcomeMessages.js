@@ -4,15 +4,14 @@ import {
   View,
   FlatList,
   Text,
-  TouchableHighlight,
-  StatusBar,
   Image,
   StyleSheet,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Images from '@assets/images';
+import NetBottomBar from '../../../components/NetBottomBar'
 
-console.log(Images);
+
 const slides = [
   {
     key: 'what',
@@ -88,9 +87,9 @@ export default class WelcomeMessages extends Component {
           data={props.bullets}
           keyExtractor = {(item, index) => index}
           renderItem={({item}) =>
-            <View>
+            <View style={styles.item}>
               <Text style={styles.bullet}>{'\u2022'}</Text>
-              <Text style={styles.item}>{item}</Text>
+              <Text style={styles.text}>{item}</Text>
             </View>
           }
         />
@@ -100,11 +99,15 @@ export default class WelcomeMessages extends Component {
 
   render() {
     return (
-      <AppIntroSlider
-        slides={slides}
-        renderItem={this.renderSlideItem}
-        bottomButton
-        />
+      <View style={{flex: 1}}>
+        <AppIntroSlider
+          slides={slides}
+          renderItem={this.renderSlideItem}
+          bottomButton
+          buttonStyle={styles.button}
+          />
+        <NetBottomBar/>
+      </View>
     )
   }
 }
@@ -123,14 +126,17 @@ const styles = StyleSheet.create({
     width: 150,
     marginBottom: 16,
   },
+  item: {
+    flexDirection: 'row',
+    padding: 10,
+  },
   bullet: {
     color: '#2f8be6',
     fontSize: 12,
   },
-  item: {
+  text: {
     color: '#777777',
-    flex: 1,
-    fontSize: 12,
+    fontSize: 16,
     paddingLeft: 5,
   },
   title: {
@@ -139,5 +145,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
     marginBottom: 16,
-  }
+  },
+  button: {
+    backgroundColor: '#2f8be6',
+  },
 });

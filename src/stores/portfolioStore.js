@@ -93,9 +93,9 @@ class PortfolioStore {
                         }
                     }
                 }
-                
+
                 return ''
-                
+
             } else {
                 return name
             }

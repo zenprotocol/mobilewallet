@@ -1,12 +1,13 @@
 import { observable, action } from 'mobx'
-import bip39 from 'bip39'
-import { SecurePhrase } from '@zen/zenjs'
+// import bip39 from 'bip39'
+// import { SecurePhrase } from '@zen/zenjs'
 
-import routes from '../constants/routes'
+// import routes from '../constants/routes'
 // import history from '../services/history'
 import chain, { MAINNET } from '../services/chain'
 import wallet from '../services/wallet'
 import { isDev } from '../utils/helpers'
+import { AsyncStorage } from "react-native"
 
 const LS_AUTO_LOGOUT_MINUTES = 'lsAutoLogoutMinutes'
 const LS_TESTNET_SEED = 'lsTestnetSeed'
@@ -15,7 +16,7 @@ const LS_MAINNET_SEED = 'lsMainnetSeed'
 class secretPhraseStore {
   @observable mnemonicPhrase = []
   @observable isLoggedIn = false
-  @observable autoLogoutMinutes = Number(localStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
+  @observable autoLogoutMinutes = Number(AsyncStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
   @observable inProgress = false
   @observable isImporting = false
   @observable importError = ''
@@ -46,7 +47,7 @@ class secretPhraseStore {
   async importWallet(password) {
     wallet.create(this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
-    localStorage.setItem(this.lsSeedKey, encryptedMnemonicPhraseAsString)
+    AsyncStorage.setItem(this.lsSeedKey, encryptedMnemonicPhraseAsString)
     this.mnemonicPhrase = []
     this.isLoggedIn = true
     this.networkStore.initPolling()
@@ -54,7 +55,7 @@ class secretPhraseStore {
     // history.push(routes.TERMS_OF_SERVICE)
     return
   }
-  
+
   @action
   async unlockWallet(password) {
     if (!this.isPasswordCorrect(password)) {
@@ -88,7 +89,7 @@ class secretPhraseStore {
   decryptMnemonicPhrase(password) {
       try {
           // wrong password throws, so returning false to indicate that
-          return SecurePhrase.decrypt(password, localStorage.getItem(this.lsSeedKey)).toString()
+          return SecurePhrase.decrypt(password, AsyncStorage.getItem(this.lsSeedKey)).toString()
       } catch (err) {
           return false
       }
@@ -103,7 +104,7 @@ class secretPhraseStore {
     if (minutes < 1) { minutes = 1 }
     if (minutes > 120) { minutes = 120 }
     this.autoLogoutMinutes = minutes
-    localStorage.setItem(LS_AUTO_LOGOUT_MINUTES, minutes)
+    AsyncStorage.setItem(LS_AUTO_LOGOUT_MINUTES, minutes)
   }
 
   @action
@@ -129,7 +130,7 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
-    return !!localStorage.getItem(this.lsSeedKey)
+    return !!AsyncStorage.getItem(this.lsSeedKey)
   }
 
   get lsSeedKey() {

@@ -1,5 +1,5 @@
 import { observable, action, runInAction, computed } from 'mobx'
-import Data, { fromYaml} from '@zen/zenjs/build/src/Data'
+// import Data, { fromYaml} from '@zen/zenjs/build/src/Data'
 
 import wallet from '../services/wallet'
 import { zenToKalapas, isZenAsset } from '../utils/zenUtils'

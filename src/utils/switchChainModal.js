@@ -1,29 +1,28 @@
-import swal from 'sweetalert';
-
-// import history from '../services/history'
 import { networkStore, secretPhraseStore } from '../stores';
 import chain from '../services/chain';
 import routes from '../constants/routes';
+import {Alert} from 'react-native';
 
 const switchChain = async () => {
-  const shouldSwitch = await shouldSwitchModal()
-  if (!shouldSwitch) {
-    return;
-  }
+  const shouldSwitch = await shouldSwitchModal();
+};
+
+const _switchChain = () => {
   chain.switch();
   secretPhraseStore.reset();
-  // history.push(routes.LOADING)
-};
+}
 
 export default switchChain;
 
 function shouldSwitchModal() {
-  return swal({
-    title: 'Confirm switching chain',
-    text: `Switch from ${networkStore.chain}net to ${networkStore.otherChain}net?
-    (Continuing will redirect you to the loading screen)`,
-    icon: 'warning',
-    dangerMode: true,
-    buttons: true,
-  });
+  const subTitle = "Switch from" + networkStore.chain + "net to " + networkStore.otherChain + "net? (Continuing will redirect you to the loading screen)"
+  Alert.alert(
+    'Confirm switching chain',
+    subTitle,
+    [
+      {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'OK', onPress: () => _switchChain() },
+    ],
+    { cancelable: false }
+  )
 }

@@ -5,12 +5,12 @@ import {
   FlatList,
   Text,
   Image,
-  StyleSheet,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import Images from '@assets/images';
-import NetBottomBar from '../../../components/NetBottomBar'
-
+import PropTypes from 'prop-types';
+import Images from '../../../assets/images';
+import OnBoardingLayout from '../Layout/Layout';
+import styles from './style';
 
 const slides = [
   {
@@ -64,12 +64,15 @@ const slides = [
     ],
     backgroundColor: '#121212',
   },
-]
+];
 
 export default class WelcomeMessages extends Component {
-
   static navigationOptions = {
     header: null,
+  }
+
+  static defaultProps = {
+    navigation: {},
   }
 
   renderSlideItem = props => (
@@ -78,80 +81,46 @@ export default class WelcomeMessages extends Component {
         paddingTop: props.topSpacer + 40,
         paddingBottom: props.bottomSpacer,
         width: props.width,
-        height: props.height
-      }]}>
+        height: props.height,
+      }]}
+    >
       <Content>
         <H1 style={styles.title}>{props.title}</H1>
-        <Image source={props.image} style={styles.image} resizeMode="contain"/>
+        <Image source={props.image} style={styles.image} resizeMode="contain" />
         <FlatList
           data={props.bullets}
-          keyExtractor = {(item, index) => index}
-          renderItem={({item}) =>
+          keyExtractor={(item, index) => index}
+          renderItem={({ item }) => (
             <View style={styles.item}>
               <Text style={styles.bullet}>{'\u2022'}</Text>
               <Text style={styles.text}>{item}</Text>
             </View>
-          }
+          )}
         />
       </Content>
     </Container>
   );
 
-  _onDone = () => {
-    this.props.navigation.navigate("ImportOrCreateWallet");
+  onDone = () => {
+    const { navigation } = this.props;
+    navigation.navigate('ImportOrCreateWallet');
   }
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <OnBoardingLayout className="welcome-messages-container" hideSteps>
         <AppIntroSlider
           slides={slides}
           renderItem={this.renderSlideItem}
           bottomButton
           buttonStyle={styles.button}
-          onDone={this._onDone}
-          />
-        <NetBottomBar/>
-      </View>
-    )
+          onDone={this.onDone}
+        />
+      </OnBoardingLayout>
+    );
   }
 }
 
-const styles = StyleSheet.create({
-  mainContent: {
-    backgroundColor: '#121212',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  image: {
-    flex:1,
-    alignSelf: 'center',
-    height: 150,
-    width: 150,
-    marginBottom: 16,
-  },
-  item: {
-    flexDirection: 'row',
-    padding: 10,
-  },
-  bullet: {
-    color: '#2f8be6',
-    fontSize: 12,
-  },
-  text: {
-    color: '#777777',
-    fontSize: 16,
-    paddingLeft: 5,
-  },
-  title: {
-    fontSize: 22,
-    color: '#e6e6e6',
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: '#2f8be6',
-  },
-});
+WelcomeMessages.propTypes = {
+  navigation: PropTypes.object,
+};

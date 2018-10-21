@@ -140,7 +140,10 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-sweet-alert')
+    compile project(':react-native-udp')
+    compile project(':react-native-tcp')
+    compile project(':react-native-os')
+    compile project(':react-native-randombytes')
     compile project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

@@ -40,9 +40,9 @@ export default class ImportOrCreateWallet extends Component {
     return (
       <OnBoardingLayout className="import-create-wallet-container" progressStep={1}>
         <Container style={[styles.mainContent, {
-          paddingTop: topSpacer + 40,
+          paddingTop: topSpacer + 60,
           paddingBottom: bottomSpacer,
-          marginTop: 20,
+          marginTop: 30,
           width,
           height,
         }]}

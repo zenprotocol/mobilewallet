@@ -31,11 +31,9 @@ class NetBottomBar extends Component<Props> {
 
   componentDidMount() {
     const { networkStore } = this.props;
-    networkStore.chain.then((value) => {
-      this.setState({
-        networkChain: value,
-      });
-      return value;
+    let value =  networkStore.chain;
+    this.setState({
+      networkChain: value,
     });
   }
 

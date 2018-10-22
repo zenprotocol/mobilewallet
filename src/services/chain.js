@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native"
+import asyncStorageUtils from "../utils/asyncStorageUtils";
 
 const LS_CHAIN = 'lsChain'
 
@@ -7,32 +7,17 @@ export const MAINNET = 'main'
 
 class Chain {
   // _current = AsyncStorage.getItem(LS_CHAIN) || MAINNET;
-  _current = async () => {
-    try {
-      const value = await AsyncStorage.getItem(LS_CHAIN);
-      if (value == null)
-        return MAINNET
-      return value;
-     } catch (error) {
-       // Error retrieving data
-     }
-  }
+  _current = asyncStorageUtils.retrieveData(LS_CHAIN) || MAINNET;
 
   get current() {
-    return this._current()
+    return this._current;
   }
 
   switch = () => {
     const nextChain = this.current === MAINNET ? TESTNET : MAINNET
     this._current = nextChain
 
-    _storeData = async () => {
-      try {
-        await AsyncStorage.setItem(LS_CHAIN, nextChain);
-      } catch (error) {
-        // Error saving data
-      }
-    }
+    asyncStorageUtils.storeData(LS_CHAIN, nextChain)
 
   }
 }

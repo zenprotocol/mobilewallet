@@ -23,4 +23,5 @@ function shouldSwitchModal() {
 const switchChain = async () => {
   await shouldSwitchModal();
 };
+
 export default switchChain;

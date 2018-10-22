@@ -60,7 +60,7 @@ class secretPhraseStore {
     this.networkStore.initPolling()
     this.activeContractsStore.fetch()
     // history.push(routes.TERMS_OF_SERVICE)
-    
+
   }
 
   @action

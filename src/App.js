@@ -11,14 +11,12 @@ import {
   StatusBar
 } from 'react-native';
 
-import WelcomeMessages from './scenes/onBoardingPages/WelcomeMessages/WelcomeMessages'
-
 export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1, }}>
           <StatusBar
-            barStyle="light-content"
+            barStyle="dark-content"
             backgroundColor="#4F6D7A"
           />
           <Provider {...stores}>

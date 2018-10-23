@@ -36,6 +36,7 @@ export default class ImportOrCreateWallet extends Component {
       bottomSpacer,
       width,
       height,
+      navigation,
     } = this.props;
     return (
       <OnBoardingLayout className="import-create-wallet-container" progressStep={1}>
@@ -87,7 +88,7 @@ export default class ImportOrCreateWallet extends Component {
                   </Text>
                 </Body>
               </CardItem>
-              <Button block secondary>
+              <Button block secondary onPress = {() => navigation.navigate('ImportWallet')}>
                 <Text style={styles.buttonText}>Import Wallet</Text>
               </Button>
             </Card>

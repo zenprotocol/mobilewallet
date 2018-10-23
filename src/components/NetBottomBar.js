@@ -2,10 +2,7 @@
 
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/Foundation';
 import { MAINNET } from '../services/chain';
@@ -40,16 +37,19 @@ class NetBottomBar extends Component<Props> {
   get style() {
     const { networkStore: { chain } } = this.props;
     return {
-      backgroundColor: chain === MAINNET ? 'rgba(18, 18, 18, 0.1)' : '#f68b3d',
+      borderColor: '#232323',
+      backgroundColor: chain === MAINNET ? '#121212' : 'rgb(231, 145, 75)',
       color: 'white',
       fontWeight: chain === MAINNET ? 'inherit' : 'bold',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-around',
+      borderTopWidth: 1,
     };
   }
 
   changeNetwork(value) {
+    console.log(value);
     this.setState({
       networkChain: value,
     });
@@ -63,11 +63,11 @@ class NetBottomBar extends Component<Props> {
     }
     return (
       <View style={this.style}>
-        <Text>
+        <Text style={{color:'white'}}>
           MAINNET
         </Text>
         <Button transparent onPress={() => this.changeNetwork('test')}>
-          <Text>
+          <Text style={{color:'white'}}>
             (Switch to Testnet)
           </Text>
         </Button>
@@ -83,7 +83,7 @@ class NetBottomBar extends Component<Props> {
           TESTNET
         </Text>
         <Button transparent dark onPress={() => this.changeNetwork('main')}>
-          <Text>(Switch to Mainnet)</Text>
+          <Text style={{color:'white'}}>(Switch to Mainnet)</Text>
         </Button>
       </View>
     );

@@ -1,10 +1,13 @@
 import { Alert } from 'react-native';
 import { networkStore, secretPhraseStore } from '../stores';
 import chain from '../services/chain';
+import NavigationService from '../services/NavigationService';
+
 
 const submitSwitchChain = () => {
   chain.switch();
   secretPhraseStore.reset();
+  NavigationService.navigate('WelcomeMessages');
 };
 
 function shouldSwitchModal() {

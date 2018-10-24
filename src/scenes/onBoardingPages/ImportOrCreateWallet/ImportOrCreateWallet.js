@@ -68,7 +68,7 @@ export default class ImportOrCreateWallet extends Component {
                   </Text>
                 </Body>
               </CardItem>
-              <Button block>
+              <Button block onPress = {() => navigation.navigate('SecretPhrase')}>
                 <Text style={styles.buttonText}>Create Wallet</Text>
               </Button>
             </Card>

@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
-// import bip39 from 'react-native-bip39';
+import bip39 from 'react-native-bip39';
 // import bip39 from 'bip39';
-// import { SecurePhrase } from '@zen/zenjs'
+import { SecurePhrase } from '@zen/zenjs'
 
 // import routes from '../constants/routes'
 // import history from '../services/history'
@@ -15,7 +15,7 @@ const LS_TESTNET_SEED = 'lsTestnetSeed';
 const LS_MAINNET_SEED = 'lsMainnetSeed';
 
 class secretPhraseStore {
-  @observable mnemonicPhrase = []
+  @observable mnemonicPhrase = ''
 
   @observable isLoggedIn = false
 
@@ -40,8 +40,8 @@ class secretPhraseStore {
   }
 
   @action.bound
-  generateSeed() {
-    this.mnemonicPhrase = bip39.generateMnemonic(256).split(' ');
+  generateSeed= async () => {
+    this.mnemonicPhrase = await bip39.generateMnemonic(256);
   }
 
   @action

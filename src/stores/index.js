@@ -1,3 +1,4 @@
+import AppStore from './appStore';
 import PortfolioStore from './portfolioStore';
 import PublicAddressStore from './publicAddressStore';
 import SendTxStore from './sendTxStore';
@@ -8,6 +9,7 @@ import RedeemTokensStore from './redeemTokensStore';
 import SecretPhraseStore from './secretPhraseStore';
 import ExecuteContractStore from './executeContractStore';
 
+export const appStore = new AppStore();
 export const activeContractsStore = new ActiveContractsStore();
 export const portfolioStore = new PortfolioStore(activeContractsStore);
 export const publicAddressStore = new PublicAddressStore();

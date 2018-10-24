@@ -1,7 +1,9 @@
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import SecretPhraseStore from '../../../stores/secretPhraseStore'
 import OnBoardingLayout from '../Layout/Layout';
-import { Container, Content, H1, H3 } from 'native-base';
+import { Button, H1, H3, Text } from 'native-base';
+import styles from './styles';
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
@@ -13,17 +15,38 @@ type State = {
 
 @inject('secretPhraseStore')
 @observer
-class ImportWallet extends Component<Props, State> {
+class SecretPhrase extends Component<Props, State> {
+
+  componentWillMount() {
+    this.props.secretPhraseStore.generateSeed()
+  }
 
   render() {
+    const {
+      secretPhraseStore,
+      navigation,
+    } = this.props;
+
+    const { mnemonicPhrase } = secretPhraseStore;
+    
+    console.log(mnemonicPhrase)
+    const mnemonicPhraseList = (mnemonicPhrase && mnemonicPhrase.split(' ')) || [];
+    console.log(mnemonicPhraseList)
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
-        <H1>Import Your Mnemonic Passphrase</H1>
-        <H3>Please enter your 24 word secret phrase (seed).<br/>A blue check will appear if the text you entered is a valid&nbsp;</H3>
+        <H1>Your Mnemonic Passphrase (seed)</H1>
+        <H3> Write down the following words in chronological order and
+          save it in a secure place.&nbsp;</H3>
+        {mnemonicPhraseList.map((phrase, key) =>
+          <Text>{phrase}</Text>
+        )}
+        <Button block onPress={() => navigation.navigate('ImportWallet')}>
+          <Text style={styles.buttonText}>Next</Text>
+        </Button>
       </OnBoardingLayout>
     )
   }
 
 }
 
-export default ImportWallet;
+export default SecretPhrase;

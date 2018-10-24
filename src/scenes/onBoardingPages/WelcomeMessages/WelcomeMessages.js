@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react'
 import { Container, Content, H1 } from 'native-base';
 import {
   View,
@@ -66,6 +67,8 @@ const slides = [
   },
 ];
 
+@inject('appStore')
+@observer
 export default class WelcomeMessages extends Component {
   static navigationOptions = {
     header: null,
@@ -89,7 +92,7 @@ export default class WelcomeMessages extends Component {
         <Image source={props.image} style={styles.image} resizeMode="contain" />
         <FlatList
           data={props.bullets}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) =>  `list-item-${index}`}
           renderItem={({ item }) => (
             <View style={styles.item}>
               <Text style={styles.bullet}>{'\u2022'}</Text>

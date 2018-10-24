@@ -49,11 +49,10 @@ class NetBottomBar extends Component<Props> {
   }
 
   changeNetwork(value) {
-    console.log(value);
     this.setState({
       networkChain: value,
     });
-    switchChain();
+    switchChain(this.props);
   }
 
   renderMainnetBar() {

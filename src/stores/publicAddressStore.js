@@ -1,11 +1,7 @@
-import { observable, action, runInAction } from 'mobx'
+import { observable, action, runInAction } from "mobx";
 
-//import wallet from '../services/wallet'
+// import wallet from '../services/wallet'
 
-class PublicAddressStore {
-    
+class PublicAddressStore {}
 
-    
-}
-
-export default PublicAddressStore
+export default PublicAddressStore;

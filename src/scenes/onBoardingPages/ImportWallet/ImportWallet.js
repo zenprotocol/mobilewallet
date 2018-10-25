@@ -1,122 +1,121 @@
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { isValidBip39Word, isBip39Word, setWordFromFirstBox } from '../../../utils/seedUtils'
-import SecretPhraseStore from '../../../stores/secretPhraseStore'
-import OnBoardingLayout from '../Layout/Layout'
-import { Content, Item, H1, H3, Input, Button, Text } from 'native-base';
-import { range } from 'lodash'
-
-const getInitialInputsState = () => range(24).map(() => '')
+import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+import { View, TouchableOpacity, Clipboard } from 'react-native';
+import { Container, Card, CardItem, H1, H3, Textarea, Button, Text } from "native-base";
+import {
+  isValidBip39Word,
+  isBip39Word,
+  setWordFromFirstBox
+} from "../../../utils/seedUtils";
+import SecretPhraseStore from "../../../stores/secretPhraseStore";
+import OnBoardingLayout from "../Layout/Layout";
+import bip39 from 'react-native-bip39';
+import styles from "./styles";
+import { isEmpty } from 'lodash';
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
 
 type State = {
-  userInputWords: Array<string>
+  userInputWords: string,
+  canPaste: string
 };
 
-@inject('secretPhraseStore')
+@inject("secretPhraseStore")
 @observer
 class ImportWallet extends Component<Props, State> {
   static navigationOptions = {
-    header: null,
-  }
+    header: null
+  };
 
   state = {
-    userInputWords: getInitialInputsState(),
-  }
-  registerOnChangeFor = (idx: number) => (evt) => {
-    const { value } = evt.currentTarget // persist evt, don't delete! see https://reactjs.org/docs/events.html#event-pooling
-    this.setState(({ userInputWords }) => {
-      const words = setWordFromFirstBox(value, idx)
-      if(words){
-        userInputWords = words
-      }
-      else {
-          userInputWords[idx] = value
-      }
-      return { userInputWords }
+    userInputWords: '',
+    canPaste: null
+  };
+
+  componentDidMount() {
+    Clipboard.getString().then(value => {
+      this.setState({ canPaste: value })
     })
   }
-  isInputPerfect = (idx: number) => {
-    const word = this.state.userInputWords[idx]
-    return isBip39Word(word)
-  }
-  isInputInvalid = (idx: number) => {
-    const word = this.state.userInputWords[idx]
-    return !!(word && !isValidBip39Word(word))
-  }
-  isInputValid = (idx: number) => {
-    const word = this.state.userInputWords[idx]
-    return !!(word && isValidBip39Word(word))
-  }
-  isInputIncomplete(idx: number) {
-    const word = this.state.userInputWords[idx]
-    return !!(word.length && !this.isInputPerfect(idx))
-  }
 
-  get areAllInputsPerfect() {
-    return this.state.userInputWords.every(isBip39Word)
-  }
   get isValidBip39Mnemonic() {
-    const mnemonicPhraseString = this.state.userInputWords.join(' ')
-    return bip39.validateMnemonic(mnemonicPhraseString)
-  }
-  get notValidBip39PhraseMessage() {
-    if (!this.areAllInputsPerfect || this.isValidBip39Mnemonic) {
-      return
-    }
-    return 'Each word is a valid bip39 word, but this is not a valid bip39 Mnemonic Passphrase';
-    // return <p className="is-error" style={{ marginTop: 10 }}>Each word is a valid bip39 word, but this is not a valid bip39 Mnemonic Passphrase</p>
-  }
-  reset = () => {
-    this.setState({ userInputWords: getInitialInputsState() })
-  }
-  paste = (clipboardContents: string) => {
-    const arraySeed = getSeedFromClipboard(clipboardContents)
-    if (!arraySeed) {
-      swal({
-        icon: 'warning',
-        title: 'bad format',
-        text: 'your clipboard content is not formatted as a valid seed',
-      })
-      return
-    }
-    this.setState({ userInputWords: arraySeed })
-  }
-  onSubmitClicked = () => {
-    const { secretPhraseStore } = this.props
-    secretPhraseStore.setMnemonicToImport(this.state.userInputWords)
+    const mnemonicPhraseString = this.state.userInputWords;
+    return bip39.validateMnemonic(mnemonicPhraseString);
   }
 
-  renderInputs() {
-    return this.state.userInputWords.map((word, idx) => (
-      <Content>
-          <Item regular>
-            <Input placeholder='Rounded Textbox'/>
-          </Item>
-        </Content>
-    ))
+  reset = () => {
+    this.setState({ userInputWords: '' });
+  };
+
+  onSubmitClicked = () => {
+    const { secretPhraseStore, navigation } = this.props;
+    const { userInputWords } = this.state;
+
+    if (!isEmpty(userInputWords)) {
+      secretPhraseStore.setMnemonicToImport(this.state.userInputWords);
+      navigation.navigate("SetPassword");
+    }
+
+  };
+
+  onHandleSecretPhrase = (text) => {
+    this.setState({ userInputWords: text });
+  }
+
+  onBackClicked = () => {
+    const { navigation } = this.props;
+    navigation.navigate('ImportOrCreateWallet');
+  }
+
+  onPaste = () => {
+    Clipboard.getString().then(value => {
+      this.setState({ userInputWords: value });
+    })
   }
 
   render() {
-    const {
-      navigation,
-    } = this.props;
+    const { navigation } = this.props;
+    const isImport = navigation.getParam('isImport', false);
+    const { userInputWords, canPaste } = this.state;
 
     return (
-      <OnBoardingLayout className="import-wallet-container" progressStep={3}>
-        <H1>Import Your Mnemonic Passphrase</H1>
-        <H3>Please enter your 24 word secret phrase (seed). A blue check will appear if the text you entered is a valid&nbsp;</H3>
-        {this.renderInputs()}
-        <Button block onPress={() => navigation.navigate('SetPassword')}>
-          <Text>Continue</Text>
-        </Button>
+      <OnBoardingLayout className="import-wallet-container" progressStep={2}>
+        <Container style={styles.container}>
+          <H1 style={styles.h1}>{isImport ? 'Import' : 'Verify'} Your Mnemonic Passphrase (Seed)</H1>
+          <H3 style={styles.h3}>
+            Please enter your 24 word secret phrase in the correct order.&nbsp;
+          </H3>
+          <View style={styles.hrLine} />
+          <Card transparent style={styles.card}>
+            <CardItem>
+              <Textarea style={styles.textArea} placeholder="Mnemonic Passphrase" onChangeText={(text) => this.onHandleSecretPhrase(text)}
+                value={userInputWords} />
+            </CardItem>
+          </Card>
+          <View style={styles.hrLine} />
+          <Card transparent style={styles.card}>
+            <CardItem>
+              <Button block style={styles.button} onPress={this.onSubmitClicked} >
+                <Text style={styles.buttonText}>Continue</Text>
+              </Button>
+            </CardItem>
+            <CardItem>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.touchableBackText}>Whoops, I didn’t write my recovery phrase.</Text>
+              </TouchableOpacity>
+            </CardItem>
+            <CardItem>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
+                <Text style={styles.touchableNextText}>Create New Wallet</Text>
+              </TouchableOpacity>
+            </CardItem>
+          </Card>
+        </Container>
       </OnBoardingLayout>
-    )
+    );
   }
-
 }
 
 export default ImportWallet;

@@ -1,34 +1,37 @@
 // @flow
 
-import swal from 'sweetalert'
+import swal from "sweetalert";
 
-import { networkStore, secretPhraseStore } from '../stores'
-import { MAINNET } from '../services/chain'
+import { networkStore, secretPhraseStore } from "../stores";
+import { MAINNET } from "./chain";
 
 const passwordModal = async () => {
-  const submittedPassword = await submitPasswordModal()
+  const submittedPassword = await submitPasswordModal();
   if (!submittedPassword) {
-    await swal('You must insert a password')
+    await swal("You must insert a password");
   }
   if (!secretPhraseStore.isPasswordCorrect(submittedPassword)) {
-    await swal('Wrong password!')
+    await swal("Wrong password!");
   } else {
-    return submittedPassword
+    return submittedPassword;
   }
-}
+};
 
-export default passwordModal
+export default passwordModal;
 
 function submitPasswordModal() {
   return swal({
-    title: 'Password required',
-    text: networkStore.chain === MAINNET ? undefined : `Running on ${networkStore.chain} chain`,
+    title: "Password required",
+    text:
+      networkStore.chain === MAINNET
+        ? undefined
+        : `Running on ${networkStore.chain} chain`,
     content: {
-      element: 'input',
+      element: "input",
       attributes: {
-        placeholder: 'Type your password to continue',
-        type: 'password',
-      },
-    },
-  })
+        placeholder: "Type your password to continue",
+        type: "password"
+      }
+    }
+  });
 }

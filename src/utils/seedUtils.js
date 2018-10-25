@@ -1,53 +1,51 @@
-import bip39 from 'react-native-bip39';
+import bip39 from "react-native-bip39";
 
-import bip39Words from './bip39Words';
+import bip39Words from "./bip39Words";
 
 export const isValidBip39Word = (string: ?string) =>
-  !!(string && bip39Words.find(word => word.includes(string)))
+  !!(string && bip39Words.find(word => word.includes(string)));
 
 export const isBip39Word = (string: ?string) =>
-  !!(string && bip39Words.find(word => word === string))
-
+  !!(string && bip39Words.find(word => word === string));
 
 export const setWordFromFirstBox = (value, idx) => {
-  if(!idx){
-    const userInputWords = getSeedFromClipboard(value)
-    if (!userInputWords){
-      return false
+  if (!idx) {
+    const userInputWords = getSeedFromClipboard(value);
+    if (!userInputWords) {
+      return false;
     }
-    return userInputWords
+    return userInputWords;
   }
-}
+};
 
-
-export const parseSeedFromClipboard = (clipboardContents) => {
+export const parseSeedFromClipboard = clipboardContents => {
   if (!clipboardContents) {
-    return false
+    return false;
   }
   try {
-    const parsed = JSON.parse(clipboardContents)
+    const parsed = JSON.parse(clipboardContents);
     if (Array.isArray(parsed)) {
-      return parsed.join(' ')
+      return parsed.join(" ");
     }
   } catch (err) {
     //
   }
-  if (clipboardContents.match(',')) {
-    return clipboardContents.replace(/(, |,)/g, ' ')
+  if (clipboardContents.match(",")) {
+    return clipboardContents.replace(/(, |,)/g, " ");
   }
-  if (clipboardContents.match('\n')) {
-    return clipboardContents.replace(/\n/g, ' ')
+  if (clipboardContents.match("\n")) {
+    return clipboardContents.replace(/\n/g, " ");
   }
-  if (clipboardContents.match(' ')) {
-    return clipboardContents
+  if (clipboardContents.match(" ")) {
+    return clipboardContents;
   }
-  return false
-}
+  return false;
+};
 
-export const getSeedFromClipboard = (clipboardContents) => {
-  const parsed = parseSeedFromClipboard(clipboardContents.trim())
+export const getSeedFromClipboard = clipboardContents => {
+  const parsed = parseSeedFromClipboard(clipboardContents.trim());
   if (!parsed || !bip39.validateMnemonic(parsed)) {
-    return false
+    return false;
   }
-  return parsed.split(' ')
-}
+  return parsed.split(" ");
+};

@@ -1,11 +1,9 @@
 // @flow
 
-import React from 'react';
-import {
-  View,
-} from 'react-native';
+import React from "react";
+import { View } from "react-native";
 
-import NetBottomBar from '../../../components/NetBottomBar';
+import NetBottomBar from "../../../components/NetBottomBar";
 
 type Props = {
   hideSteps?: boolean,
@@ -16,14 +14,14 @@ type Props = {
 
 class OnBoardingLayout extends React.Component<Props> {
   static navigationOptions = {
-    header: null,
-  }
+    header: null
+  };
 
   static defaultProps = {
-    className: '',
+    className: "",
     hideSteps: false,
-    progressStep: null,
-  }
+    progressStep: null
+  };
 
   render() {
     const { className, children } = this.props;

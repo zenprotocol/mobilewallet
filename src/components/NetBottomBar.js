@@ -1,13 +1,13 @@
 // @flow
 
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { View } from 'react-native';
-import { Button, Text } from 'native-base';
-import Icon from 'react-native-vector-icons/Foundation';
-import { MAINNET } from '../services/chain';
-import NetworkStore from '../stores/networkStore';
-import switchChain from '../utils/switchChainModal';
+import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+import { View } from "react-native";
+import { Button, Text } from "native-base";
+import Icon from "react-native-vector-icons/Foundation";
+import { MAINNET } from "../services/chain";
+import NetworkStore from "../stores/networkStore";
+import switchChain from "../utils/switchChainModal";
 
 type Props = {
   networkStore: NetworkStore,
@@ -15,42 +15,43 @@ type Props = {
   width?: number
 };
 
-@inject('networkStore')
+@inject("networkStore")
 @observer
 class NetBottomBar extends Component<Props> {
-
   constructor(props) {
     super(props);
     this.state = {
-      networkChain: '',
+      networkChain: ""
     };
   }
 
   componentDidMount() {
     const { networkStore } = this.props;
-    let value =  networkStore.chain;
+    const value = networkStore.chain;
     this.setState({
-      networkChain: value,
+      networkChain: value
     });
   }
 
   get style() {
-    const { networkStore: { chain } } = this.props;
+    const {
+      networkStore: { chain }
+    } = this.props;
     return {
-      borderColor: '#232323',
-      backgroundColor: chain === MAINNET ? '#121212' : 'rgb(231, 145, 75)',
-      color: 'white',
-      fontWeight: chain === MAINNET ? 'inherit' : 'bold',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      borderTopWidth: 1,
+      borderColor: "#232323",
+      backgroundColor: chain === MAINNET ? "#121212" : "rgb(231, 145, 75)",
+      color: "white",
+      fontWeight: chain === MAINNET ? "inherit" : "bold",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-around",
+      borderTopWidth: 1
     };
   }
 
   changeNetwork(value) {
     this.setState({
-      networkChain: value,
+      networkChain: value
     });
     switchChain(this.props);
   }
@@ -62,13 +63,9 @@ class NetBottomBar extends Component<Props> {
     }
     return (
       <View style={this.style}>
-        <Text style={{color:'white'}}>
-          MAINNET
-        </Text>
-        <Button transparent onPress={() => this.changeNetwork('test')}>
-          <Text style={{color:'white'}}>
-            (Switch to Testnet)
-          </Text>
+        <Text style={{ color: "white" }}>MAINNET</Text>
+        <Button transparent onPress={() => this.changeNetwork("test")}>
+          <Text style={{ color: "white" }}>(Switch to Testnet)</Text>
         </Button>
       </View>
     );
@@ -77,12 +74,12 @@ class NetBottomBar extends Component<Props> {
   renderTestnetBar() {
     return (
       <View style={this.style}>
-        <Text style={{ color: 'white' }}>
+        <Text style={{ color: "white" }}>
           <Icon name="alert" />
           TESTNET
         </Text>
-        <Button transparent dark onPress={() => this.changeNetwork('main')}>
-          <Text style={{color:'white'}}>(Switch to Mainnet)</Text>
+        <Button transparent dark onPress={() => this.changeNetwork("main")}>
+          <Text style={{ color: "white" }}>(Switch to Mainnet)</Text>
         </Button>
       </View>
     );
@@ -90,7 +87,9 @@ class NetBottomBar extends Component<Props> {
 
   render() {
     const { networkChain } = this.state;
-    return networkChain === 'main' ? this.renderMainnetBar() : this.renderTestnetBar();
+    return networkChain === "main"
+      ? this.renderMainnetBar()
+      : this.renderTestnetBar();
   }
 }
 

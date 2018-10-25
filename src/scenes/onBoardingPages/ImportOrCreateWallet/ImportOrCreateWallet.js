@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Container,
   Body,
@@ -6,47 +6,44 @@ import {
   Card,
   CardItem,
   Button,
-  H1,
-} from 'native-base';
+  H1
+} from "native-base";
 
-import {
-  Text,
-  Image,
-} from 'react-native';
-import PropTypes from 'prop-types';
-import styles from './styles';
-import Images from '../../../assets/images';
-import OnBoardingLayout from '../Layout/Layout';
+import { Text, Image } from "react-native";
+import PropTypes from "prop-types";
+import styles from "./styles";
+import Images from "../../../assets/images";
+import OnBoardingLayout from "../Layout/Layout";
 
 export default class ImportOrCreateWallet extends Component {
   static navigationOptions = {
-    header: null,
-  }
+    header: null
+  };
 
   static defaultProps = {
     topSpacer: undefined,
     bottomSpacer: undefined,
     width: undefined,
-    height: undefined,
-  }
+    height: undefined
+  };
 
   render() {
-    const {
-      topSpacer,
-      bottomSpacer,
-      width,
-      height,
-      navigation,
-    } = this.props;
+    const { topSpacer, bottomSpacer, width, height, navigation } = this.props;
     return (
-      <OnBoardingLayout className="import-create-wallet-container" progressStep={1}>
-        <Container style={[styles.mainContent, {
-          paddingTop: topSpacer + 60,
-          paddingBottom: bottomSpacer,
-          marginTop: 30,
-          width,
-          height,
-        }]}
+      <OnBoardingLayout
+        className="import-create-wallet-container"
+        progressStep={1}
+      >
+        <Container
+          style={[
+            styles.mainContent,
+            {
+              paddingTop: topSpacer + 60,
+              paddingBottom: bottomSpacer,
+              width,
+              height
+            }
+          ]}
         >
           <Content>
             <H1 style={styles.header}>Setting Up Your Wallet</H1>
@@ -55,7 +52,11 @@ export default class ImportOrCreateWallet extends Component {
             </Text>
             <Card transparent style={styles.card}>
               <CardItem>
-                <Image source={Images.createWalletSrc} style={styles.image} resizeMode="contain"/>
+                <Image
+                  source={Images.createWalletSrc}
+                  style={styles.image}
+                  resizeMode="contain"
+                />
               </CardItem>
               <CardItem>
                 <Text style={styles.cardText}>Create New Wallet</Text>
@@ -63,19 +64,24 @@ export default class ImportOrCreateWallet extends Component {
               <CardItem>
                 <Body>
                   <Text note style={styles.detailText}>
-                    Creating a new wallet will generate a 24 word mnemonic passphrase (seed)
-                    which you will need to store in a secure place. We recommend 2 pieces of paper.
+                    Creating a new wallet will generate a 24 word mnemonic
+                    passphrase (seed) which you will need to store in a secure
+                    place. We recommend 2 pieces of paper.
                   </Text>
                 </Body>
               </CardItem>
-              <Button block onPress = {() => navigation.navigate('SecretPhrase')}>
+              <Button block onPress={() => navigation.navigate("SecretPhrase")}>
                 <Text style={styles.buttonText}>Create Wallet</Text>
               </Button>
             </Card>
 
-            <Card transparent style={styles.card}>
+          <Card transparent style={styles.card}>
               <CardItem>
-                <Image source={Images.importWalletSrc} style={styles.image} resizeMode="contain"/>
+                <Image
+                  source={Images.importWalletSrc}
+                  style={styles.image}
+                  resizeMode="contain"
+                />
               </CardItem>
               <CardItem>
                 <Text style={styles.cardText}>Import Existing Wallet</Text>
@@ -83,15 +89,16 @@ export default class ImportOrCreateWallet extends Component {
               <CardItem>
                 <Body>
                   <Text note style={styles.detailText}>
-                    If you already have a secret phrase (seed) you can simply import it
-                    and get access to all of your assets.
+                    If you already have a secret phrase (seed) you can simply
+                    import it and get access to all of your assets.
                   </Text>
                 </Body>
               </CardItem>
-              <Button block secondary onPress = {() => navigation.navigate('ImportWallet')}>
+              <Button block secondary onPress={() => navigation.navigate("ImportWallet", { isImport: true})}>
                 <Text style={styles.buttonText}>Import Wallet</Text>
               </Button>
             </Card>
+            <Card transparent style={styles.card} /> 
           </Content>
         </Container>
       </OnBoardingLayout>
@@ -103,5 +110,5 @@ ImportOrCreateWallet.propTypes = {
   topSpacer: PropTypes.number,
   bottomSpacer: PropTypes.number,
   width: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.number
 };

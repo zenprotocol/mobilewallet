@@ -46,12 +46,21 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 10
   },
+  touchableBackText: {
+    color: '#949494'
+  },
+  touchableNextText: {
+    color: '#2f8be6'
+  },
   warningText: {
     fontSize: 14,
     color: 'red',
     marginLeft: 20,
     marginRight: 20,
     marginTop: 10
+  },
+  textArea: {
+    color: '#fff'
   }
 });
 

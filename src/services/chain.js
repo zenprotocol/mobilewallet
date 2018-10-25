@@ -1,9 +1,9 @@
 import asyncStorageUtils from "../utils/asyncStorageUtils";
 
-const LS_CHAIN = 'lsChain'
+const LS_CHAIN = "lsChain";
 
-export const TESTNET = 'test'
-export const MAINNET = 'main'
+export const TESTNET = "test";
+export const MAINNET = "main";
 
 class Chain {
   // _current = AsyncStorage.getItem(LS_CHAIN) || MAINNET;
@@ -14,14 +14,13 @@ class Chain {
   }
 
   switch = () => {
-    const nextChain = this.current === MAINNET ? TESTNET : MAINNET
-    this._current = nextChain
+    const nextChain = this.current === MAINNET ? TESTNET : MAINNET;
+    this._current = nextChain;
 
-    asyncStorageUtils.storeData(LS_CHAIN, nextChain)
-
-  }
+    asyncStorageUtils.storeData(LS_CHAIN, nextChain);
+  };
 }
 
-const chain = new Chain()
+const chain = new Chain();
 
-export default chain
+export default chain;

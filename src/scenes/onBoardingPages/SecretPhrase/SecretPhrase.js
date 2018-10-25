@@ -1,52 +1,91 @@
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import SecretPhraseStore from '../../../stores/secretPhraseStore'
-import OnBoardingLayout from '../Layout/Layout';
-import { Button, H1, H3, Text } from 'native-base';
-import styles from './styles';
+import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+import { View, Clipboard } from "react-native";
+import { Button, H1, H3, Text, Container, Card, CardItem, CheckBox, Label } from "native-base";
+import SecretPhraseStore from "../../../stores/secretPhraseStore";
+import OnBoardingLayout from "../Layout/Layout";
+import styles from "./styles";
+import PropTypes from "prop-types";
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
 
 type State = {
-  userInputWords: Array<string>
+  isSave: boolean,
+  isCopy: boolean,
 };
 
-@inject('secretPhraseStore')
+@inject("secretPhraseStore")
 @observer
 class SecretPhrase extends Component<Props, State> {
 
+  state = {
+    isSave: false,
+    isCopy: false
+  };
+
   componentWillMount() {
-    this.props.secretPhraseStore.generateSeed()
+    this.props.secretPhraseStore.generateSeed();
+  }
+
+  onBackClicked = () => {
+    const { navigation } = this.props;
+    navigation.navigate('ImportOrCreateWallet');
+  }
+
+  onCopyClicked = () => {
+    const { secretPhraseStore, navigation } = this.props;
+    const { mnemonicPhrase } = secretPhraseStore;
+    Clipboard.setString(mnemonicPhrase);
+    this.setState({ isCopy: true });
   }
 
   render() {
-    const {
-      secretPhraseStore,
-      navigation,
-    } = this.props;
-
+    const { isSave, isCopy } = this.state;
+    const { secretPhraseStore, navigation } = this.props;
     const { mnemonicPhrase } = secretPhraseStore;
-    
-    console.log(mnemonicPhrase)
-    const mnemonicPhraseList = (mnemonicPhrase && mnemonicPhrase.split(' ')) || [];
-    console.log(mnemonicPhraseList)
+
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
-        <H1>Your Mnemonic Passphrase (seed)</H1>
-        <H3> Write down the following words in chronological order and
-          save it in a secure place.&nbsp;</H3>
-        {mnemonicPhraseList.map((phrase, key) =>
-          <Text>{phrase}</Text>
-        )}
-        <Button block onPress={() => navigation.navigate('ImportWallet')}>
-          <Text style={styles.buttonText}>Next</Text>
-        </Button>
+        <Container style={styles.container}>
+          <H1 style={styles.h1}>Your Mnemonic Passphrase (seed)</H1>
+          <H3 style={styles.h3}>
+            {" "}
+            Write down the following words in chronological order and save it in a
+            secure place.&nbsp;
+          </H3>
+          <View style={styles.hrLine} />
+          <Text style={styles.mnemonicText}>{mnemonicPhrase}</Text>
+          <Card transparent style={styles.card}>
+            <CardItem>
+              <Button block style={styles.button} onPress={this.onCopyClicked}>
+                <Text style={styles.buttonText}>{isCopy ? 'Copied' : 'Copy'}</Text>
+              </Button>
+            </CardItem>
+            <CardItem>
+              <Text style={styles.warningText}>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
+            </CardItem>
+          </Card>
+          <View style={styles.hrLine} />
+          <Card transparent style={styles.card}>
+            <CardItem>
+              <CheckBox checked={isSave} onPress={() => this.setState({ isSave: !isSave })} />
+              <Text style={styles.h3} onPress={() => this.setState({ isSave: !isSave })}> I saved my passphrase and it’s secure</Text>
+            </CardItem>
+            <CardItem>
+              <Button block style={styles.button} secondary onPress={this.onBackClicked}>
+                <Text style={styles.buttonText}>Back</Text>
+              </Button>
+              <Button block style={styles.button} disabled={!isSave} onPress={() => navigation.navigate("ImportWallet")}>
+                <Text style={styles.buttonText}>Next</Text>
+              </Button>
+            </CardItem>
+          </Card>
+        </Container>
       </OnBoardingLayout>
-    )
+    );
   }
-
 }
 
 export default SecretPhrase;

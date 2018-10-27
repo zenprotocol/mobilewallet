@@ -1,4 +1,4 @@
-import bip39 from "react-native-bip39";
+// import bip39 from "react-native-bip39";
 
 import bip39Words from "./bip39Words";
 

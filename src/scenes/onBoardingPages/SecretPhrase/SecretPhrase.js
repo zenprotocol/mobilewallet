@@ -19,7 +19,10 @@ type State = {
 @inject("secretPhraseStore")
 @observer
 class SecretPhrase extends Component<Props, State> {
-
+  static navigationOptions = {
+    header: null,
+  }
+  
   state = {
     isSave: false,
     isCopy: false

@@ -14,7 +14,8 @@ type State = {
   password: string,
   passwordConfirmation: string,
   passwordsMatch: string,
-  inputType: string
+  passwordVisible: boolean,
+  confirmPasswordVisible: boolean;
 };
 
 @inject("secretPhraseStore")
@@ -28,7 +29,8 @@ export default class SetPassword extends Component {
     password: '',
     passwordConfirmation: '',
     passwordsMatch: '',
-    inputType: 'password',
+    passwordVisible: true,
+    confirmPasswordVisible: true
   }
 
   onPasswordChanged = (text) => {
@@ -68,15 +70,13 @@ export default class SetPassword extends Component {
     return false
   }
 
-  onClickTogglePasswordVisibility = () => {
-    const { inputType } = this.state
-    const newType = (inputType === 'password' ? 'text' : 'password')
-    this.setState({ inputType: newType })
+  onClickTogglePasswordVisibility = (input) => {
+    this.setState({ [input]: !this.state[input] })
   }
 
   onMinutesChange = (text) => {
     const { secretPhraseStore } = this.props
-    secretPhraseStore.setAutoLogoutMinutes(text)
+    secretPhraseStore.setAutoLogoutMinutes(text.toString());
   }
 
   validatePassword() {
@@ -85,8 +85,8 @@ export default class SetPassword extends Component {
   }
 
   onSubmitClicked = () => {
-    const { navigation } = this.props
-    // secretPhraseStore.importWallet(this.state.password)
+    const { navigation, secretPhraseStore } = this.props
+    secretPhraseStore.importWallet(this.state.password)
     navigation.navigate("TermOfService");
   }
 
@@ -94,10 +94,10 @@ export default class SetPassword extends Component {
   }
 
   render() {
-
-    const { isImporting, autoLogoutMinutes } = this.props.secretPhraseStore
-    const { password, passwordConfirmation } = this.state
-
+    const { navigation, secretPhraseStore } = this.props;
+    const { isImporting, autoLogoutMinutes } = secretPhraseStore
+    const { password, passwordConfirmation, passwordVisible, confirmPasswordVisible } = this.state
+    const logoutMinutes = autoLogoutMinutes ? autoLogoutMinutes.toString() : ''
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
         <Container style={styles.container}>
@@ -117,17 +117,26 @@ export default class SetPassword extends Component {
           <TextInput style={styles.textInput}
             placeholder='Enter Password'
             inputType={'password'}
+            secureTextEntry={passwordVisible}
             value={password}
             onChangeText={(text) => this.onPasswordChanged(text)}
             placeholderTextColor={'#fff'} />
 
+          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
+            <Text style={styles.buttonText}>Password Toogle</Text>
+          </Button>
+
           <TextInput style={styles.textInput}
             inputType={'password'}
             value={passwordConfirmation}
+            secureTextEntry={confirmPasswordVisible}
             onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
             placeholder='Confirm Password'
             placeholderTextColor={'#fff'} />
           <View style={styles.innerHrLine} />
+          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
+            <Text style={styles.buttonText}>Password Toogle</Text>
+          </Button>
 
           <Text style={styles.sectionHeader}>
             Auto logout
@@ -135,7 +144,8 @@ export default class SetPassword extends Component {
           <H3 style={styles.subHeaderText}>
             After how many minutes you would like to automatically log out?
           </H3>
-          <TextInput value={'15'} style={styles.textInput} value={autoLogoutMinutes}
+          <TextInput value={'15'} style={styles.textInput} value={logoutMinutes}
+            keyboardType={"numeric"}
             onChangeText={(text) => this.onMinutesChange(text)} placeholder='Auto Logout' />
           <View style={styles.hrLine} />
 

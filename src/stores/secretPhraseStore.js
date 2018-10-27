@@ -51,16 +51,17 @@ class secretPhraseStore {
   }
 
   @action
-  async importWallet(password) {
+  importWallet(password) {
     wallet.create(this.mnemonicPhraseAsString)
+    console.log(password, this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
+    console.log(encryptedMnemonicPhraseAsString)
     AsyncStorage.setItem(this.lsSeedKey, encryptedMnemonicPhraseAsString)
-    this.mnemonicPhrase = []
+    this.mnemonicPhrase = '';
     this.isLoggedIn = true
     this.networkStore.initPolling()
     this.activeContractsStore.fetch()
     // history.push(routes.TERMS_OF_SERVICE)
-
   }
 
   @action
@@ -90,7 +91,7 @@ class secretPhraseStore {
   }
 
   get mnemonicPhraseAsString() {
-    return this.mnemonicPhrase.join(' ');
+    return this.mnemonicPhrase;
   }
 
   decryptMnemonicPhrase(password) {
@@ -109,11 +110,12 @@ class secretPhraseStore {
 
   @action
   setAutoLogoutMinutes(minutes) {
+    console.log(minutes)
     minutes = Number(minutes);
     if (minutes < 1) { minutes = 1; }
     if (minutes > 120) { minutes = 120; }
     this.autoLogoutMinutes = minutes;
-    AsyncStorage.setItem(LS_AUTO_LOGOUT_MINUTES, minutes);
+    AsyncStorage.setItem(LS_AUTO_LOGOUT_MINUTES, minutes.toString());
   }
 
   @action

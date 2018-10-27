@@ -33,18 +33,9 @@ export default class ImportOrCreateWallet extends Component {
       <OnBoardingLayout
         className="import-create-wallet-container"
         progressStep={1}
+        showNetBottomBar
       >
-        <Container
-          style={[
-            styles.mainContent,
-            {
-              paddingTop: topSpacer + 60,
-              paddingBottom: bottomSpacer,
-              width,
-              height
-            }
-          ]}
-        >
+        <Container style={styles.mainContent}>
           <Content>
             <H1 style={styles.header}>Setting Up Your Wallet</H1>
             <Text style={styles.detailText}>
@@ -98,7 +89,7 @@ export default class ImportOrCreateWallet extends Component {
                 <Text style={styles.buttonText}>Import Wallet</Text>
               </Button>
             </Card>
-            <Card transparent style={styles.card} /> 
+            <Card transparent style={styles.card} />
           </Content>
         </Container>
       </OnBoardingLayout>

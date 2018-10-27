@@ -81,10 +81,8 @@ export default class WelcomeMessages extends Component {
   renderSlideItem = props => (
     <Container
       style={[styles.mainContent, {
-        paddingTop: props.topSpacer + 40,
-        paddingBottom: props.bottomSpacer,
         width: props.width,
-        height: props.height,
+        height: props.height
       }]}
     >
       <Content>

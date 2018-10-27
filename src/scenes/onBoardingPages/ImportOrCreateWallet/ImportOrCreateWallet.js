@@ -33,6 +33,7 @@ export default class ImportOrCreateWallet extends Component {
       <OnBoardingLayout
         className="import-create-wallet-container"
         progressStep={1}
+        showNetBottomBar
       >
         <Container style={styles.mainContent}>
           <Content>

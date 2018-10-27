@@ -1,4 +1,4 @@
-// import { Wallet } from '@zen/zenjs'
+import { Wallet } from '@zen/zenjs'
 
 import PollManager from "../utils/PollManager";
 

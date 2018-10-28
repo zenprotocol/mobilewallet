@@ -6,6 +6,7 @@ import {
   FlatList,
   Text,
   Image,
+  ScrollView,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import PropTypes from 'prop-types';
@@ -23,8 +24,7 @@ const slides = [
       'ZP wallet is a free, open-source client interface.',
       'ZP allows you to interact with the blockchain',
       'Be in full control of your keys & funds without relying on banks or exchanges.',
-    ],
-    backgroundColor: '#121212',
+    ]
   },
   {
     key: 'how',
@@ -36,8 +36,7 @@ const slides = [
       'If you send your public address to someone, they can send you Zen or other assets.',
       'NEVER share your seed or wallet file– these allow anyone holding them complete control over assets in the wallet, including sending these assets.',
       'The developers of this software have no access to your passphrase or seed. If you forget your password or lose your seed, we cannot recover it for you. Make sure to keep a copy of your seed in a secure place.',
-    ],
-    backgroundColor: '#121212',
+    ]
   },
   {
     key: 'seed_and_passwords',
@@ -48,8 +47,7 @@ const slides = [
       'Keep your seed and password safe.',
       'Make backups of your seed.',
       'Be aware of phishing websites or programs.',
-    ],
-    backgroundColor: '#121212',
+    ]
   },
   {
     key: 'control',
@@ -62,8 +60,7 @@ const slides = [
       'No one can recover your password.',
       'No one can refund your transactions.',
       'No one can freeze your accounts.',
-    ],
-    backgroundColor: '#121212',
+    ]
   },
 ];
 
@@ -79,27 +76,29 @@ export default class WelcomeMessages extends Component {
   }
 
   renderSlideItem = props => (
-    <Container
-      style={[styles.mainContent, {
-        width: props.width,
-        height: props.height
-      }]}
-    >
-      <Content>
-        <H1 style={styles.title}>{props.title}</H1>
-        <Image source={props.image} style={styles.image} resizeMode="contain" />
-        <FlatList
-          data={props.bullets}
-          keyExtractor={(item, index) =>  `list-item-${index}`}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Text style={styles.bullet}>{'\u2022'}</Text>
-              <Text style={styles.text}>{item}</Text>
-            </View>
-          )}
-        />
-      </Content>
-    </Container>
+    <ScrollView>
+      <Container
+        style={[styles.mainContent, {
+          width: props.width,
+          height: props.height + 20
+        }]}
+      >
+        <Content>
+          <H1 style={styles.title}>{props.title}</H1>
+          <Image source={props.image} style={styles.image} resizeMode="contain" />
+          <FlatList
+            data={props.bullets}
+            keyExtractor={(item, index) =>  `list-item-${index}`}
+            renderItem={({ item }) => (
+              <View style={styles.item}>
+                <Text style={styles.bullet}>{'\u2022'}</Text>
+                <Text style={styles.text}>{item}</Text>
+              </View>
+            )}
+          />
+        </Content>
+      </Container>
+    </ScrollView>
   );
 
   onDone = () => {

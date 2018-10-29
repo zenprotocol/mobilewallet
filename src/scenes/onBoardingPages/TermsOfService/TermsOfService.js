@@ -8,8 +8,11 @@ type State = {
 	isApprove: boolean,
 };
 
-export default class TermOfService extends Component {
-	static navigationOptions = {};
+export default class TermsOfService extends Component {
+
+	static navigationOptions = {
+		header: null,
+	}
 
 	static defaultProps = {};
 
@@ -93,13 +96,13 @@ export default class TermOfService extends Component {
 					<Card transparent style={styles.card}>
 						<CardItem>
 							<CheckBox checked={isApprove} onPress={() => this.setState({ isApprove: !isApprove })} />
-							<Text style={styles.h3} onPress={() => this.setState({ isApprove: !isApprove })}> I saved my passphrase and it’s secure</Text>
+							<Text style={styles.h3} onPress={() => this.setState({ isApprove: !isApprove })}>&nbsp; I have read, understand and agree to the Terms and Conditions.</Text>
 						</CardItem>
 						<CardItem>
 							<Button block style={styles.button} secondary onPress={() => navigation.navigate("ImportOrCreateWallet")}>
 								<Text style={styles.buttonText}>Back</Text>
 							</Button>
-							<Button block style={styles.button} disabled={!isApprove} onPress={() => alert('done')}>
+							<Button block style={styles.button} disabled={!isApprove} onPress={() => navigation.navigate("Portfolio")}>
 								<Text style={styles.buttonText}>Accept Terms</Text>
 							</Button>
 						</CardItem>
@@ -110,4 +113,4 @@ export default class TermOfService extends Component {
 	}
 }
 
-TermOfService.propTypes = {};
+TermsOfService.propTypes = {};

@@ -87,7 +87,7 @@ export default class SetPassword extends Component {
   onSubmitClicked = () => {
     const { navigation, secretPhraseStore } = this.props
     secretPhraseStore.importWallet(this.state.password)
-    navigation.navigate("TermOfService");
+    navigation.navigate("TermsOfService");
   }
 
   renderPasswordConfirmInput() {

@@ -27,7 +27,8 @@ class OnBoardingLayout extends React.Component<Props> {
   render() {
     const { className, children, showNetBottomBar } = this.props;
     return (
-      <View style={{ flex: 1 }} className={cx(styles.container, className)}>
+
+      <View style={{ flex: 1, backgroundColor: '#121212', paddingTop: 20 }} className={className}>
         {children}
         {showNetBottomBar ?
           <NetBottomBar />
@@ -38,10 +39,5 @@ class OnBoardingLayout extends React.Component<Props> {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 10
-  }
-})
 
 export default OnBoardingLayout;

@@ -8,7 +8,9 @@ import ImportOrCreateWallet from "./scenes/onBoardingPages/ImportOrCreateWallet/
 import ImportWallet from "./scenes/onBoardingPages/ImportWallet/ImportWallet";
 import SecretPhrase from "./scenes/onBoardingPages/SecretPhrase/SecretPhrase";
 import SetPassword from "./scenes/onBoardingPages/SetPassword/SetPassword";
-import TermOfService from "./scenes/onBoardingPages/TermsOfService/TermOfService";
+import TermsOfService from "./scenes/onBoardingPages/TermsOfService/TermsOfService";
+
+import Portfolio from "./scenes/Portfolio/Portfolio";
 
 const stackNavigatorConfig = {
   initialRouteName: "WelcomeMessages",
@@ -24,7 +26,7 @@ const Navigator = StackNavigator(
     SecretPhrase: { screen: SecretPhrase },
     ImportWallet: { screen: ImportWallet },
     SetPassword: { screen: SetPassword },
-    TermOfService: { screen: TermOfService }
+    TermsOfService: { screen: TermsOfService }
   },
   {
     stackNavigatorConfig

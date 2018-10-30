@@ -21,22 +21,16 @@ class NetBottomBar extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      networkChain: ""
+      networkChain: props.networkStore.chain
     };
   }
 
   componentDidMount() {
-    const { networkStore } = this.props;
-    const value = networkStore.chain;
-    this.setState({
-      networkChain: value
-    });
+
   }
 
   get style() {
-    const {
-      networkStore: { chain }
-    } = this.props;
+    const { width, networkStore: { chain } } = this.props
     return {
       borderColor: "#232323",
       backgroundColor: chain === MAINNET ? "#121212" : "rgb(231, 145, 75)",
@@ -49,13 +43,6 @@ class NetBottomBar extends Component<Props> {
     };
   }
 
-  changeNetwork(value) {
-    this.setState({
-      networkChain: value
-    });
-    switchChain(this.props);
-  }
-
   renderMainnetBar() {
     const { isSidebar } = this.props;
     if (isSidebar) {
@@ -64,7 +51,7 @@ class NetBottomBar extends Component<Props> {
     return (
       <View style={this.style}>
         <Text style={{ color: "white" }}>MAINNET</Text>
-        <Button transparent onPress={() => this.changeNetwork("test")}>
+        <Button transparent onPress={() => switchChain(this.props)}>
           <Text style={{ color: "white" }}>(Switch to Testnet)</Text>
         </Button>
       </View>
@@ -78,7 +65,7 @@ class NetBottomBar extends Component<Props> {
           <Icon name="alert" />
           TESTNET
         </Text>
-        <Button transparent dark onPress={() => this.changeNetwork("main")}>
+        <Button transparent dark onPress={() => switchChain(this.props)}>
           <Text style={{ color: "white" }}>(Switch to Mainnet)</Text>
         </Button>
       </View>
@@ -86,10 +73,9 @@ class NetBottomBar extends Component<Props> {
   }
 
   render() {
-    const { networkChain } = this.state;
-    return networkChain === "main"
-      ? this.renderMainnetBar()
-      : this.renderTestnetBar();
+    const { networkStore } = this.props;
+    console.log('networkStore.chain', networkStore.chain)
+    return networkStore.chain === MAINNET ? this.renderMainnetBar() : this.renderTestnetBar()
   }
 }
 

@@ -6,7 +6,7 @@ import NavigationService from "../services/NavigationService";
 const submitSwitchChain = () => {
   chain.switch();
   secretPhraseStore.reset();
-  NavigationService.navigate("WelcomeMessages");
+  NavigationService.navigate("Loading");
 };
 
 function shouldSwitchModal() {

@@ -1,5 +1,5 @@
 import { observable, action, runInAction } from "mobx";
-
+import asyncStorageUtils from '../utils/asyncStorageUtils';
 import { MAINNET } from "../services/chain";
 import {
   getCheckCrowdsaleTokensEntitlement,
@@ -98,7 +98,7 @@ class RedeemTokensStore {
             "postRedeemCrowdsaleTokens response.status",
             response.status
           );
-          localStorage.setItem(LS_ALREADY_REDEEMED_TOKENS, true);
+          asyncStorageUtils.retrieveData(LS_ALREADY_REDEEMED_TOKENS, true);
           this.resetForm();
           this.status = response.status;
           this.amountRedeemable = response.tokens_sent;
@@ -135,7 +135,7 @@ class RedeemTokensStore {
   }
 
   get shouldRedeemNonMainnetTokens() {
-    const alreadyRedeemedTokens = localStorage.getItem(
+    const alreadyRedeemedTokens = asyncStorageUtils.retrieveData(
       LS_ALREADY_REDEEMED_TOKENS
     );
     return this.isFaucetActive && !alreadyRedeemedTokens;

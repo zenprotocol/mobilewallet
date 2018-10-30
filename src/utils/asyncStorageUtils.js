@@ -1,6 +1,8 @@
 import { AsyncStorage } from "react-native";
 
 class _AsyncStorageUtils {
+  retrieveDataValue;
+
   // Save
   storeData = (key, item) => {
     console.log("storeData", key, item);
@@ -14,13 +16,14 @@ class _AsyncStorageUtils {
 
   // Retrieve
   retrieveData = key => {
-    console.log("retrieveData");
-    let value;
     try {
-      value = AsyncStorage.getItem(key);
+      AsyncStorage.getItem(key).then(val => {
+        this.retrieveDataValue = val;
+      })
     } catch (error) {
       console.log(error);
     }
+    return this.retrieveDataValue;
   };
 
   // Delete

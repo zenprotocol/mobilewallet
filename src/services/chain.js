@@ -16,7 +16,6 @@ class Chain {
   switch = () => {
     const nextChain = this.current === MAINNET ? TESTNET : MAINNET;
     this._current = nextChain;
-
     asyncStorageUtils.storeData(LS_CHAIN, nextChain);
   };
 }

@@ -1,40 +1,57 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { Dimensions, View, Text, Button } from "react-native";
 import { observer, inject } from "mobx-react/native";
-import { StackNavigator } from "react-navigation";
+import { StackNavigator, createDrawerNavigator } from "react-navigation";
 
 import WelcomeMessages from "./scenes/onBoardingPages/WelcomeMessages/WelcomeMessages";
 import ImportOrCreateWallet from "./scenes/onBoardingPages/ImportOrCreateWallet/ImportOrCreateWallet";
 import ImportWallet from "./scenes/onBoardingPages/ImportWallet/ImportWallet";
 import SecretPhrase from "./scenes/onBoardingPages/SecretPhrase/SecretPhrase";
-import SetPassword from "./scenes/onBoardingPages/SetPassword/SetPassword";
 import TermsOfService from "./scenes/onBoardingPages/TermsOfService/TermsOfService";
+import SetPassword from "./scenes/onBoardingPages/SetPassword/SetPassword";
+import Loading from "./scenes/Loading/Loading";
 
+import UnlockWallet from "./scenes/UnlockWallet/UnlockWallet";
 import Portfolio from "./scenes/Portfolio/Portfolio";
 
-const stackNavigatorConfig = {
-  initialRouteName: "WelcomeMessages",
-  navigationOptions: {
-    header: ({ state }) => ({ title: state.params && state.params.title })
-  }
-};
+const deviceWidth = Dimensions.get("window").width;
 
-const Navigator = StackNavigator(
+export const PublicNavigator = StackNavigator(
   {
     WelcomeMessages: { screen: WelcomeMessages },
     ImportOrCreateWallet: { screen: ImportOrCreateWallet },
     SecretPhrase: { screen: SecretPhrase },
     ImportWallet: { screen: ImportWallet },
     SetPassword: { screen: SetPassword },
-    TermsOfService: { screen: TermsOfService }
+    TermsOfService: { screen: TermsOfService },
+    Loading: { screen: Loading },
+    UnlockWallet: { screen: UnlockWallet }
   },
   {
-    stackNavigatorConfig
+    initialRouteName: "WelcomeMessages",
+    navigationOptions: {}
   }
 );
 
-// const AppDrawer = createDrawerNavigator({})
+export const PrivateNavigator = StackNavigator(
+  {
+      Portfolio: { screen: Portfolio },
+      UnlockWallet: { screen: UnlockWallet },
+  },
+  {
+    initialRouteName: "UnlockWallet",
+    navigationOptions: {}
+  }
+);
+
+export const AppDrawer = createDrawerNavigator(
+  {
+    Portfolio: { screen: Portfolio },
+  },
+  {
+      drawerWidth: deviceWidth - 50,
+      drawerPosition: "left",
+  }
+)
 
 // createBottomTabNavigator
-
-export default Navigator;

@@ -14,14 +14,15 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   container: {
-    backgroundColor: '#121212'
+    backgroundColor: '#121212',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   h1: {
     color: '#e6e6e6',
     fontSize: 22,
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 10,
     marginBottom: 10
   },
   h3: {
@@ -36,32 +37,24 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     margin: 20
   },
-  mnemonicText: {
-    fontSize: 20,
-    color: '#949494',
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10
-  },
   button: {
-    marginLeft: 10
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 10,
   },
-  touchableBackText: {
-    color: '#949494'
-  },
-  touchableNextText: {
-    color: '#2f8be6'
-  },
-  warningText: {
-    fontSize: 14,
-    color: 'red',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10
-  },
-  textArea: {
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#949494',
+    marginLeft: 40,
+    marginRight: 10,
+    marginTop: 10,
     color: '#fff',
-    height: 80
+    height: 40,
+    flex: 1
+  },
+  anchorButton: {
+    color: '#2f8be6',
+    textDecorationLine: 'underline',
   }
 });
 

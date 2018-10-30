@@ -4,6 +4,7 @@ import chain from "../services/chain";
 import NavigationService from "../services/NavigationService";
 
 const submitSwitchChain = () => {
+  console.log("submitSwitchChain");
   chain.switch();
   secretPhraseStore.reset();
   NavigationService.navigate("Loading");

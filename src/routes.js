@@ -37,6 +37,7 @@ export const PrivateNavigator = StackNavigator(
   {
       Portfolio: { screen: Portfolio },
       UnlockWallet: { screen: UnlockWallet },
+      Loading: { screen: Loading },
   },
   {
     initialRouteName: "UnlockWallet",

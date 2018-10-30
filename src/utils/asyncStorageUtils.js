@@ -4,26 +4,30 @@ class _AsyncStorageUtils {
   retrieveDataValue;
 
   // Save
-  storeData = (key, item) => {
-    console.log("storeData", key, item);
+  storeData = async (key, item) => {
     try {
-      AsyncStorage.setItem(key, JSON.stringify(item));
+      await AsyncStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       // Error saving data
       console.log(error);
     }
   };
 
+  retrieveData = (key) => {
+    this._retrieveData(key).then(res => {
+      this.retrieveDataValue = res;
+    })
+    return this.retrieveDataValue;
+  }
+  
   // Retrieve
-  retrieveData = key => {
+  _retrieveData = async key => {
     try {
-      AsyncStorage.getItem(key).then(val => {
-        this.retrieveDataValue = val;
-      })
+      const item = await AsyncStorage.getItem(key);
+      return item;
     } catch (error) {
       console.log(error);
     }
-    return this.retrieveDataValue;
   };
 
   // Delete

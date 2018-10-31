@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Container, Card, CardItem, Content, Item, H1, H3, Button, Text } from "native-base";
+import { Container, Card, CardItem, H1, H3, Button, Text } from "native-base";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
@@ -103,53 +104,58 @@ export default class SetPassword extends Component {
         <Container style={styles.container}>
           <H1 style={styles.h1}>Create a password</H1>
           <H3 style={styles.h3}>
-            {" "}
             Your password gives you a quick access to your wallet.&nbsp;
           </H3>
           <View style={styles.hrLine} />
+          <ScrollView>
           <Text style={styles.sectionHeader}>
             Make sure your password includes:
             </Text>
           <H3 style={styles.subHeaderText}>
             At least 4 characters
             </H3>
-
-          <TextInput style={styles.textInput}
-            placeholder='Enter Password'
-            inputType={'password'}
-            secureTextEntry={passwordVisible}
-            value={password}
-            onChangeText={(text) => this.onPasswordChanged(text)}
-            placeholderTextColor={'#fff'} />
-
-          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
-            <Text style={styles.buttonText}>Password Toogle</Text>
-          </Button>
-
-          <TextInput style={styles.textInput}
-            inputType={'password'}
-            value={passwordConfirmation}
-            secureTextEntry={confirmPasswordVisible}
-            onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
-            placeholder='Confirm Password'
-            placeholderTextColor={'#fff'} />
-          <View style={styles.innerHrLine} />
-          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
-            <Text style={styles.buttonText}>Password Toogle</Text>
-          </Button>
-
-          <Text style={styles.sectionHeader}>
-            Auto logout
-          </Text>
-          <H3 style={styles.subHeaderText}>
-            After how many minutes you would like to automatically log out?
-          </H3>
-          <TextInput value={'15'} style={styles.textInput} value={logoutMinutes}
-            keyboardType={"numeric"}
-            onChangeText={(text) => this.onMinutesChange(text)} placeholder='Auto Logout' />
-          <View style={styles.hrLine} />
-
           <Card transparent style={styles.card}>
+            <CardItem>
+              <TextInput style={styles.textInput}
+                placeholder='Enter Password'
+                inputType={'password'}
+                secureTextEntry={passwordVisible}
+                value={password}
+                onChangeText={(text) => this.onPasswordChanged(text)}
+                placeholderTextColor={'#fff'} />
+
+              <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
+                <Icon name={passwordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
+              </TouchableOpacity>
+            </CardItem>
+            <CardItem>
+              <TextInput style={styles.textInput}
+                inputType={'password'}
+                value={passwordConfirmation}
+                secureTextEntry={confirmPasswordVisible}
+                onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
+                placeholder='Confirm Password'
+                placeholderTextColor={'#fff'} />
+              <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
+                <Icon name={confirmPasswordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
+              </TouchableOpacity>
+            </CardItem>
+          </Card>
+            <View style={styles.innerHrLine} />
+
+            <Text style={styles.sectionHeader}>
+              Auto logout
+            </Text>
+            <H3 style={styles.subHeaderText}>
+              After how many minutes you would like to automatically log out?
+            </H3>
+          <Card transparent style={styles.card}>
+            <CardItem>
+            <TextInput value={'15'} style={styles.textInput} value={logoutMinutes}
+              keyboardType={"numeric"}
+              onChangeText={(text) => this.onMinutesChange(text)} placeholder='Auto Logout' />
+              <Icon name={'eye'} size={24} color="#121212" />
+            </CardItem>
             <CardItem>
               <Button secondary block style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
                 <Text style={styles.buttonText}>Back</Text>
@@ -159,7 +165,7 @@ export default class SetPassword extends Component {
               </Button>
             </CardItem>
           </Card>
-
+          </ScrollView>
         </Container>
       </OnBoardingLayout>
     );

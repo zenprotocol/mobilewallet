@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 10,
     marginBottom: 10
   },
   h3: {
@@ -44,7 +43,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   button: {
-    marginLeft: 10
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 10,
   },
   touchableBackText: {
     color: '#949494'
@@ -85,12 +86,14 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   textInput: {
-      borderWidth: 1,
-      borderColor: '#949494',
-      marginLeft: 40,
-      marginRight: 40,
-      marginTop: 10,
-      color: '#fff'
+    borderWidth: 1,
+    borderColor: '#949494',
+    marginLeft: 20,
+    marginRight: 10,
+    marginTop: 10,
+    color: '#fff',
+    height: 40,
+    flex: 1
   }
 });
 

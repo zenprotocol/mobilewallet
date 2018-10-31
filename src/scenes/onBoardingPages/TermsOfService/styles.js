@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   h3: {
-    color: '#949494',
+    color: '#e6e6e6',
     fontSize: 16,
     marginLeft: 20,
     marginRight: 20,
@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   textInput: {
-      borderWidth: 1,
-      borderColor: '#949494',
-      marginLeft: 40,
-      marginRight: 40,
-      marginTop: 10,
-      color: '#fff'
+    borderWidth: 1,
+    borderColor: '#949494',
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 10,
+    color: '#fff'
   }
 });
 

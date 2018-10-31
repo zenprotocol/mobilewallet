@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   textArea: {
-    color: '#fff'
+    color: '#fff',
+    height: 80
   }
 });
 

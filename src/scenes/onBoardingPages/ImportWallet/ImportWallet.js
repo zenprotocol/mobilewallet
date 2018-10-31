@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { View, TouchableOpacity, Clipboard } from 'react-native';
 import { Container, Card, CardItem, H1, H3, Textarea, Button, Text } from "native-base";
-import {
-  isValidBip39Word,
-  isBip39Word,
-  setWordFromFirstBox
-} from "../../../utils/seedUtils";
 import SecretPhraseStore from "../../../stores/secretPhraseStore";
 import OnBoardingLayout from "../Layout/Layout";
 import bip39 from 'react-native-bip39';
@@ -55,9 +50,8 @@ class ImportWallet extends Component<Props, State> {
 
     if (!isEmpty(userInputWords)) {
       secretPhraseStore.setMnemonicToImport(this.state.userInputWords);
-      navigation.navigate("SetPassword");
+      navigation.navigate('SetPassword');
     }
-
   };
 
   onHandleSecretPhrase = (text) => {
@@ -78,7 +72,7 @@ class ImportWallet extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
     const isImport = navigation.getParam('isImport', false);
-    const { userInputWords, canPaste } = this.state;
+    const { userInputWords } = this.state;
 
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={2}>

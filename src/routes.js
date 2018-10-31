@@ -13,6 +13,9 @@ import Loading from "./scenes/Loading/Loading";
 
 import UnlockWallet from "./scenes/UnlockWallet/UnlockWallet";
 import Portfolio from "./scenes/Portfolio/Portfolio";
+import Settings from "./scenes/Settings/Settings";
+import UnLockWallet from "./scenes/UnlockWallet/UnlockWallet";
+import ForgotPassword from "./scenes/ForgotPassword/ForgotPassword";
 
 const deviceWidth = Dimensions.get("window").width;
 

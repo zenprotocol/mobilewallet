@@ -1,7 +1,33 @@
 import { observable, action, runInAction } from "mobx";
 
-// import wallet from '../services/wallet'
+import wallet from '../services/wallet'
 
-class PublicAddressStore {}
+class PublicAddressStore {
+    // @observable address = ''
+    // @observable addressError = ''
+    // @observable showingPkHash = false
+    // @observable pkHash = ''
 
-export default PublicAddressStore;
+    // @action
+    // fetch() {
+    //   try {
+    //     wallet.fetch()
+    //     runInAction(() => {
+    //       this.address = wallet.instance.getAddress()
+    //       this.pkHash = wallet.instance.getPublicKeyHash().hash
+    //       this.addressError = ''
+    //     })
+    //   } catch (err) {
+    //     console.error('error getting public address', err)
+    //     runInAction(() => { this.addressError = 'Error getting public address' })
+    //   }
+    // }
+
+    // @action
+    // toggleShowPkHash = () => {
+    //   this.showingPkHash = !this.showingPkHash
+    // }
+}
+
+export default PublicAddressStore
+

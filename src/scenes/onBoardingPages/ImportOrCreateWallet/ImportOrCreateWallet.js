@@ -28,7 +28,7 @@ export default class ImportOrCreateWallet extends Component {
   };
 
   render() {
-    const { topSpacer, bottomSpacer, width, height, navigation } = this.props;
+    const { navigation } = this.props;
     return (
       <OnBoardingLayout
         className="import-create-wallet-container"

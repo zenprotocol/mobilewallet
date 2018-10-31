@@ -14,8 +14,8 @@ import Loading from "./scenes/Loading/Loading";
 import UnlockWallet from "./scenes/UnlockWallet/UnlockWallet";
 import Portfolio from "./scenes/Portfolio/Portfolio";
 import Settings from "./scenes/Settings/Settings";
-import UnLockWallet from "./scenes/UnlockWallet/UnlockWallet";
-import ForgotPassword from "./scenes/ForgotPassword/ForgotPassword";
+import SendTx from './scenes/SendTx/SendTx';
+import ReceiveTx from "./scenes/ReceiveTx/ReceiveTx";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -38,9 +38,14 @@ export const PublicNavigator = StackNavigator(
 
 export const PrivateNavigator = StackNavigator(
   {
-      Portfolio: { screen: Portfolio },
-      UnlockWallet: { screen: UnlockWallet },
-      Loading: { screen: Loading },
+    Portfolio: { screen: ReceiveTx },
+    UnlockWallet: { screen: UnlockWallet },
+    ImportOrCreateWallet: { screen: ImportOrCreateWallet },
+    SecretPhrase: { screen: SecretPhrase },
+    ImportWallet: { screen: ImportWallet },
+    SetPassword: { screen: SetPassword },
+    TermsOfService: { screen: TermsOfService },
+    Loading: { screen: Loading },
   },
   {
     initialRouteName: "UnlockWallet",
@@ -53,8 +58,8 @@ export const AppDrawer = createDrawerNavigator(
     Portfolio: { screen: Portfolio },
   },
   {
-      drawerWidth: deviceWidth - 50,
-      drawerPosition: "left",
+    drawerWidth: deviceWidth - 50,
+    drawerPosition: "left",
   }
 )
 

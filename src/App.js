@@ -6,17 +6,29 @@ import { Platform, View } from "react-native";
 import * as stores from "./stores";
 import NavigationService from "./services/NavigationService";
 import getTheme from "../native-base-theme/components";
-import Routes from "./routes";
+import {PublicNavigator, PrivateNavigator} from "./routes";
 import platform from "../native-base-theme/variables/platform";
 import StatusBar from './components/StatusBar.js';
+import isWalletExists from './utils/isWalletExists';
 
 // TODO:  Check for SafeAreaView for android
 // <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
 
-const TopLevelNavigator = Routes;
-
 export default class App extends Component {
+  state = {
+    walletExists: false,
+  }
+
+  async componentWillMount() {
+    const walletExists = await isWalletExists();
+    this.setState({
+      walletExists: walletExists
+    })
+  }
+
   render() {
+    const { walletExists } = this.state;
+    const TopLevelNavigator = walletExists ? PrivateNavigator : PublicNavigator;
     return (
       <View style={{ flex: 1 }}>
         <StatusBar backgroundColor="#000" barStyle="light-content" />

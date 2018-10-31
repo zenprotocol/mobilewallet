@@ -30,10 +30,7 @@ class OnBoardingLayout extends React.Component<Props> {
 
       <View style={{ flex: 1, backgroundColor: '#121212', paddingTop: 20 }} className={className}>
         {children}
-        {showNetBottomBar ?
-          <NetBottomBar />
-          : null
-        }
+        <NetBottomBar />
       </View>
     );
   }

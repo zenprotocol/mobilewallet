@@ -1,23 +1,30 @@
 import { AsyncStorage } from "react-native";
 
 class _AsyncStorageUtils {
+  retrieveDataValue;
+
   // Save
-  storeData = (key, item) => {
-    console.log("storeData", key, item);
+  storeData = async (key, item) => {
     try {
-      AsyncStorage.setItem(key, JSON.stringify(item));
+      await AsyncStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       // Error saving data
       console.log(error);
     }
   };
 
+  retrieveData = (key) => {
+    this._retrieveData(key).then(res => {
+      this.retrieveDataValue = res;
+    })
+    return this.retrieveDataValue;
+  }
+  
   // Retrieve
-  retrieveData = key => {
-    console.log("retrieveData");
-    let value;
+  _retrieveData = async key => {
     try {
-      value = AsyncStorage.getItem(key);
+      const item = await AsyncStorage.getItem(key);
+      return item;
     } catch (error) {
       console.log(error);
     }

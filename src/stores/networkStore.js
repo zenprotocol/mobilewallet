@@ -9,9 +9,6 @@ const initialState = getInitialState();
 
 class NetworkStore {
   @observable
-  currentChain;
-
-  @observable
   blocks = initialState.blocks;
 
   @observable
@@ -63,6 +60,7 @@ class NetworkStore {
       });
     }
   }
+
 
   get isSyncing() {
     return !this.isSynced || this.blocks < this.headers;

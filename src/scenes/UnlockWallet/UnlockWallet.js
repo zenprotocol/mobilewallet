@@ -26,6 +26,7 @@ type State = {
 };
 
 class UnlockWallet extends Component<Props, State> {
+
   state = {
     password: "",
     unlockPasswordVisibility: true

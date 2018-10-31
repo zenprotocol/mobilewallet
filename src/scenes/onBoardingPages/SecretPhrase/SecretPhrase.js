@@ -5,7 +5,7 @@ import { Button, H1, H3, Text, Container, Card, CardItem, CheckBox, Label } from
 import SecretPhraseStore from "../../../stores/secretPhraseStore";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from "./styles";
-import PropTypes from "prop-types";
+import Icon from "react-native-vector-icons/Foundation";
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
@@ -68,7 +68,7 @@ class SecretPhrase extends Component<Props, State> {
               </Button>
             </CardItem>
             <CardItem>
-              <Text style={styles.warningText}>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
+              <Text style={styles.warningText}><Icon name="alert" style={{paddingRight: 15}}/>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
             </CardItem>
           </Card>
           <View style={styles.hrLine} />

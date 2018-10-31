@@ -1,14 +1,12 @@
 import { observable, action } from 'mobx';
 import bip39 from 'react-native-bip39';
-// import bip39 from 'bip39';
 import { SecurePhrase } from '@zen/zenjs'
-
-// import routes from '../constants/routes'
-// import history from '../services/history'
+import NavigationService from "../services/NavigationService";
 import { AsyncStorage } from "react-native";
 import chain, { MAINNET } from '../services/chain';
 import wallet from '../services/wallet';
 import { isDev } from '../utils/helpers';
+import asyncStorageUtils from '../utils/asyncStorageUtils';
 
 const LS_AUTO_LOGOUT_MINUTES = 'lsAutoLogoutMinutes';
 const LS_TESTNET_SEED = 'lsTestnetSeed';
@@ -56,7 +54,7 @@ class secretPhraseStore {
     console.log(password, this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
     console.log(encryptedMnemonicPhraseAsString)
-    AsyncStorage.setItem(this.lsSeedKey, encryptedMnemonicPhraseAsString)
+    asyncStorageUtils.storeData(this.lsSeedKey, encryptedMnemonicPhraseAsString)
     this.mnemonicPhrase = '';
     this.isLoggedIn = true
     this.networkStore.initPolling()
@@ -80,9 +78,10 @@ class secretPhraseStore {
     this.networkStore.initPolling();
     this.activeContractsStore.fetch();
     if (this.redeemTokensStore.shouldRedeemNonMainnetTokens) {
+      NavigationService.navigate("Portfolio");
       // history.push(routes.FAUCET)
     } else {
-      // history.push(routes.PORTFOLIO)
+      NavigationService.navigate("Portfolio");
     }
   }
 
@@ -97,7 +96,9 @@ class secretPhraseStore {
   decryptMnemonicPhrase(password) {
     try {
       // wrong password throws, so returning false to indicate that
-      return SecurePhrase.decrypt(password, AsyncStorage.getItem(this.lsSeedKey)).toString();
+      const seed = asyncStorageUtils.retrieveData(this.lsSeedKey);
+      console.log(seed);
+      return SecurePhrase.decrypt(password, seed).toString();
     } catch (err) {
       return false;
     }
@@ -121,7 +122,7 @@ class secretPhraseStore {
   @action
   logout() {
     this.reset();
-    // history.push(routes.UNLOCK_WALLET)
+    NavigationService.navigate("UnlockWallet");
   }
 
   @action
@@ -142,7 +143,7 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
-    return !!AsyncStorage.getItem(this.lsSeedKey);
+    return !!asyncStorageUtils.retrieveData(this.lsSeedKey);
   }
 
   get lsSeedKey() {

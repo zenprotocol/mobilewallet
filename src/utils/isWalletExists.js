@@ -2,7 +2,7 @@ import { networkStore, secretPhraseStore } from '../stores';
 
 const isWelletExists = async () => {
   try {
-    networkStore.fetch()
+    await networkStore.fetch()
   } catch (error) {
     const errMsg = (error && error.response) ? error.response : error
     console.error('error loading wallet', errMsg)

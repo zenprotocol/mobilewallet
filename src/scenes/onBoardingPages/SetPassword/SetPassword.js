@@ -5,7 +5,7 @@ import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
 import { View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-
+import StepIndicator from '../../../components/StepIndicator';
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
@@ -102,6 +102,7 @@ export default class SetPassword extends Component {
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
         <Container style={styles.container}>
+          <StepIndicator currentPosition={3} />
           <H1 style={styles.h1}>Create a password</H1>
           <H3 style={styles.h3}>
             Your password gives you a quick access to your wallet.&nbsp;

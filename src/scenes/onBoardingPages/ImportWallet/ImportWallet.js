@@ -7,7 +7,7 @@ import OnBoardingLayout from "../Layout/Layout";
 import bip39 from 'react-native-bip39';
 import styles from "./styles";
 import { isEmpty } from 'lodash';
-
+import StepIndicator from '../../../components/StepIndicator';
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
@@ -73,10 +73,11 @@ class ImportWallet extends Component<Props, State> {
     const { navigation } = this.props;
     const isImport = navigation.getParam('isImport', false);
     const { userInputWords } = this.state;
-
+    
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={2}>
         <Container style={styles.container}>
+          <StepIndicator currentPosition={2} />
           <H1 style={styles.h1}>{isImport ? 'Import' : 'Verify'} Your Mnemonic Passphrase (Seed)</H1>
           <H3 style={styles.h3}>
             Please enter your 24 word secret phrase in the correct order.&nbsp;

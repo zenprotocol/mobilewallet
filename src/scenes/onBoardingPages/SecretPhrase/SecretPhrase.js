@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { View, Clipboard } from "react-native";
+import { View, Clipboard, ScrollView } from "react-native";
 import { Button, H1, H3, Text, Container, Card, CardItem, CheckBox, Label } from "native-base";
 import SecretPhraseStore from "../../../stores/secretPhraseStore";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from "./styles";
 import Icon from "react-native-vector-icons/Foundation";
-
+import StepIndicator from '../../../components/StepIndicator';
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
@@ -53,6 +53,7 @@ class SecretPhrase extends Component<Props, State> {
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
         <Container style={styles.container}>
+          <StepIndicator currentPosition={1} />
           <H1 style={styles.h1}>Your Mnemonic Passphrase (seed)</H1>
           <H3 style={styles.h3}>
             {" "}
@@ -60,6 +61,7 @@ class SecretPhrase extends Component<Props, State> {
             secure place.&nbsp;
           </H3>
           <View style={styles.hrLine} />
+          <ScrollView>
           <Text style={styles.mnemonicText}>{mnemonicPhrase}</Text>
           <Card transparent style={styles.card}>
             <CardItem>
@@ -86,6 +88,7 @@ class SecretPhrase extends Component<Props, State> {
               </Button>
             </CardItem>
           </Card>
+          </ScrollView>
         </Container>
       </OnBoardingLayout>
     );

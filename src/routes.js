@@ -28,7 +28,8 @@ export const PublicNavigator = StackNavigator(
     SetPassword: { screen: SetPassword },
     TermsOfService: { screen: TermsOfService },
     Loading: { screen: Loading },
-    UnlockWallet: { screen: UnlockWallet }
+    UnlockWallet: { screen: UnlockWallet },
+    ReceiveTx: { screen: ReceiveTx }
   },
   {
     initialRouteName: "WelcomeMessages",
@@ -38,7 +39,7 @@ export const PublicNavigator = StackNavigator(
 
 export const PrivateNavigator = StackNavigator(
   {
-    Portfolio: { screen: ReceiveTx },
+    Portfolio: { screen: Portfolio },
     UnlockWallet: { screen: UnlockWallet },
     ImportOrCreateWallet: { screen: ImportOrCreateWallet },
     SecretPhrase: { screen: SecretPhrase },
@@ -46,6 +47,7 @@ export const PrivateNavigator = StackNavigator(
     SetPassword: { screen: SetPassword },
     TermsOfService: { screen: TermsOfService },
     Loading: { screen: Loading },
+    ReceiveTx: { screen: ReceiveTx }
   },
   {
     initialRouteName: "UnlockWallet",

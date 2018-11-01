@@ -3,6 +3,7 @@ import { Provider } from "mobx-react/native";
 import { inject, observer } from "mobx-react";
 import { StyleProvider } from "native-base";
 import { Platform, View } from "react-native";
+import SplashScreen from "react-native-splash-screen";
 import * as stores from "./stores";
 import NavigationService from "./services/NavigationService";
 import getTheme from "../native-base-theme/components";
@@ -17,15 +18,19 @@ import isWalletExists from './utils/isWalletExists';
 @observer
 export default class App extends Component {
   state = {
-    walletExists: false,
-  }
+    walletExists: false
+  };
 
   async componentDidMount() {
     const walletExists = await isWalletExists();
     console.log("Does Wallet Exist:", walletExists);
     this.setState({
-      walletExists: walletExists
-    })
+      walletExists
+    });
+  }
+
+  componentDidMount() {
+    SplashScreen.hide();
   }
 
   render() {

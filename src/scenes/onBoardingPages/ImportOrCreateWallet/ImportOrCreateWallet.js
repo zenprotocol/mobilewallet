@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import styles from "./styles";
 import Images from "../../../assets/images";
 import OnBoardingLayout from "../Layout/Layout";
-
+import StepIndicator from '../../../components/StepIndicator';
 export default class ImportOrCreateWallet extends Component {
   static navigationOptions = {
     header: null
@@ -29,6 +29,7 @@ export default class ImportOrCreateWallet extends Component {
 
   render() {
     const { navigation } = this.props;
+
     return (
       <OnBoardingLayout
         className="import-create-wallet-container"
@@ -37,6 +38,7 @@ export default class ImportOrCreateWallet extends Component {
       >
         <Container style={styles.mainContent}>
           <Content>
+            <StepIndicator currentPosition={0} />
             <H1 style={styles.header}>Setting Up Your Wallet</H1>
             <Text style={styles.detailText}>
               Create or Import your seed (24 word mnemonic passphrase)

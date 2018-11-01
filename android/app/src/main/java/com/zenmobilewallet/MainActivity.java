@@ -1,7 +1,7 @@
 package com.zenmobilewallet;
 
 import com.facebook.react.ReactActivity;
-
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 public class MainActivity extends ReactActivity {
 
     /**
@@ -11,5 +11,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "ZenMobileWallet";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);  // here
+        super.onCreate(savedInstanceState);
     }
 }

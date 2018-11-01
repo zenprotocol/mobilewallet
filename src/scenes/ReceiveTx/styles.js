@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#949494',
     color: '#fff'
+  },
+  addressError: {
+    color: 'red',
+    fontSize: 16,
   }
 });
 

@@ -3,7 +3,7 @@ import { Container, Card, CardItem, H1, H3, Button, Text, CheckBox } from "nativ
 import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
 import { View, ScrollView } from 'react-native';
-
+import StepIndicator from '../../../components/StepIndicator';
 type State = {
 	isApprove: boolean,
 };
@@ -27,6 +27,7 @@ export default class TermsOfService extends Component {
 		return (
 			<OnBoardingLayout className="import-wallet-container" progressStep={5}>
 				<Container style={styles.container}>
+					<StepIndicator currentPosition={4} />
 					<H1 style={styles.h1}>Terms and Conditions</H1>
 					<H3 style={styles.h3}>
 						{" "}
@@ -98,7 +99,7 @@ export default class TermsOfService extends Component {
 							<Button block style={styles.button} secondary onPress={() => navigation.navigate("SetPassword")}>
 								<Text style={styles.buttonText}>Back</Text>
 							</Button>
-							<Button block style={styles.button} disabled={!isApprove} onPress={() => navigation.navigate("Portfolio")}>
+							<Button block style={styles.button} disabled={!isApprove} onPress={() => navigation.navigate("ReceiveTx")}>
 								<Text style={styles.buttonText}>Accept Terms</Text>
 							</Button>
 						</CardItem>

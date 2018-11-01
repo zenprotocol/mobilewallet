@@ -14,13 +14,15 @@ import isWalletExists from './utils/isWalletExists';
 // TODO:  Check for SafeAreaView for android
 // <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
 
+@observer
 export default class App extends Component {
   state = {
     walletExists: false,
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const walletExists = await isWalletExists();
+    console.log("Does Wallet Exist:", walletExists);
     this.setState({
       walletExists: walletExists
     })
@@ -28,7 +30,8 @@ export default class App extends Component {
 
   render() {
     const { walletExists } = this.state;
-    const TopLevelNavigator = walletExists ? PrivateNavigator : PublicNavigator;
+    console.log(stores.secretPhraseStore.walletExist);
+    const TopLevelNavigator = stores.secretPhraseStore.walletExist ? PrivateNavigator : PublicNavigator;
     return (
       <View style={{ flex: 1 }}>
         <Provider {...stores}>

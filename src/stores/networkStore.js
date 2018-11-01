@@ -43,12 +43,10 @@ class NetworkStore {
   @action
   async getCurrentChain() {
     try {
-      runInAction(() => {
-        AsyncStorage.getItem(LS_CHAIN).then(res => {
-          console.log("===========");
-          console.log(res);
+      AsyncStorage.getItem(LS_CHAIN).then(res => {
+        runInAction(() => {
           this.currentChain = res;
-        })
+        });
       })
      } catch (error) {
        // Error retrieving data
@@ -155,6 +153,7 @@ class NetworkStore {
     }
     return "GH/s";
   }
+
 
   get chain() {
     return this.currentChain;

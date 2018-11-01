@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import bip39 from 'react-native-bip39';
 import { SecurePhrase } from '@zen/zenjs'
 import NavigationService from "../services/NavigationService";
@@ -13,6 +13,8 @@ const LS_TESTNET_SEED = 'lsTestnetSeed';
 const LS_MAINNET_SEED = 'lsMainnetSeed';
 
 class secretPhraseStore {
+
+
   @observable
   mnemonicPhrase = ''
 
@@ -42,6 +44,7 @@ class secretPhraseStore {
     this.portfolioStore = portfolioStore;
     this.activeContractsStore = activeContractsStore;
     this.redeemTokensStore = redeemTokensStore;
+    this.checkWalletExist();
     if (isDev()) {
       this.initDev();
     }
@@ -56,6 +59,20 @@ class secretPhraseStore {
   setMnemonicToImport(userInputWords) {
     this.mnemonicPhrase = userInputWords;
     // history.push(routes.SET_PASSWORD)
+  }
+
+  @action
+  async checkWalletExist() {
+    try {
+       await AsyncStorage.getItem(this.lsSeedKey).then(res => {
+        runInAction(() => {
+          this.walletExist = !!res;
+        })
+      })
+     } catch (error) {
+       // Error retrieving data
+       console.log(error);
+     }
   }
 
   @action
@@ -153,7 +170,7 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
-    return !!asyncStorageUtils.retrieveValue(this.lsSeedKey);
+    return this.walletExist;
   }
 
   get lsSeedKey() {

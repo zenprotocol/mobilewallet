@@ -31,15 +31,17 @@ export default class App extends Component {
     const TopLevelNavigator = walletExists ? PrivateNavigator : PublicNavigator;
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
         <Provider {...stores}>
-          <StyleProvider style={getTheme(platform)}>
-            <TopLevelNavigator
-              ref={navigatorRef => {
-                NavigationService.setTopLevelNavigator(navigatorRef);
-              }}
-            />
-          </StyleProvider>
+          <React.Fragment>
+            <StatusBar backgroundColor="#000" barStyle="light-content" />
+            <StyleProvider style={getTheme(platform)}>
+              <TopLevelNavigator
+                ref={navigatorRef => {
+                  NavigationService.setTopLevelNavigator(navigatorRef);
+                }}
+              />
+            </StyleProvider>
+          </React.Fragment>
         </Provider>
       </View>
     );

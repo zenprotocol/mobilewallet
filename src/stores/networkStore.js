@@ -1,13 +1,21 @@
 import { observable, action, runInAction, computed } from "mobx";
-
+import { AsyncStorage } from "react-native";
 import PollManager from "../utils/PollManager";
-import { TESTNET, MAINNET } from "../services/chain";
+import { LS_CHAIN, TESTNET, MAINNET } from "../services/chain";
 import { getNetworkStatus } from "../services/api-service";
 import chain from "../services/chain";
 
 const initialState = getInitialState();
 
 class NetworkStore {
+
+  constructor() {
+    this.getCurrentChain();
+  }
+
+  @observable
+  currentChain;
+
   @observable
   blocks = initialState.blocks;
 
@@ -33,6 +41,22 @@ class NetworkStore {
   });
 
   @action
+  async getCurrentChain() {
+    try {
+      runInAction(() => {
+        AsyncStorage.getItem(LS_CHAIN).then(res => {
+          console.log("===========");
+          console.log(res);
+          this.currentChain = res;
+        })
+      })
+     } catch (error) {
+       // Error retrieving data
+       console.log(error);
+     }
+  }
+
+  @action
   initPolling() {
     this.fetchPollManager.initPolling();
   }
@@ -40,6 +64,11 @@ class NetworkStore {
   @action
   stopPolling() {
     this.fetchPollManager.stopPolling();
+  }
+
+  @action
+  changeChain() {
+    this.currentChain = this.currentChain === TESTNET ? MAINNET : TESTNET;
   }
 
   @action.bound
@@ -60,7 +89,6 @@ class NetworkStore {
       });
     }
   }
-
 
   get isSyncing() {
     return !this.isSynced || this.blocks < this.headers;
@@ -129,7 +157,7 @@ class NetworkStore {
   }
 
   get chain() {
-    return chain.current;
+    return this.currentChain;
   }
 }
 

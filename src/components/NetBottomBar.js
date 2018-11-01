@@ -18,16 +18,6 @@ type Props = {
 @inject("networkStore")
 @observer
 class NetBottomBar extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      networkChain: props.networkStore.chain
-    };
-  }
-
-  componentDidMount() {
-
-  }
 
   get style() {
     const { width, networkStore: { chain } } = this.props
@@ -74,7 +64,7 @@ class NetBottomBar extends Component<Props> {
 
   render() {
     const { networkStore } = this.props;
-    console.log('networkStore.chain', networkStore.chain)
+    console.log('networkStore.chain', networkStore.chain);
     return networkStore.chain === MAINNET ? this.renderMainnetBar() : this.renderTestnetBar()
   }
 }

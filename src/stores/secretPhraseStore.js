@@ -13,19 +13,29 @@ const LS_TESTNET_SEED = 'lsTestnetSeed';
 const LS_MAINNET_SEED = 'lsMainnetSeed';
 
 class secretPhraseStore {
-  @observable mnemonicPhrase = ''
+  @observable
+  mnemonicPhrase = ''
 
-  @observable isLoggedIn = false
+  @observable
+  walletExist;
 
-  @observable autoLogoutMinutes = Number(AsyncStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
+  @observable
+  isLoggedIn = false
 
-  @observable inProgress = false
+  @observable
+  autoLogoutMinutes = Number(AsyncStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
 
-  @observable isImporting = false
+  @observable
+  inProgress = false
 
-  @observable importError = ''
+  @observable
+  isImporting = false
 
-  @observable status = ''
+  @observable
+  importError = ''
+
+  @observable
+  status = ''
 
   constructor(networkStore, portfolioStore, activeContractsStore, redeemTokensStore) {
     this.networkStore = networkStore;
@@ -143,7 +153,7 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
-    return !!asyncStorageUtils.retrieveData(this.lsSeedKey);
+    return !!asyncStorageUtils.retrieveValue(this.lsSeedKey);
   }
 
   get lsSeedKey() {

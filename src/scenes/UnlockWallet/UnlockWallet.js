@@ -87,7 +87,7 @@ class UnlockWallet extends Component<Props, State> {
             <Item regular error={status === "error"}>
               <Input
                 name="password"
-                textContentType={hidePassword ? "password" : "text"}
+                textContentType={hidePassword ? "password" : "none"}
                 secureTextEntry
                 value={password}
                 style={{ color: "#fff" }}

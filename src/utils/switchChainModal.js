@@ -6,6 +6,7 @@ import NavigationService from "../services/NavigationService";
 const submitSwitchChain = () => {
   console.log("submitSwitchChain");
   chain.switch();
+  networkStore.changeChain();
   secretPhraseStore.reset();
   NavigationService.navigate("Loading");
 };

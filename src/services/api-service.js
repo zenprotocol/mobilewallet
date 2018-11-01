@@ -14,7 +14,7 @@ const testnetInstance = axios.create({
 });
 
 const getInstance = () =>
-  chain.current === MAINNET ? mainnetInstance : testnetInstance;
+  chain.currentChain === MAINNET ? mainnetInstance : testnetInstance;
 
 // const crowdsaleServerAddress = getCrowdsaleServerAddress()
 

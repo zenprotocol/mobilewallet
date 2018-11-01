@@ -1,11 +1,19 @@
+// @flow
+
 import React from 'react';
 import { View, StatusBar, Platform } from 'react-native';
+import { observer, inject } from 'mobx-react';
+import AppStore from "../stores/appStore";
 
+type Props = {
+  backgroundColor?: string,
+  appStore: AppStore,
+};
 // here, we add the spacing for iOS
 // and pass the rest of the props to React Native's StatusBar
 
-export default function (props) {
-    const height = (Platform.OS === 'ios') ? 20 : 0;
+function _StatusBar (props: Props) {
+    const height = (props.appStore.isIOS) ? 20 : 0;
     const { backgroundColor } = props;
 
     return (
@@ -14,3 +22,5 @@ export default function (props) {
         </View>
     );
 }
+
+export default inject('appStore')(observer(_StatusBar));

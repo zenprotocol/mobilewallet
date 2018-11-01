@@ -56,7 +56,6 @@ class SecretPhrase extends Component<Props, State> {
           <StepIndicator currentPosition={1} />
           <H1 style={styles.h1}>Your Mnemonic Passphrase (seed)</H1>
           <H3 style={styles.h3}>
-            {" "}
             Write down the following words in chronological order and save it in a
             secure place.&nbsp;
           </H3>
@@ -70,7 +69,10 @@ class SecretPhrase extends Component<Props, State> {
               </Button>
             </CardItem>
             <CardItem>
-              <Text style={styles.warningText}><Icon name="alert" style={{paddingRight: 15}}/>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
+              <Text style={styles.warningText}>
+                <Icon name="alert" style={{paddingRight: 15}}/>
+                <Text>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
+              </Text>
             </CardItem>
           </Card>
           <View style={styles.hrLine} />

@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  Button,
-  H1,
-  Input
-} from "native-base";
-
+import { Container, Content, Card, CardItem, Button, H1, Input } from "native-base";
 import { Text, Clipboard } from "react-native";
 import styles from "./styles";
 import { inject, observer } from 'mobx-react';
@@ -26,13 +17,16 @@ type State = {
 @inject('publicAddressStore')
 @observer
 export default class ReceiveTx extends Component {
+
   static navigationOptions = {
     header: null
   };
+
   state = {
     isCopyAddr: false,
     isCopyPKHash: false
   }
+
   componentDidMount() {
    this.props.publicAddressStore.fetch();
   }
@@ -41,7 +35,7 @@ export default class ReceiveTx extends Component {
     Clipboard.setString(this.props.publicAddressStore.address);
     this.setState({ isCopyAddr: true });
   };
-  onCopyPKHash = () => { 
+  onCopyPKHash = () => {
     Clipboard.setString(this.props.publicAddressStore.pkHash);
     this.setState({ isCopyPKHash: true });
   };

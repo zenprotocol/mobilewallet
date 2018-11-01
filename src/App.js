@@ -11,7 +11,7 @@ import {PublicNavigator, PrivateNavigator} from "./routes";
 import platform from "../native-base-theme/variables/platform";
 import StatusBar from './components/StatusBar.js';
 import isWalletExists from './utils/isWalletExists';
-
+import { AsyncStorage } from "react-native";
 // TODO:  Check for SafeAreaView for android
 // <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
 

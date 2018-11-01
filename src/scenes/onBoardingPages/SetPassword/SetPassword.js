@@ -124,7 +124,6 @@ export default class SetPassword extends Component {
                 value={password}
                 onChangeText={(text) => this.onPasswordChanged(text)}
                 placeholderTextColor={'#fff'} />
-
               <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
                 <Icon name={passwordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
               </TouchableOpacity>

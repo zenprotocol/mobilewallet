@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     color: '#e6e6e6',
-    fontSize: 22,
+    fontSize: 20,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
+    padding: '6px 8px',
     borderColor: '#949494',
     marginLeft: 20,
     marginRight: 10,

@@ -14,16 +14,16 @@ const styles = StyleSheet.create({
   },
   detailText: {
     color: "#949494",
-    fontSize: 12
+    fontSize: 13
   },
   cardText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#e6e6e6",
     fontWeight: "400"
   },
   image: {
-    height: 63,
-    width: 73,
+    height: 50,
+    width: 'auto',
     flex: 1
   },
   card: {

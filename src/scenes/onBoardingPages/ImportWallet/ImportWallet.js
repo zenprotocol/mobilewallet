@@ -73,7 +73,7 @@ class ImportWallet extends Component<Props, State> {
     const { navigation } = this.props;
     const isImport = navigation.getParam('isImport', false);
     const { userInputWords } = this.state;
-    
+
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={2}>
         <Container style={styles.container}>
@@ -85,7 +85,7 @@ class ImportWallet extends Component<Props, State> {
           <View style={styles.hrLine} />
           <Card transparent style={styles.card}>
             <CardItem>
-              <Textarea style={styles.textArea} placeholder="Mnemonic Passphrase" onChangeText={(text) => this.onHandleSecretPhrase(text)}
+              <Textarea style={styles.textArea} placeholder="Mnemonic Passphrase (Paste here)" onChangeText={(text) => this.onHandleSecretPhrase(text)}
                 value={userInputWords} />
             </CardItem>
           </Card>

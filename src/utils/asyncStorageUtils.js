@@ -13,6 +13,14 @@ class _AsyncStorageUtils {
     }
   };
 
+  getItemValue = key => {
+    this.retrieveData(key).then( res => {
+      console.log("asyncStorageUtils");
+      console.log(res);
+      return res;
+    })
+  }
+
   // Retrieve
   retrieveData = async key => {
     try {

@@ -22,6 +22,9 @@ class secretPhraseStore {
   walletExist;
 
   @observable
+  seedKey;
+
+  @observable
   isLoggedIn = false
 
   @observable
@@ -45,6 +48,7 @@ class secretPhraseStore {
     this.activeContractsStore = activeContractsStore;
     this.redeemTokensStore = redeemTokensStore;
     this.checkWalletExist();
+    this.getSeed();
     if (isDev()) {
       this.initDev();
     }
@@ -112,12 +116,12 @@ class secretPhraseStore {
     }
   }
 
-  getSeed() {
-    const s = asyncStorageUtils.retrieveData(this.lsSeedKey).then(seed => {
-      console.log(seed);
-      return seed;
+  async getSeed() {
+    await AsyncStorage.getItem(this.lsSeedKey).then(res => {
+      runInAction(() => {
+          this.seedKey = res
+      })
     })
-    return s
   }
 
   isPasswordCorrect(password) {
@@ -130,11 +134,8 @@ class secretPhraseStore {
 
   decryptMnemonicPhrase(password) {
     try {
-      this.getSee()
       // wrong password throws, so returning false to indicate that
-      const seed = asyncStorageUtils.retrieveData(this.lsSeedKey);
-      console.log(seed);
-      return SecurePhrase.decrypt(password, seed).toString();
+      return SecurePhrase.decrypt(password, this.seedKey).toString();
     } catch (err) {
       return false;
     }

@@ -4,6 +4,7 @@ import { Text, Clipboard } from "react-native";
 import styles from "./styles";
 import { inject, observer } from 'mobx-react';
 import PublicAddressStore from '../../stores/publicAddressStore';
+import Layout from '../../components/Layout';
 
 type Props = {
   publicAddressStore: PublicAddressStore
@@ -43,7 +44,7 @@ export default class ReceiveTx extends Component {
     const { publicAddressStore } = this.props;
     const { isCopyAddr, isCopyPKHash} = this.state;
     return (
-      <Container style={styles.mainContent}>
+      <Layout style={styles.mainContent}>
         <Content>
           <H1 style={styles.header}>Receive</H1>
           <Card transparent style={styles.card}>
@@ -72,7 +73,7 @@ export default class ReceiveTx extends Component {
             </Button>
           </Card>
         </Content>
-      </Container>
+      </Layout>
     );
   }
 }

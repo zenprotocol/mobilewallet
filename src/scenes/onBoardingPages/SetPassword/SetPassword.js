@@ -6,6 +6,7 @@ import styles from './styles';
 import { View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import StepIndicator from '../../../components/StepIndicator';
+
 type Props = {
   secretPhraseStore: SecretPhraseStore
 };
@@ -25,6 +26,7 @@ export default class SetPassword extends Component {
   static navigationOptions = {};
 
   static defaultProps = {};
+  
   state = {
     validLength: false,
     password: '',

@@ -9,7 +9,8 @@ const images = {
   importWalletSrc: require("./img/import-wallet-icon.png"),
   cancelIconSrc: require("./img/cancel-icon.png"),
   loadingGifSrc: require("./img/loading.gif"),
-  logoGifSrc: require("./img/zen-animated-logo.gif")
+  logoGifSrc: require("./img/zen-animated-logo.gif"),
+  logoIconSrc: require("./img/logo-icon.png")
 };
 
 export default images;

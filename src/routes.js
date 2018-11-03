@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dimensions, View, Text, Button } from "react-native";
 import { observer, inject } from "mobx-react/native";
-import { StackNavigator, createDrawerNavigator } from "react-navigation";
+import { StackNavigator, createDrawerNavigator, createStackNavigator } from "react-navigation";
 
 import WelcomeMessages from "./scenes/onBoardingPages/WelcomeMessages/WelcomeMessages";
 import ImportOrCreateWallet from "./scenes/onBoardingPages/ImportOrCreateWallet/ImportOrCreateWallet";
@@ -19,7 +19,7 @@ import ReceiveTx from "./scenes/ReceiveTx/ReceiveTx";
 
 const deviceWidth = Dimensions.get("window").width;
 
-export const PublicNavigator = StackNavigator(
+export const PublicNavigator = createStackNavigator(
   {
     WelcomeMessages: { screen: WelcomeMessages },
     ImportOrCreateWallet: { screen: ImportOrCreateWallet },
@@ -29,7 +29,6 @@ export const PublicNavigator = StackNavigator(
     TermsOfService: { screen: TermsOfService },
     Loading: { screen: Loading },
     UnlockWallet: { screen: UnlockWallet },
-    ReceiveTx: { screen: ReceiveTx }
   },
   {
     initialRouteName: "WelcomeMessages",
@@ -37,21 +36,18 @@ export const PublicNavigator = StackNavigator(
   }
 );
 
-export const PrivateNavigator = StackNavigator(
+export const PrivateNavigator = createStackNavigator(
   {
     Portfolio: { screen: Portfolio },
     UnlockWallet: { screen: UnlockWallet },
-    ImportOrCreateWallet: { screen: ImportOrCreateWallet },
-    SecretPhrase: { screen: SecretPhrase },
-    ImportWallet: { screen: ImportWallet },
-    SetPassword: { screen: SetPassword },
-    TermsOfService: { screen: TermsOfService },
     Loading: { screen: Loading },
-    ReceiveTx: { screen: ReceiveTx }
+    ReceiveTx: { screen: ReceiveTx },
+    SendTx: {screen: SendTx },
   },
   {
     initialRouteName: "UnlockWallet",
-    navigationOptions: {}
+    headerMode: 'none',
+    headerTitleStyle: {color: 'white',},
   }
 );
 

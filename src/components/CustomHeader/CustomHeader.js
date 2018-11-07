@@ -25,7 +25,7 @@ class CustomHeader extends React.Component<Props> {
             <Image
               source={Images.logoIconSrc}
               style={styles.image}
-              resizeMode="contain"
+              resizeMode={'contain'}
             />
           </Title>
         </Body>

@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { Button, Text } from "native-base";
 import Icon from "react-native-vector-icons/Foundation";
 import { MAINNET } from "../services/chain";
@@ -48,13 +48,21 @@ class NetBottomBar extends Component<Props> {
     );
   }
 
+  clearAsyncStorage = async () => {
+    console.log("Clear Storage");
+    AsyncStorage.clear();
+  }
+
   renderTestnetBar() {
     return (
       <View style={this.style}>
-        <Text style={{ color: "white" }}>
+        <Button onPress={this.clearAsyncStorage}>
+          <Text style={{color: '#fff'}}>Clear Async Storage</Text>
+        </Button>
+        { /*<Text style={{ color: "white" }}>
           <Icon name="alert" />
           TESTNET
-        </Text>
+        </Text> */}
         <Button transparent dark onPress={() => switchChain(this.props)}>
           <Text style={{ color: "white" }}>(Switch to Mainnet)</Text>
         </Button>

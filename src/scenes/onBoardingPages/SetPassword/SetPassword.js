@@ -23,10 +23,13 @@ type State = {
 @inject("secretPhraseStore")
 @observer
 export default class SetPassword extends Component {
-  static navigationOptions = {};
+
+  static navigationOptions = {
+    header: null,
+  }
 
   static defaultProps = {};
-  
+
   state = {
     validLength: false,
     password: '',

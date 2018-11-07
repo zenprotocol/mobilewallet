@@ -13,8 +13,8 @@ class FooterTabs extends React.Component<Props> {
   render() {
     const { navigate } = this.props.navigation;
     return (
-        <Footer style={styles.main}>
-          <FooterTab>
+        <Footer>
+          <FooterTab style={styles.main}>
             <Button vertical onPress={() => navigate('SendTx')}>
               <Text>Send</Text>
             </Button>

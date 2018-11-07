@@ -7,7 +7,8 @@ import SplashScreen from "react-native-splash-screen";
 import * as stores from "./stores";
 import NavigationService from "./services/NavigationService";
 import getTheme from "../native-base-theme/components";
-import {PublicNavigator, PrivateNavigator} from "./routes";
+import { SwitchNavigator } from "./routes";
+import {createAppContainer} from 'react-navigation'
 import platform from "../native-base-theme/variables/platform";
 import StatusBar from './components/StatusBar.js';
 import isWalletExists from './utils/isWalletExists';
@@ -17,33 +18,20 @@ import { AsyncStorage } from "react-native";
 
 @observer
 export default class App extends Component {
-  state = {
-    walletExists: false
-  };
-
-  async componentDidMount() {
-    const walletExists = await isWalletExists();
-    console.log("Does Wallet Exist:", walletExists);
-    this.setState({
-      walletExists
-    });
-  }
 
   componentDidMount() {
-    SplashScreen.hide();
   }
 
   render() {
-    const { walletExists } = this.state;
-    console.log(stores.secretPhraseStore.walletExist);
-    const TopLevelNavigator = stores.secretPhraseStore.walletExist ? PrivateNavigator : PublicNavigator;
+    // const { walletExists } = this.state;
+    // const TopLevelNavigator = stores.secretPhraseStore.walletExist ? PrivateNavigator : PublicNavigator;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: "#121212" }}>
         <Provider {...stores}>
           <React.Fragment>
             <StatusBar backgroundColor="#000" barStyle="light-content" />
             <StyleProvider style={getTheme(platform)}>
-              <TopLevelNavigator
+              <SwitchNavigator
                 ref={navigatorRef => {
                   NavigationService.setTopLevelNavigator(navigatorRef);
                 }}

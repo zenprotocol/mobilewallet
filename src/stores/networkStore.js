@@ -10,11 +10,12 @@ const initialState = getInitialState();
 class NetworkStore {
 
   constructor() {
+    console.log("constructor in network");
     this.getCurrentChain();
   }
 
   @observable
-  currentChain;
+  currentChain = initialState.currentChain;
 
   @observable
   blocks = initialState.blocks;
@@ -43,9 +44,10 @@ class NetworkStore {
   @action
   async getCurrentChain() {
     try {
-      AsyncStorage.getItem(LS_CHAIN).then(res => {
+      await AsyncStorage.getItem(LS_CHAIN).then(res => {
         runInAction(() => {
-          this.currentChain = res;
+          if (res !== null) this.currentChain = res;
+          return;
         });
       })
      } catch (error) {
@@ -156,6 +158,7 @@ class NetworkStore {
 
 
   get chain() {
+    console.log("Call Chain");
     return this.currentChain;
   }
 }
@@ -169,6 +172,7 @@ function getInitialState() {
     difficulty: 0,
     medianTime: 0,
     initialBlockDownload: false,
-    connectedToNode: false
+    connectedToNode: false,
+    currentChain: MAINNET
   };
 }

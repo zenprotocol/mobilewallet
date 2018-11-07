@@ -16,7 +16,7 @@ class Balance extends Component<Props> {
     const { portfolioStore } = this.props;
     return(
 
-        <Text style={{color: 'white'}}>{portfolioStore.zenDisplay}ZP</Text>
+        <Text style={{color: 'white'}}>{portfolioStore.zenDisplay} ZP</Text>
 
     )
   }

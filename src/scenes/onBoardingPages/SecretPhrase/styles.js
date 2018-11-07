@@ -49,9 +49,6 @@ const styles = StyleSheet.create({
   warningText: {
     fontSize: 14,
     color: 'red',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10
   }
 });
 

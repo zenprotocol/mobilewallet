@@ -44,10 +44,10 @@ class secretPhraseStore {
 
   constructor(networkStore, portfolioStore, activeContractsStore, redeemTokensStore) {
     this.networkStore = networkStore;
+    this.checkWalletExist();
     this.portfolioStore = portfolioStore;
     this.activeContractsStore = activeContractsStore;
     this.redeemTokensStore = redeemTokensStore;
-    this.checkWalletExist();
     this.getSeed();
     if (isDev()) {
       this.initDev();
@@ -70,6 +70,7 @@ class secretPhraseStore {
     try {
        await AsyncStorage.getItem(this.lsSeedKey).then(res => {
         runInAction(() => {
+          console.log("checkWalletExist", res);
           this.walletExist = !!res;
         })
       })

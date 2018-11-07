@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { View, Clipboard, ScrollView } from "react-native";
-import { Button, H1, H3, Text, Container, Card, CardItem, CheckBox, Label } from "native-base";
+import { Button, H1, H3, Text, Container, Card, CardItem, CheckBox, Label, Left, Body } from "native-base";
 import SecretPhraseStore from "../../../stores/secretPhraseStore";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from "./styles";
@@ -69,10 +69,11 @@ class SecretPhrase extends Component<Props, State> {
               </Button>
             </CardItem>
             <CardItem>
-              <Text style={styles.warningText}>
-                <Icon name="alert" style={{paddingRight: 15}}/>
-                <Text>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
-              </Text>
+              <Left>
+                <Body>
+                  <Text style={styles.warningText}>IF YOU LOSE THIS PASSPHRASE YOU WILL LOSE ALL ASSETS IN THE WALLET!</Text>
+                </Body>
+              </Left>
             </CardItem>
           </Card>
           <View style={styles.hrLine} />

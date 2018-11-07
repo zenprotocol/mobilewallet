@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Dimensions, View, Text, Button } from "react-native";
 import { observer, inject } from "mobx-react/native";
-import { StackNavigator, createDrawerNavigator, createStackNavigator } from "react-navigation";
+import { StackNavigator, createDrawerNavigator, createStackNavigator, createSwitchNavigator } from "react-navigation";
+
+import LoadingApp from "./LoadingApp";
 
 import WelcomeMessages from "./scenes/onBoardingPages/WelcomeMessages/WelcomeMessages";
 import ImportOrCreateWallet from "./scenes/onBoardingPages/ImportOrCreateWallet/ImportOrCreateWallet";
@@ -19,7 +21,7 @@ import ReceiveTx from "./scenes/ReceiveTx/ReceiveTx";
 
 const deviceWidth = Dimensions.get("window").width;
 
-export const PublicNavigator = createStackNavigator(
+const PublicNavigator = createStackNavigator(
   {
     WelcomeMessages: { screen: WelcomeMessages },
     ImportOrCreateWallet: { screen: ImportOrCreateWallet },
@@ -36,7 +38,7 @@ export const PublicNavigator = createStackNavigator(
   }
 );
 
-export const PrivateNavigator = createStackNavigator(
+const PrivateNavigator = createStackNavigator(
   {
     Portfolio: { screen: Portfolio },
     UnlockWallet: { screen: UnlockWallet },
@@ -51,14 +53,25 @@ export const PrivateNavigator = createStackNavigator(
   }
 );
 
-export const AppDrawer = createDrawerNavigator(
+export const SwitchNavigator = createSwitchNavigator(
   {
-    Portfolio: { screen: Portfolio },
+    Private: PrivateNavigator,
+    Public: PublicNavigator,
+    LoadingApp: LoadingApp
   },
   {
-    drawerWidth: deviceWidth - 50,
-    drawerPosition: "left",
+    initialRouteName: "LoadingApp",
   }
-)
+);
+
+// export const AppDrawer = createDrawerNavigator(
+//   {
+//     Portfolio: { screen: Portfolio },
+//   },
+//   {
+//     drawerWidth: deviceWidth - 50,
+//     drawerPosition: "left",
+//   }
+// )
 
 // createBottomTabNavigator

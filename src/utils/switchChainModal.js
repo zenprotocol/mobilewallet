@@ -2,6 +2,7 @@ import { Alert } from "react-native";
 import { networkStore, secretPhraseStore } from "../stores";
 import chain from "../services/chain";
 import NavigationService from "../services/NavigationService";
+import { inject, observer } from "mobx-react";
 
 const submitSwitchChain = () => {
   chain.switch();
@@ -11,10 +12,10 @@ const submitSwitchChain = () => {
   NavigationService.navigate("Loading");
 };
 
-function shouldSwitchModal() {
-  const subTitle = `Switch from ${networkStore.chain} net to ${
-    networkStore.otherChain
-  } net? (Continuing will redirect you to the loading screen)`;
+const shouldSwitchModal = () => {
+  console.log("==========shouldSwitchModal================");
+  console.log(networkStore.chain);
+  const subTitle = `Switch from ${networkStore.chain} net to ${networkStore.otherChain} net? (Continuing will redirect you to the loading screen)`;
   Alert.alert(
     "Confirm switching chain",
     subTitle,

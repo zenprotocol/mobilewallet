@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
   },
   warningText: {
     fontSize: 14,
-    color: 'red',
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 10
+    marginTop: 10,
+    justifyContent: 'space-between',
   },
   textArea: {
     color: '#fff'
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    padding: '6px 8px',
+    paddingRight: 8,
     borderColor: '#949494',
     marginLeft: 20,
     marginRight: 10,

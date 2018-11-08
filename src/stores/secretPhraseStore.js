@@ -91,7 +91,7 @@ class secretPhraseStore {
     this.isLoggedIn = true
     this.networkStore.initPolling()
     this.activeContractsStore.fetch()
-    // history.push(routes.TERMS_OF_SERVICE)
+    NavigationService.navigate("TermsOfService")
   }
 
   @action
@@ -181,6 +181,8 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
+    console.log("doesWalletExist in secretPhraseStore");
+    console.log(this.walletExist);
     return this.walletExist;
   }
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Container, Card, CardItem, H1, H3, Button, Text } from "native-base";
+import { Container, Content, Item, H1, H2, H3, Button, Input, Right, Col, Grid } from "native-base";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
-import { View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import StepIndicator from '../../../components/StepIndicator';
 
@@ -91,9 +91,8 @@ export default class SetPassword extends Component {
   }
 
   onSubmitClicked = () => {
-    const { navigation, secretPhraseStore } = this.props
-    secretPhraseStore.importWallet(this.state.password)
-    navigation.navigate("TermsOfService");
+    const { navigation, secretPhraseStore } = this.props;
+    secretPhraseStore.importWallet(this.state.password);
   }
 
   renderPasswordConfirmInput() {
@@ -106,35 +105,30 @@ export default class SetPassword extends Component {
     const logoutMinutes = autoLogoutMinutes ? autoLogoutMinutes.toString() : ''
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
-        <Container style={styles.container}>
           <StepIndicator currentPosition={3} />
-          <H1 style={styles.h1}>Create a password</H1>
-          <H3 style={styles.h3}>
-            Your password gives you a quick access to your wallet.&nbsp;
-          </H3>
-          <View style={styles.hrLine} />
-          <ScrollView>
-          <Text style={styles.sectionHeader}>
-            Make sure your password includes:
-            </Text>
-          <H3 style={styles.subHeaderText}>
-            At least 4 characters
-            </H3>
-          <Card transparent style={styles.card}>
-            <CardItem>
-              <TextInput style={styles.textInput}
+          <Content style={styles.content}>
+            <H1 style={{color: "#fff", marginBottom: 5}}>Create a password</H1>
+            <Text style={{color: "#777", marginBottom: 10}}>Your password gives you a quick access to your wallet</Text>
+            <Text style={{color: "#fff", fontSize: 18, marginBottom: 5}}>Make sure your password includes:</Text>
+            <Text style={{color: "#777", marginBottom: 10}}>At least 4 characters</Text>
+
+            <Item style={{marginBottom: 20}}>
+              <Input
                 placeholder='Enter Password'
                 inputType={'password'}
+                style={{ color: "#fff" }}
                 secureTextEntry={passwordVisible}
                 value={password}
                 onChangeText={(text) => this.onPasswordChanged(text)}
-                placeholderTextColor={'#fff'} />
+                placeholderTextColor={'#fff'}
+              />
               <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
                 <Icon name={passwordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
               </TouchableOpacity>
-            </CardItem>
-            <CardItem>
-              <TextInput style={styles.textInput}
+            </Item>
+
+            <Item style={{marginBottom: 30}}>
+              <Input
                 inputType={'password'}
                 value={passwordConfirmation}
                 secureTextEntry={confirmPasswordVisible}
@@ -144,37 +138,38 @@ export default class SetPassword extends Component {
               <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
                 <Icon name={confirmPasswordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
               </TouchableOpacity>
-            </CardItem>
-          </Card>
-            <View style={styles.innerHrLine} />
+            </Item>
 
-            <Text style={styles.sectionHeader}>
-              Auto logout
-            </Text>
-            <H3 style={styles.subHeaderText}>
-              After how many minutes you would like to automatically log out?
-            </H3>
-          <Card transparent style={styles.card}>
-            <CardItem>
-            <TextInput value={'15'} style={styles.textInput} value={logoutMinutes}
-              keyboardType={"numeric"}
-              onChangeText={(text) => this.onMinutesChange(text)} placeholder='Auto Logout' />
-              <Icon name={'eye'} size={24} color="#121212" />
-            </CardItem>
-            <CardItem>
-              <Button secondary block style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
-                <Text style={styles.buttonText}>Back</Text>
-              </Button>
-              <Button block style={styles.button} onPress={this.onSubmitClicked} disabled={!this.validatePassword() || isImporting} >
-                <Text style={styles.buttonText}>{isImporting ? 'Importing ...' : 'Continue'}</Text>
-              </Button>
-            </CardItem>
-          </Card>
-          </ScrollView>
-        </Container>
+            <Text style={{color: "#fff", fontSize: 18, marginBottom: 10}}>Auto logout</Text>
+            <Text style={{color: "#fff"}}>After how many minutes you would like to automatically log out?</Text>
+
+            <Item style={{marginBottom: 30}}>
+              <Input
+                style={{color: "#fff"}}
+                value={'15'}
+                value={logoutMinutes}
+                keyboardType={"numeric"}
+                onChangeText={(text) => this.onMinutesChange(text)}
+                placeholder='Auto Logout' />
+            </Item>
+
+            <Grid style={{marginBottom: 50}}>
+              <Col>
+                <Button secondary block style={{ marginRight: 5 }} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
+                  <Text style={styles.buttonText}>Back</Text>
+                </Button>
+              </Col>
+              <Col>
+                <Button block style={{ marginLeft: 5 }} onPress={this.onSubmitClicked} disabled={!this.validatePassword() || isImporting} >
+                  <Text style={styles.buttonText}>{isImporting ? 'Importing ...' : 'Continue'}</Text>
+                </Button>
+              </Col>
+            </Grid>
+
+
+          </Content>
+
       </OnBoardingLayout>
     );
   }
 }
-
-SetPassword.propTypes = {};

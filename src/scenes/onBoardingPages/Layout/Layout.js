@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Container } from "native-base";
 import cx from 'classnames';
 import NetBottomBar from "../../../components/NetBottomBar";
 
@@ -28,10 +29,10 @@ class OnBoardingLayout extends React.Component<Props> {
     const { className, children, showNetBottomBar } = this.props;
     return (
 
-      <View style={{ flex: 1, backgroundColor: '#121212', paddingTop: 20 }} className={className}>
+      <Container style={{ flex: 1, backgroundColor: '#121212', paddingTop: 20}} className={className}>
         {children}
         <NetBottomBar />
-      </View>
+      </Container>
     );
   }
 }

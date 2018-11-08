@@ -40,6 +40,7 @@ export default class ReceiveTx extends Component {
     Clipboard.setString(this.props.publicAddressStore.pkHash);
     this.setState({ isCopyPKHash: true });
   };
+  
   render() {
     const { publicAddressStore } = this.props;
     const { isCopyAddr, isCopyPKHash} = this.state;

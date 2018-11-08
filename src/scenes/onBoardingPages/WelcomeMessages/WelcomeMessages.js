@@ -80,10 +80,10 @@ export default class WelcomeMessages extends Component {
       <Container
         style={[styles.mainContent, {
           width: props.width,
-          height: props.height + 20
+          hight: props.height + 40
         }]}
       >
-        <Content>
+        <Content style={{hight: props.height + 100}}>
           <H1 style={styles.title}>{props.title}</H1>
           <Image source={props.image} style={styles.image} resizeMode="contain" />
           <FlatList

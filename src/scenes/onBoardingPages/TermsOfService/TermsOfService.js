@@ -4,6 +4,7 @@ import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
 import { View, ScrollView } from 'react-native';
 import StepIndicator from '../../../components/StepIndicator';
+
 type State = {
 	isApprove: boolean,
 };
@@ -109,5 +110,3 @@ export default class TermsOfService extends Component {
 		);
 	}
 }
-
-TermsOfService.propTypes = {};

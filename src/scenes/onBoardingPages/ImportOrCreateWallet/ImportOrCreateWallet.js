@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Container, Body, Content, Card, CardItem, Button, H1 } from "native-base";
 import { Text, Image } from "react-native";
-import PropTypes from "prop-types";
 import styles from "./styles";
 import Images from "../../../assets/images";
 import OnBoardingLayout from "../Layout/Layout";
@@ -91,9 +90,9 @@ export default class ImportOrCreateWallet extends Component {
   }
 }
 
-ImportOrCreateWallet.propTypes = {
-  topSpacer: PropTypes.number,
-  bottomSpacer: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number
-};
+// ImportOrCreateWallet.propTypes = {
+//   topSpacer: PropTypes.number,
+//   bottomSpacer: PropTypes.number,
+//   width: PropTypes.number,
+//   height: PropTypes.number
+// };

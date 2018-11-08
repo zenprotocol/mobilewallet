@@ -16,18 +16,22 @@ class _Wallet {
 
   create(mnemonic) {
     if (this.instance !== null) {
-      global.console.warn("wallet instance already exists");
+      // global.console.warn("wallet instance already exists");
       return;
     }
-    this.instance = Wallet.fromMnemonic(
-      mnemonic,
-      chain.current,
-      new Wallet.RemoteNodeWalletActions(
-        chain.current === MAINNET
-          ? "https://remote-node.zp.io"
-          : "https://testnet-remote-node.zp.io"
-      )
-    );
+    try {
+      this.instance = Wallet.fromMnemonic(
+        mnemonic,
+        chain.current,
+        new Wallet.RemoteNodeWalletActions(
+          chain.current === MAINNET
+            ? "https://remote-node.zp.io"
+            : "https://testnet-remote-node.zp.io"
+        )
+      );
+    } catch (e) {
+      console.log(e);
+    }
     this.fetchPollManager.initPolling();
     return this.instance;
   }
@@ -42,7 +46,7 @@ class _Wallet {
   fetch = async () => {
     if (this.instance === null) {
       // TODO: Add loading option like history.push(routes.LOADING)
-      global.console.warn("create a wallet instance before calling fetch");
+      // global.console.warn("create a wallet instance before calling fetch");
       return;
     }
     await this.instance.refresh();

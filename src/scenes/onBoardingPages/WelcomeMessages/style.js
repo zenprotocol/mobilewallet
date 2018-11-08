@@ -3,8 +3,10 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   mainContent: {
     backgroundColor: "#121212",
+    flex: 1,
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    marginBottom: 20,
   },
   image: {
     flex: 1,

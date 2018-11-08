@@ -4,7 +4,13 @@ const styles = StyleSheet.create({
   mainContent: {
     backgroundColor: "#121212",
     color: "#e6e6e6",
-    padding: 20
+    padding: 20,
+    marginBottom: 30,
+  },
+  card: {
+    backgroundColor: '#181818',
+    paddingBottom: 20,
+    marginBottom: 40,
   },
   header: {
     color: "#e6e6e6",
@@ -22,8 +28,6 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   inputText: {
-    borderWidth: 1,
-    borderColor: '#949494',
     color: '#fff'
   }
 });

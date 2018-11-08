@@ -4,12 +4,12 @@ import chain from "../services/chain";
 import NavigationService from "../services/NavigationService";
 import { inject, observer } from "mobx-react";
 
-const submitSwitchChain = () => {
-  chain.switch();
-  networkStore.changeChain();
-  secretPhraseStore.checkWalletExist();
-  secretPhraseStore.reset();
+const submitSwitchChain = async () => {
+  await chain.switch();
   NavigationService.navigate("Loading");
+  await networkStore.changeChain();
+  await secretPhraseStore.checkWalletExist();
+  await secretPhraseStore.reset();
 };
 
 const shouldSwitchModal = () => {

@@ -30,10 +30,10 @@ const PublicNavigator = createStackNavigator(
     SetPassword: { screen: SetPassword },
     TermsOfService: { screen: TermsOfService },
     Loading: { screen: Loading },
-    UnlockWallet: { screen: UnlockWallet },
   },
   {
     initialRouteName: "WelcomeMessages",
+    headerMode: 'none',
     navigationOptions: {}
   }
 );

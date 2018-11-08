@@ -17,6 +17,7 @@ export default class LoadingApp extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     console.log("In _bootstrapAsync");
+    console.disableYellowBox = true;
     await networkStore.getCurrentChain();
     const walletExists = await isWalletExists();
     await SplashScreen.hide();

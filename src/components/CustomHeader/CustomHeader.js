@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { View, Image } from 'react-native';
-import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { Container, Text, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import styles from './styles';
 import Images from "../../assets/images";
 import Balance from "../Balance";
@@ -22,11 +22,7 @@ class CustomHeader extends React.Component<Props> {
         </Left>
         <Body>
           <Title>
-            <Image
-              source={Images.logoIconSrc}
-              style={styles.image}
-              resizeMode={'contain'}
-            />
+            <Text style={{color: '#fff'}}>Zen Protocol</Text>
           </Title>
         </Body>
         <Right>

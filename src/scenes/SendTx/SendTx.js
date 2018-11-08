@@ -1,12 +1,18 @@
+// @flow
+
 import React, { Component } from "react";
-import { Container, Content, Card, CardItem, Button, H1, Input } from "native-base";
+import { Container, Content, Card, CardItem, Button, H1, Input, Item, Icon, Label } from "native-base";
 import { inject, observer } from 'mobx-react'
-import { Text } from "react-native";
+import { Text, TextInput } from "react-native";
 import { ZENP_MAX_DECIMALS, ZENP_MIN_DECIMALS } from '../../constants/constants';
 import { isValidAddress } from '../../utils/helpers';
+import { isZenAsset } from '../../utils/zenUtils'
+import { ref } from '../../utils/domUtils'
 import SendTxStore from '../../stores/sendTxStore'
 import PortfolioStore from '../../stores/portfolioStore'
 import Layout from '../../components/Layout';
+import AutoSuggestAssets from '../../components/AutoSuggestAssets';
+import AmountInput from '../../components/AmountInput';
 import styles from "./styles";
 
 type Props = {
@@ -23,11 +29,7 @@ class SendTx extends Component<Props> {
   };
 
   componentDidMount() {
-  this.props.portfolioStore.fetch()
-}
-
-  onToChanged = (evt: SyntheticEvent<HTMLInputElement>) => {
-    this.props.sendTxStore.to = evt.currentTarget.value.trim()
+    this.props.portfolioStore.fetch()
   }
 
   onPasteClicked = (clipboardContents: string) => {
@@ -44,10 +46,9 @@ get isToInvalid() {
 renderAddressErrorMessage() {
   if (this.isToInvalid) {
     return (
-      <div className="error input-message">
-        <FontAwesomeIcon icon={['far', 'exclamation-circle']} />
-        <span>Destination Address is invalid</span>
-      </div>
+      <Label>
+        <Text style={{color: '#fd3a3a'}}>Destination Address is invalid</Text>
+      </Label>
     )
   }
 }
@@ -56,10 +57,12 @@ updateAssetFromSuggestions = ({ asset }: { asset: string }) => {
   const { sendTxStore } = this.props
   sendTxStore.updateAssetFromSuggestions(asset)
 }
+
 updateAmountDisplay = (amountDisplay: string) => {
   const { sendTxStore } = this.props
   sendTxStore.updateAmountDisplay(amountDisplay)
 }
+
 renderSuccessResponse() {
   if (this.props.sendTxStore.status !== 'success') {
     return null
@@ -76,6 +79,7 @@ renderErrorResponse() {
   if (status !== 'error') {
     return null
   }
+
   return (
     <FormResponseMessage className="error">
       <span>There was a problem with sending the transaction.</span>
@@ -112,6 +116,10 @@ get isSubmitButtonDisabled() {
 }
 
   render() {
+
+    const portfolioStore = this.props;
+    const { to, asset, amount, amountDisplay, inProgress } = this.props.sendTxStore;
+
     return (
       <Layout>
         <Content>
@@ -121,25 +129,47 @@ get isSubmitButtonDisabled() {
               <Text style={styles.cardText}>Destination Address</Text>
             </CardItem>
             <CardItem>
-              <Input
-                placeholder="Destination Address"
-                style={styles.inputText}
+              <Item error={this.isToInvalid ? true : false } >
+                <Input
+                  placeholder="Destination Address"
+                  name="to"
+                  type="text"
+                  ref={ref('elTo').bind(this)}
+                  autoFocus={true}
+                  value={to}
+                  style={styles.inputText}
+                  onChangeText={(text) =>
+                    this.props.sendTxStore.to = text.trim()
+                  }
+                />
+                <Icon name="close"/>
+              </Item>
+            </CardItem>
+            <CardItem>
+              {this.renderAddressErrorMessage()}
+            </CardItem>
+            <CardItem>
+              <AutoSuggestAssets
+                asset={asset}
+                onUpdateParent={this.updateAssetFromSuggestions}
+                ref={ref('AutoSuggestAssets').bind(this)}
               />
             </CardItem>
             <CardItem>
-              <Text style={styles.cardText}>Asset</Text>
+              <AmountInput
+                amount={amount}
+                amountDisplay={amountDisplay}
+                maxDecimal={isZenAsset(asset) ? ZENP_MAX_DECIMALS : 0}
+                minDecimal={isZenAsset(asset) ? ZENP_MIN_DECIMALS : 0}
+                maxAmount={asset ? portfolioStore.getBalanceFor(asset) : null}
+                shouldShowMaxAmount
+                exceedingErrorMessage="Insufficient Funds"
+                onAmountDisplayChanged={this.updateAmountDisplay}
+                label="Amount"
+                />
             </CardItem>
-            <CardItem>
-              <Input placeholder="Asset" style={styles.inputText} />
-            </CardItem>
-            <CardItem>
-              <Text style={styles.cardText}>Amount</Text>
-            </CardItem>
-            <CardItem>
-              <Input placeholder="Amount" style={styles.inputText} />
-            </CardItem>
-            <Button  style={{margin: 10}} block onPress={() => onSendPress}>
-              <Text style={styles.buttonText}>Send</Text>
+            <Button style={{margin: 10}} block disabled={this.isSubmitButtonDisabled} onPress={this.onSubmitButtonClicked}>
+              <Text style={styles.buttonText}>{inProgress ? 'Sending' : 'Send'}</Text>
             </Button>
           </Card>
         </Content>

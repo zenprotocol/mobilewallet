@@ -32,7 +32,7 @@ class Layout extends React.Component<Props> {
   render() {
     const { isConnected } = this.state;
     return (
-        <Container style={{flex: 1}}>
+        <Container style={{flex: 1, backgroundColor: "#121212"}}>
           <Header {...this.props}/>
            <Content style={styles.main}>
             { isConnected ?

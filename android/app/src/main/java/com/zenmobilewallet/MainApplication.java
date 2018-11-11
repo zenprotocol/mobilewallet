@@ -26,13 +26,13 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-              new MainReactPackage(),
+              new RandomBytesPackage(),
               new SplashScreenReactPackage(),
               new UdpSocketsModule(),
               new TcpSocketsModule(),
               new RNOSModule(),
-              new RandomBytesPackage(),
-              new VectorIconsPackage()
+              new VectorIconsPackage(),
+              new MainReactPackage()
       );
     }
 

@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import { View, NetInfo } from 'react-native';
-import { Button, H1, H3, Form, Item, Input, Text, Container, Left, Content } from 'native-base';
+import { Drawer, Button, H1, H3, Form, Item, Input, Text, Container, Left, Content } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import FooterTabs from '../FooterTabs';
 import Header from '../CustomHeader';
@@ -13,9 +13,9 @@ type Props = {
 };
 
 class Layout extends React.Component<Props> {
-  static navigationOptions = {
-    headerMode: 'none'
-  }
+  // static navigationOptions = {
+  //   headerMode: 'none'
+  // }
 
   state = {
     isConnected: true
@@ -32,19 +32,20 @@ class Layout extends React.Component<Props> {
   render() {
     const { isConnected } = this.state;
     return (
-        <Container style={{flex: 1, backgroundColor: "#121212"}}>
-          <Header {...this.props}/>
-           <Content style={styles.main}>
-            { isConnected ?
-                this.props.children
-              :
-              <View>
-                 <H1 style={ styles.title }>You are not connected to the internet, please connect</H1>
-              </View>
-            }
-          </Content>
-          <FooterTabs {...this.props}/>
-        </Container>
+      <Container style={{backgroundColor: "#121212"}}>
+        <Header {...this.props}/>
+         <Content style={styles.main}>
+          { isConnected ?
+              this.props.children
+            :
+            <View>
+               <H1 style={ styles.title }>You are not connected to the internet, please connect</H1>
+            </View>
+          }
+        </Content>
+        <FooterTabs {...this.props}/>
+      </Container>
+
     )
   }
 }

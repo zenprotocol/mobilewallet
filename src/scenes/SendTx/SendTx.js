@@ -24,10 +24,6 @@ type Props = {
 @observer
 class SendTx extends Component<Props> {
 
-  static navigationOptions = {
-    header: null
-  };
-
   componentDidMount() {
     this.props.portfolioStore.fetch()
   }
@@ -119,7 +115,7 @@ get isSubmitButtonDisabled() {
 
     const portfolioStore = this.props;
     const { to, asset, amount, amountDisplay, inProgress } = this.props.sendTxStore;
-
+    console.log(this);
     return (
       <Layout>
         <Content>

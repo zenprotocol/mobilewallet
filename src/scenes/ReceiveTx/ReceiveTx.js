@@ -5,6 +5,7 @@ import styles from "./styles";
 import { inject, observer } from 'mobx-react';
 import PublicAddressStore from '../../stores/publicAddressStore';
 import Layout from '../../components/Layout';
+import LoadingModal from '../../components/LoadingModal';
 
 type Props = {
   publicAddressStore: PublicAddressStore
@@ -29,18 +30,20 @@ export default class ReceiveTx extends Component {
   }
 
   componentDidMount() {
-   this.props.publicAddressStore.fetch();
+    const { publicAddressStore } = this.props
+    publicAddressStore.fetch();
   }
 
   onCopyAddress = () => {
     Clipboard.setString(this.props.publicAddressStore.address);
     this.setState({ isCopyAddr: true });
   };
+
   onCopyPKHash = () => {
     Clipboard.setString(this.props.publicAddressStore.pkHash);
     this.setState({ isCopyPKHash: true });
   };
-  
+
   render() {
     const { publicAddressStore } = this.props;
     const { isCopyAddr, isCopyPKHash} = this.state;
@@ -48,31 +51,38 @@ export default class ReceiveTx extends Component {
       <Layout style={styles.mainContent}>
         <Content>
           <H1 style={styles.header}>Receive</H1>
-          <Card transparent style={styles.card}>
-            <CardItem>
-              <Text style={styles.cardText}>Your Address</Text>
-            </CardItem>
-            <CardItem>
-              <Input placeholder="Your Address" value={publicAddressStore.address} style={styles.inputText} />
-            </CardItem>
-            <CardItem>
-              {!!publicAddressStore.addressError && (
-                <Text style={styles.addressError}>{publicAddressStore.addressError}</Text>
-              )}
-            </CardItem>
-            <Button style={{margin: 10}} block onPress={this.onCopyAddress}>
-              <Text style={styles.buttonText}>{isCopyAddr ? 'Copied' : 'Copy'}</Text>
-            </Button>
-            <CardItem>
-              <Text style={styles.cardText}>PKHash</Text>
-            </CardItem>
-            <CardItem>
-              <Input placeholder="PKHash" value={publicAddressStore.pkHash} style={styles.inputText} />
-            </CardItem>
-            <Button style={{margin: 10}} block onPress={this.onCopyPKHash}>
-              <Text style={styles.buttonText}>{isCopyPKHash ? 'Copied' : 'Copy'}</Text>
-            </Button>
-          </Card>
+          { publicAddressStore.address ?
+            <Card transparent style={styles.card}>
+              <CardItem>
+                <Text style={styles.cardText}>Your Address</Text>
+              </CardItem>
+              <CardItem>
+                <Input
+                  placeholder="Your Address"
+                  value={publicAddressStore.address}
+                  style={styles.inputText} />
+              </CardItem>
+              <CardItem>
+                {!!publicAddressStore.addressError && (
+                  <Text style={styles.addressError}>{publicAddressStore.addressError}</Text>
+                )}
+              </CardItem>
+              <Button block onPress={this.onCopyAddress}>
+                <Text style={styles.buttonText}>{isCopyAddr ? 'Copied' : 'Copy'}</Text>
+              </Button>
+              <CardItem>
+                <Text style={styles.cardText}>PKHash</Text>
+              </CardItem>
+              <CardItem>
+                <Input placeholder="PKHash" value={publicAddressStore.pkHash} style={styles.inputText} />
+              </CardItem>
+              <Button block onPress={this.onCopyPKHash}>
+                <Text style={styles.buttonText}>{isCopyPKHash ? 'Copied' : 'Copy'}</Text>
+              </Button>
+            </Card>
+            :
+            <LoadingModal/>
+          }
         </Content>
       </Layout>
     );

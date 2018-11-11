@@ -63,15 +63,3 @@ export const SwitchNavigator = createSwitchNavigator(
     initialRouteName: "LoadingApp",
   }
 );
-
-// export const AppDrawer = createDrawerNavigator(
-//   {
-//     Portfolio: { screen: Portfolio },
-//   },
-//   {
-//     drawerWidth: deviceWidth - 50,
-//     drawerPosition: "left",
-//   }
-// )
-
-// createBottomTabNavigator

@@ -107,9 +107,11 @@ class AutoSuggestAssets extends Component<Props, State> {
     const { suggestions, suggestionInputValue } = this.state
     return !this.isValid && (suggestions.length === 0) && (suggestionInputValue.length > 0)
   }
+
   get isValid() {
     return !!this.getChosenAsset
   }
+
   renderErrorMessage() {
     if (!this.hasError) {
       return null

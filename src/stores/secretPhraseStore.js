@@ -14,7 +14,6 @@ const LS_MAINNET_SEED = 'lsMainnetSeed';
 
 class secretPhraseStore {
 
-
   @observable
   mnemonicPhrase = ''
 
@@ -70,7 +69,7 @@ class secretPhraseStore {
     try {
        await AsyncStorage.getItem(this.lsSeedKey).then(res => {
         runInAction(() => {
-          console.log("checkWalletExist", res);
+          this.seedKey = res;
           this.walletExist = !!res;
         })
       })
@@ -85,7 +84,6 @@ class secretPhraseStore {
     wallet.create(this.mnemonicPhraseAsString)
     console.log(password, this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
-    console.log(encryptedMnemonicPhraseAsString)
     asyncStorageUtils.storeData(this.lsSeedKey, encryptedMnemonicPhraseAsString)
     this.mnemonicPhrase = '';
     this.isLoggedIn = true
@@ -118,10 +116,10 @@ class secretPhraseStore {
   }
 
   async getSeed() {
-    await AsyncStorage.getItem(this.lsSeedKey).then(res => {
-      runInAction(() => {
-          this.seedKey = res
-      })
+    AsyncStorage.getItem(this.lsSeedKey).then(res => {
+      if (res !== null ){
+        this.seedKey = res
+      }
     })
   }
 

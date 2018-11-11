@@ -10,7 +10,6 @@ const initialState = getInitialState();
 class NetworkStore {
 
   constructor() {
-    console.log("constructor in network");
     this.getCurrentChain();
   }
 
@@ -158,7 +157,6 @@ class NetworkStore {
 
 
   get chain() {
-    console.log("Call Chain");
     return this.currentChain;
   }
 }

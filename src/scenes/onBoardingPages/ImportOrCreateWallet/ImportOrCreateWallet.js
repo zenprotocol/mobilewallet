@@ -43,10 +43,8 @@ export default class ImportOrCreateWallet extends Component {
                 />
               </CardItem>
               <CardItem>
-                <Text style={styles.cardText}>Create New Wallet</Text>
-              </CardItem>
-              <CardItem>
                 <Body>
+                  <Text style={styles.cardText}>Create New Wallet</Text>
                   <Text note style={styles.detailText}>
                     Creating a new wallet will generate a 24 word mnemonic
                     passphrase (seed) which you will need to store in a secure
@@ -68,10 +66,8 @@ export default class ImportOrCreateWallet extends Component {
                 />
               </CardItem>
               <CardItem>
-                <Text style={styles.cardText}>Import Existing Wallet</Text>
-              </CardItem>
-              <CardItem>
                 <Body>
+                  <Text style={styles.cardText}>Import Existing Wallet</Text>
                   <Text note style={styles.detailText}>
                     If you already have a secret phrase (seed) you can simply
                     import it and get access to all of your assets.

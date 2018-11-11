@@ -20,6 +20,8 @@ import { AsyncStorage } from "react-native";
 export default class App extends Component {
 
   componentDidMount() {
+    console.log("APP");
+    SplashScreen.hide();
   }
 
   render() {

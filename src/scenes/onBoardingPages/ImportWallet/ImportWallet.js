@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import { View, TouchableOpacity, Clipboard } from 'react-native';
-import { Container, Card, CardItem, H1, H3, Textarea, Button, Text } from "native-base";
+import { Container, Content, Card, CardItem, H1, H3, Textarea, Button, Text } from "native-base";
 import SecretPhraseStore from "../../../stores/secretPhraseStore";
 import OnBoardingLayout from "../Layout/Layout";
 import bip39 from 'react-native-bip39';
@@ -78,35 +78,41 @@ class ImportWallet extends Component<Props, State> {
       <OnBoardingLayout className="import-wallet-container" progressStep={2}>
         <Container style={styles.container}>
           <StepIndicator currentPosition={2} />
-          <H1 style={styles.h1}>{isImport ? 'Import' : 'Verify'} Your Mnemonic Passphrase (Seed)</H1>
-          <H3 style={styles.h3}>
-            Please enter your 24 word secret phrase in the correct order.&nbsp;
-          </H3>
-          <View style={styles.hrLine} />
-          <Card transparent style={styles.card}>
-            <CardItem>
-              <Textarea style={styles.textArea} placeholder="Mnemonic Passphrase (Paste here)" onChangeText={(text) => this.onHandleSecretPhrase(text)}
-                value={userInputWords} />
-            </CardItem>
-          </Card>
-          <View style={styles.hrLine} />
-          <Card transparent style={styles.card}>
-            <CardItem>
-              <Button block style={styles.button} onPress={this.onSubmitClicked} >
-                <Text style={styles.buttonText}>Continue</Text>
-              </Button>
-            </CardItem>
-            <CardItem>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.touchableBackText}>Whoops, I didn’t write my recovery phrase.</Text>
-              </TouchableOpacity>
-            </CardItem>
-            <CardItem>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
-                <Text style={styles.touchableNextText}>Create New Wallet</Text>
-              </TouchableOpacity>
-            </CardItem>
-          </Card>
+          <Content>
+            <H1 style={styles.h1}>{isImport ? 'Import' : 'Verify'} Your Mnemonic Passphrase (Seed)</H1>
+            <H3 style={styles.h3}>
+              Please enter your 24 word secret phrase in the correct order.&nbsp;
+            </H3>
+            <View style={styles.hrLine} />
+            <Card transparent style={styles.card}>
+              <CardItem>
+                <Textarea
+                  style={styles.textArea}
+                  placeholder="Mnemonic Passphrase (Paste here)"
+                  onChangeText={(text) => this.onHandleSecretPhrase(text)}
+                  rowSpan={5}
+                  value={userInputWords} />
+              </CardItem>
+            </Card>
+            <View style={styles.hrLine} />
+            <Card transparent style={styles.card}>
+              <CardItem>
+                <Button block style={styles.button} onPress={this.onSubmitClicked} disabled={!userInputWords}>
+                  <Text style={styles.buttonText}>Continue</Text>
+                </Button>
+              </CardItem>
+              <CardItem>
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.touchableBackText}>Whoops, I didn’t write my recovery phrase.</Text>
+                </TouchableOpacity>
+              </CardItem>
+              <CardItem>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
+                  <Text style={styles.touchableNextText}>Create New Wallet</Text>
+                </TouchableOpacity>
+              </CardItem>
+            </Card>
+          </Content>
         </Container>
       </OnBoardingLayout>
     );

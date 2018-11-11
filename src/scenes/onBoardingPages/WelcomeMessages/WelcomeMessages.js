@@ -18,7 +18,7 @@ const slides = [
   {
     key: 'what',
     image: Images.blockchainSrc,
-    title: 'What is Zen Protocol?',
+    title: 'What is Zen Protocol?(test)',
     bullets: [
       'Zen Protocol (ZP) is a platform for peer-2-peer finance.',
       'ZP wallet is a free, open-source client interface.',

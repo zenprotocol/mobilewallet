@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
     alignItems: "center",
     justifyContent: "space-around",
-    color: "#e6e6e6"
+    color: "#e6e6e6",
+    margin: 20
   },
   header: {
     color: "#e6e6e6",
@@ -19,7 +20,8 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 16,
     color: "#e6e6e6",
-    fontWeight: "400"
+    fontWeight: "400",
+    textAlign: 'center',
   },
   image: {
     height: 50,

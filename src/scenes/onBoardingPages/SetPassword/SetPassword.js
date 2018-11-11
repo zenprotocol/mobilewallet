@@ -116,7 +116,7 @@ export default class SetPassword extends Component {
               <Input
                 placeholder='Enter Password'
                 inputType={'password'}
-                style={{ color: "#fff" }}
+                style={{ color: "#fff", fontSize: 18 }}
                 secureTextEntry={passwordVisible}
                 value={password}
                 onChangeText={(text) => this.onPasswordChanged(text)}
@@ -134,6 +134,7 @@ export default class SetPassword extends Component {
                 secureTextEntry={confirmPasswordVisible}
                 onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
                 placeholder='Confirm Password'
+                style={{ color: "#fff", fontSize: 18 }}
                 placeholderTextColor={'#fff'} />
               <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
                 <Icon name={confirmPasswordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
@@ -145,7 +146,7 @@ export default class SetPassword extends Component {
 
             <Item style={{marginBottom: 30}}>
               <Input
-                style={{color: "#fff"}}
+                style={{color: "#fff", fontSize: 18}}
                 value={'15'}
                 value={logoutMinutes}
                 keyboardType={"numeric"}

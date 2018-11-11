@@ -46,7 +46,7 @@ class _Wallet {
   fetch = async () => {
     if (this.instance === null) {
       // TODO: Add loading option like history.push(routes.LOADING)
-      // global.console.warn("create a wallet instance before calling fetch");
+      global.console.warn("create a wallet instance before calling fetch");
       return;
     }
     await this.instance.refresh();

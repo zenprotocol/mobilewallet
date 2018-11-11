@@ -3,8 +3,9 @@ import { View, Text } from 'react-native';
 import isWalletExists from './utils/isWalletExists';
 import { AsyncStorage } from "react-native";
 import { inject, observer } from "mobx-react";
-import { networkStore, secretPhraseStore } from "./stores";
-import SplashScreen from "react-native-splash-screen";
+import { networkStore, secretPhraseStore, publicAddressStore } from "./stores";
+import LoadingModel from './components/LoadingModal';
+import SplashScreen from 'react-native-splash-screen';
 
 @inject("networkStore")
 @observer
@@ -16,11 +17,13 @@ export default class LoadingApp extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    console.log("In _bootstrapAsync");
-    console.disableYellowBox = true;
     await networkStore.getCurrentChain();
     const walletExists = await isWalletExists();
-    await SplashScreen.hide();
+    if (walletExists) {
+      await networkStore.getSeed;
+      // await publicAddressStore.fetch()
+    }
+    SplashScreen.hide();
     this.props.navigation.navigate(walletExists ? 'Private' : 'Public');
   }
 
@@ -28,7 +31,7 @@ export default class LoadingApp extends React.Component {
   render() {
     return (
       <View style={{backgroundColor: "#121212"}}>
-
+        <LoadingModel/>
       </View>
     );
   }

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { observer } from 'mobx-react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { Input, Label, Item, Icon } from 'native-base';
 
 import { minimumDecimalPoints, numberWithCommas } from '../../utils/helpers'
@@ -42,36 +42,14 @@ class AmountInput extends React.Component<Props, State> {
     isFocused: false,
   }
 
-  onChange = (evt: SyntheticEvent<HTMLInputElement>) => {
+  onChange = (value) => {
+    console.log(value);
     const { maxDecimal, onAmountDisplayChanged } = this.props
-    const newAmountDisplay = formatNextAmountDisplay(evt.currentTarget.value, maxDecimal)
+    const newAmountDisplay = formatNextAmountDisplay(value, maxDecimal)
     if (newAmountDisplay === false) {
       return
     }
     onAmountDisplayChanged(newAmountDisplay)
-  }
-
-  onKeyDown = (evt: SyntheticKeyboardEvent<HTMLInputElement>) => {
-    if (evt.keyCode === 38) { this.increaseAmount() } // UP
-    if (evt.keyCode === 40) { this.decreaseAmount() } // DOWN
-  }
-
-  increaseAmount = () => {
-    const { amount, onAmountDisplayChanged } = this.props
-    let newAmount
-    if (amount === undefined || amount === '') {
-      newAmount = 1
-    } else {
-      newAmount = amount + 1
-    }
-    onAmountDisplayChanged(String(newAmount))
-  }
-
-  decreaseAmount = () => {
-    const { amount, onAmountDisplayChanged } = this.props
-    if (amount !== undefined && amount >= 1) {
-      onAmountDisplayChanged(String(amount - 1))
-    }
   }
 
   renderMaxAmountDiv() {
@@ -79,8 +57,9 @@ class AmountInput extends React.Component<Props, State> {
     if (!shouldShowMaxAmount || maxAmount === null) {
       return null
     }
-    return <div className="maxAmount"> / { this.maxAmountDisplay }</div>
+    return <Text style={styles.maxAmount}> / { this.maxAmountDisplay }</Text>
   }
+
   get maxAmountDisplay() {
     const { maxAmount, minDecimal } = this.props
     // $FlowFixMe
@@ -98,10 +77,7 @@ class AmountInput extends React.Component<Props, State> {
   renderExceedingMaxAmountError() {
     if (this.isExceedingMaxAmount()) {
       return (
-        <div className="input-message error">
-          <FontAwesomeIcon icon={['far', 'exclamation']} />
-          <span>{this.props.exceedingErrorMessage}</span>
-        </div>
+        <Text style= {{color: "#fd3a3a", fontSize: 16, marginTop: 4 }}>{this.props.exceedingErrorMessage}</Text>
       )
     }
   }
@@ -116,14 +92,14 @@ class AmountInput extends React.Component<Props, State> {
         <Label style={{ color: '#fff' }}>{label}</Label>
         <Item>
           <Input
-            id="amount"
             placeholder="Enter amount"
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             value={numberWithCommas(amountDisplay)}
             ref={ref('el').bind(this)}
-            onKeyDown={this.onKeyDown}
-            onChange={this.onChange}
+            onChangeText={(value) => this.onChange(value)}
+            keyboardType="number-pad"
+            style={styles.input}
           />
           { this.renderMaxAmountDiv() }
         </Item>

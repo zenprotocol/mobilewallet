@@ -31,7 +31,7 @@ export default class LoadingApp extends React.Component {
   render() {
     return (
       <View style={{backgroundColor: "#121212"}}>
-        <LoadingModel/>
+        <LoadingModel />
       </View>
     );
   }

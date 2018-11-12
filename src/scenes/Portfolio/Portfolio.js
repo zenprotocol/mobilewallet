@@ -30,7 +30,7 @@ class Portfolio extends Component<Props> {
 
         { portfolioStore.assets.length ?
           portfolioStore.assets.map(asset => (
-            <Card style={{flex: 0}}>
+            <Card style={{flex: 0}} key={asset.name}>
                 <CardItem>
                   <Left>
                     <Body>

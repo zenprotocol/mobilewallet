@@ -15,7 +15,14 @@ const styles = StyleSheet.create({
   inputContainerStyle: {
     borderWidth: 0,
     borderBottomWidth: 1,
-  }
+  },
+  input: {
+    color: "#fff",
+  },
+  maxAmount: {
+    color: "#fff",
+    fontSize: 16,
+  },
 
 });
 

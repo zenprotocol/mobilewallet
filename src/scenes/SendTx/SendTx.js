@@ -11,7 +11,7 @@ import { ref } from '../../utils/domUtils'
 import SendTxStore from '../../stores/sendTxStore'
 import PortfolioStore from '../../stores/portfolioStore'
 import Layout from '../../components/Layout';
-import AutoSuggestAssets from '../../components/AutoSuggestAssets';
+import PickerAssets from '../../components/PickerAssets';
 import AmountInput from '../../components/AmountInput';
 import styles from "./styles";
 
@@ -64,9 +64,7 @@ renderSuccessResponse() {
     return null
   }
   return (
-    <FormResponseMessage className="success">
-      <span>Transaction sent successfully.</span>
-    </FormResponseMessage>
+    <Text>Transaction sent successfully.</Text>
   )
 }
 
@@ -75,20 +73,18 @@ renderErrorResponse() {
   if (status !== 'error') {
     return null
   }
-
   return (
-    <FormResponseMessage className="error">
-      <span>There was a problem with sending the transaction.</span>
-      <span className="devider" />
-      <p>Error message: {errorMessage}</p>
-    </FormResponseMessage>
+    <View>
+      <Text>There was a problem with sending the transaction.</Text>
+      <Text>Error message: {errorMessage}</Text>
+    </View>
   )
 }
 
 onSubmitButtonClicked = async () => {
   this.props.sendTxStore.createTransaction()
   // $FlowFixMe
-  this.AutoSuggestAssets.wrappedInstance.reset()
+  this.PickerAssets.wrappedInstance.reset()
 }
 
 get isAmountValid() {
@@ -113,13 +109,15 @@ get isSubmitButtonDisabled() {
 
   render() {
 
-    const portfolioStore = this.props;
+    const { portfolioStore } = this.props;
     const { to, asset, amount, amountDisplay, inProgress } = this.props.sendTxStore;
-    console.log(this);
+
     return (
       <Layout>
         <Content>
           <H1 style={styles.header}>Send</H1>
+          { this.renderSuccessResponse() }
+          { this.renderErrorResponse() }
           <Card transparent style={styles.card}>
             <CardItem>
               <Text style={styles.cardText}>Destination Address</Text>
@@ -131,7 +129,6 @@ get isSubmitButtonDisabled() {
                   name="to"
                   type="text"
                   ref={ref('elTo').bind(this)}
-                  autoFocus={true}
                   value={to}
                   style={styles.inputText}
                   onChangeText={(text) =>
@@ -145,10 +142,10 @@ get isSubmitButtonDisabled() {
               {this.renderAddressErrorMessage()}
             </CardItem>
             <CardItem>
-              <AutoSuggestAssets
+              <PickerAssets
                 asset={asset}
                 onUpdateParent={this.updateAssetFromSuggestions}
-                ref={ref('AutoSuggestAssets').bind(this)}
+                ref={ref('PickerAssets').bind(this)}
               />
             </CardItem>
             <CardItem>

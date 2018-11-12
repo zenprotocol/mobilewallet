@@ -101,6 +101,7 @@ class PortfolioStore {
   }
 
   getBalanceFor(asset) {
+    console.log("getBalanceFor: ", asset);
     const result = find(this.assets, { asset });
     return result ? result.balance : 0;
   }

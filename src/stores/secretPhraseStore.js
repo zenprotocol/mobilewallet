@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import bip39 from 'react-native-bip39';
 import { SecurePhrase } from '@zen/zenjs'
 import NavigationService from "../services/NavigationService";
@@ -13,25 +13,41 @@ const LS_TESTNET_SEED = 'lsTestnetSeed';
 const LS_MAINNET_SEED = 'lsMainnetSeed';
 
 class secretPhraseStore {
-  @observable mnemonicPhrase = ''
 
-  @observable isLoggedIn = false
+  @observable
+  mnemonicPhrase = ''
 
-  @observable autoLogoutMinutes = Number(AsyncStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
+  @observable
+  walletExist;
 
-  @observable inProgress = false
+  @observable
+  seedKey;
 
-  @observable isImporting = false
+  @observable
+  isLoggedIn = false
 
-  @observable importError = ''
+  @observable
+  autoLogoutMinutes = Number(AsyncStorage.getItem(LS_AUTO_LOGOUT_MINUTES)) || 15
 
-  @observable status = ''
+  @observable
+  inProgress = false
+
+  @observable
+  isImporting = false
+
+  @observable
+  importError = ''
+
+  @observable
+  status = ''
 
   constructor(networkStore, portfolioStore, activeContractsStore, redeemTokensStore) {
     this.networkStore = networkStore;
+    this.checkWalletExist();
     this.portfolioStore = portfolioStore;
     this.activeContractsStore = activeContractsStore;
     this.redeemTokensStore = redeemTokensStore;
+    this.getSeed();
     if (isDev()) {
       this.initDev();
     }
@@ -49,17 +65,31 @@ class secretPhraseStore {
   }
 
   @action
+  async checkWalletExist() {
+    try {
+       await AsyncStorage.getItem(this.lsSeedKey).then(res => {
+        runInAction(() => {
+          this.seedKey = res;
+          this.walletExist = !!res;
+        })
+      })
+     } catch (error) {
+       // Error retrieving data
+       console.log(error);
+     }
+  }
+
+  @action
   importWallet(password) {
     wallet.create(this.mnemonicPhraseAsString)
     console.log(password, this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
-    console.log(encryptedMnemonicPhraseAsString)
     asyncStorageUtils.storeData(this.lsSeedKey, encryptedMnemonicPhraseAsString)
     this.mnemonicPhrase = '';
     this.isLoggedIn = true
     this.networkStore.initPolling()
     this.activeContractsStore.fetch()
-    // history.push(routes.TERMS_OF_SERVICE)
+    NavigationService.navigate("TermsOfService")
   }
 
   @action
@@ -85,6 +115,14 @@ class secretPhraseStore {
     }
   }
 
+  async getSeed() {
+    AsyncStorage.getItem(this.lsSeedKey).then(res => {
+      if (res !== null ){
+        this.seedKey = res
+      }
+    })
+  }
+
   isPasswordCorrect(password) {
     return !!this.decryptMnemonicPhrase(password);
   }
@@ -96,9 +134,7 @@ class secretPhraseStore {
   decryptMnemonicPhrase(password) {
     try {
       // wrong password throws, so returning false to indicate that
-      const seed = asyncStorageUtils.retrieveData(this.lsSeedKey);
-      console.log(seed);
-      return SecurePhrase.decrypt(password, seed).toString();
+      return SecurePhrase.decrypt(password, this.seedKey).toString();
     } catch (err) {
       return false;
     }
@@ -143,7 +179,9 @@ class secretPhraseStore {
   }
 
   get doesWalletExist() {
-    return !!asyncStorageUtils.retrieveData(this.lsSeedKey);
+    console.log("doesWalletExist in secretPhraseStore");
+    console.log(this.walletExist);
+    return this.walletExist;
   }
 
   get lsSeedKey() {

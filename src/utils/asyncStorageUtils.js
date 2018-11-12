@@ -6,34 +6,34 @@ class _AsyncStorageUtils {
   // Save
   storeData = async (key, item) => {
     try {
-      await AsyncStorage.setItem(key, JSON.stringify(item));
+      await AsyncStorage.setItem(key, item);
     } catch (error) {
       // Error saving data
       console.log(error);
     }
   };
 
-  retrieveData = (key) => {
-    this._retrieveData(key).then(res => {
-      this.retrieveDataValue = res;
+  getItemValue = key => {
+    this.retrieveData(key).then( res => {
+      console.log("asyncStorageUtils");
+      console.log(res);
+      return res;
     })
-    return this.retrieveDataValue;
   }
-  
+
   // Retrieve
-  _retrieveData = async key => {
+  retrieveData = async key => {
     try {
-      const item = await AsyncStorage.getItem(key);
-      return item;
+      await AsyncStorage.getItem(key);
     } catch (error) {
       console.log(error);
     }
   };
 
   // Delete
-  delete = async () => {
+  delete = async (key) => {
     try {
-      await AsyncStorage.removeItem("userId");
+      await AsyncStorage.removeItem(key);
     } catch (error) {
       // Error retrieving data
       console.log(error);

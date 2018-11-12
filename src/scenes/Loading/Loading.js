@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View } from "react-native";
-import { Container, Header, Content, Spinner } from 'native-base';
-import LoadingModal from "../../components/LoadingModal";
+import { Container, Content, Spinner } from 'native-base';
 import load from "./loadUtil";
+import styles from "./styles";
 
 
 const TIME_TO_DISPLAY_LOADING = 3650
@@ -29,9 +29,9 @@ class Loading extends Component {
 
   render() {
     return (
-      <View>
+      <Container style={styles.container}>
         <Spinner/>
-      </View>
+      </Container>
     )
   }
 }

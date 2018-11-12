@@ -3,26 +3,31 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#121212",
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 40,
+
   },
   form: {
-    padding: 15,
-    marginTop: 30,
-  },
-  button: {
-    marginTop: 25,
-    marginBottom: 40,
-    textAlign: 'center',
-  },
-  text: {
-    color: '#e6e6e6',
+    padding: 30,
   },
   row: {
-    marginTop: 10,
     flexDirection: 'row',
-  }
+  },
+  h1: {
+    color: "#fff",
+    fontSize: 22,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10
+  },
+  text: {
+    color: "#fff",
+  },
+  button: {
+    marginTop: 15,
+    marginBottom: 30,
+  },
+});
 
-})
 
 export default styles;

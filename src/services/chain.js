@@ -1,15 +1,15 @@
 import asyncStorageUtils from "../utils/asyncStorageUtils";
-
-const LS_CHAIN = "lsChain";
+import { networkStore, secretPhraseStore } from '../stores';
+export const LS_CHAIN = "lsChain";
 
 export const TESTNET = "test";
 export const MAINNET = "main";
 
 class Chain {
-  _current =  asyncStorageUtils.retrieveData(LS_CHAIN) || MAINNET;
+  _current;
 
   get current() {
-    return this._current
+    return networkStore.chain
   }
 
   switch = () => {

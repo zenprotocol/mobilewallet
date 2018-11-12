@@ -3,43 +3,43 @@ import { Provider } from "mobx-react/native";
 import { inject, observer } from "mobx-react";
 import { StyleProvider } from "native-base";
 import { Platform, View } from "react-native";
+import SplashScreen from "react-native-splash-screen";
 import * as stores from "./stores";
 import NavigationService from "./services/NavigationService";
 import getTheme from "../native-base-theme/components";
-import {PublicNavigator, PrivateNavigator} from "./routes";
+import { SwitchNavigator } from "./routes";
+import {createAppContainer} from 'react-navigation'
 import platform from "../native-base-theme/variables/platform";
 import StatusBar from './components/StatusBar.js';
 import isWalletExists from './utils/isWalletExists';
-
+import { AsyncStorage } from "react-native";
 // TODO:  Check for SafeAreaView for android
 // <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
 
+@observer
 export default class App extends Component {
-  state = {
-    walletExists: false,
-  }
 
-  async componentWillMount() {
-    const walletExists = await isWalletExists();
-    this.setState({
-      walletExists: walletExists
-    })
+  componentDidMount() {
+    console.log("APP");
+    SplashScreen.hide();
   }
 
   render() {
-    const { walletExists } = this.state;
-    const TopLevelNavigator = walletExists ? PrivateNavigator : PublicNavigator;
+    // const { walletExists } = this.state;
+    // const TopLevelNavigator = stores.secretPhraseStore.walletExist ? PrivateNavigator : PublicNavigator;
     return (
-      <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#000" barStyle="light-content" />
+      <View style={{ flex: 1, backgroundColor: "#121212" }}>
         <Provider {...stores}>
-          <StyleProvider style={getTheme(platform)}>
-            <TopLevelNavigator
-              ref={navigatorRef => {
-                NavigationService.setTopLevelNavigator(navigatorRef);
-              }}
-            />
-          </StyleProvider>
+          <React.Fragment>
+            <StatusBar backgroundColor="#000" barStyle="light-content" />
+            <StyleProvider style={getTheme(platform)}>
+              <SwitchNavigator
+                ref={navigatorRef => {
+                  NavigationService.setTopLevelNavigator(navigatorRef);
+                }}
+              />
+            </StyleProvider>
+          </React.Fragment>
         </Provider>
       </View>
     );

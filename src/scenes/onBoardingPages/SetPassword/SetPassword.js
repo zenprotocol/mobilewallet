@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import { Container, Card, CardItem, Content, Item, H1, H3, Button, Text } from "native-base";
+import { Container, Content, Item, H1, H2, H3, Button, Input, Right, Col, Grid } from "native-base";
 import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
-import { View, TextInput } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import StepIndicator from '../../../components/StepIndicator';
 
 type Props = {
   secretPhraseStore: SecretPhraseStore
@@ -21,9 +23,13 @@ type State = {
 @inject("secretPhraseStore")
 @observer
 export default class SetPassword extends Component {
-  static navigationOptions = {};
+
+  static navigationOptions = {
+    header: null,
+  }
 
   static defaultProps = {};
+
   state = {
     validLength: false,
     password: '',
@@ -85,9 +91,8 @@ export default class SetPassword extends Component {
   }
 
   onSubmitClicked = () => {
-    const { navigation, secretPhraseStore } = this.props
-    secretPhraseStore.importWallet(this.state.password)
-    navigation.navigate("TermsOfService");
+    const { navigation, secretPhraseStore } = this.props;
+    secretPhraseStore.importWallet(this.state.password);
   }
 
   renderPasswordConfirmInput() {
@@ -100,70 +105,72 @@ export default class SetPassword extends Component {
     const logoutMinutes = autoLogoutMinutes ? autoLogoutMinutes.toString() : ''
     return (
       <OnBoardingLayout className="import-wallet-container" progressStep={3}>
-        <Container style={styles.container}>
-          <H1 style={styles.h1}>Create a password</H1>
-          <H3 style={styles.h3}>
-            {" "}
-            Your password gives you a quick access to your wallet.&nbsp;
-          </H3>
-          <View style={styles.hrLine} />
-          <Text style={styles.sectionHeader}>
-            Make sure your password includes:
-            </Text>
-          <H3 style={styles.subHeaderText}>
-            At least 4 characters
-            </H3>
+          <StepIndicator currentPosition={3} />
+          <Content style={styles.content}>
+            <H1 style={{color: "#fff", marginBottom: 5}}>Create a password</H1>
+            <Text style={{color: "#777", marginBottom: 10}}>Your password gives you a quick access to your wallet</Text>
+            <Text style={{color: "#fff", fontSize: 18, marginBottom: 5}}>Make sure your password includes:</Text>
+            <Text style={{color: "#777", marginBottom: 10}}>At least 4 characters</Text>
 
-          <TextInput style={styles.textInput}
-            placeholder='Enter Password'
-            inputType={'password'}
-            secureTextEntry={passwordVisible}
-            value={password}
-            onChangeText={(text) => this.onPasswordChanged(text)}
-            placeholderTextColor={'#fff'} />
+            <Item style={{marginBottom: 20}}>
+              <Input
+                placeholder='Enter Password'
+                inputType={'password'}
+                style={{ color: "#fff", fontSize: 18 }}
+                secureTextEntry={passwordVisible}
+                value={password}
+                onChangeText={(text) => this.onPasswordChanged(text)}
+                placeholderTextColor={'#fff'}
+              />
+              <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
+                <Icon name={passwordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
+              </TouchableOpacity>
+            </Item>
 
-          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('passwordVisible')} >
-            <Text style={styles.buttonText}>Password Toogle</Text>
-          </Button>
+            <Item style={{marginBottom: 30}}>
+              <Input
+                inputType={'password'}
+                value={passwordConfirmation}
+                secureTextEntry={confirmPasswordVisible}
+                onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
+                placeholder='Confirm Password'
+                style={{ color: "#fff", fontSize: 18 }}
+                placeholderTextColor={'#fff'} />
+              <TouchableOpacity onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
+                <Icon name={confirmPasswordVisible ? 'eye' : 'eye-slash'} size={24} color="gray" />
+              </TouchableOpacity>
+            </Item>
 
-          <TextInput style={styles.textInput}
-            inputType={'password'}
-            value={passwordConfirmation}
-            secureTextEntry={confirmPasswordVisible}
-            onChangeText={(text) => this.onPasswordConfirmationChanged(text)}
-            placeholder='Confirm Password'
-            placeholderTextColor={'#fff'} />
-          <View style={styles.innerHrLine} />
-          <Button secondary block style={styles.button} onPress={() => this.onClickTogglePasswordVisibility('confirmPasswordVisible')} >
-            <Text style={styles.buttonText}>Password Toogle</Text>
-          </Button>
+            <Text style={{color: "#fff", fontSize: 18, marginBottom: 10}}>Auto logout</Text>
+            <Text style={{color: "#fff"}}>After how many minutes you would like to automatically log out?</Text>
 
-          <Text style={styles.sectionHeader}>
-            Auto logout
-          </Text>
-          <H3 style={styles.subHeaderText}>
-            After how many minutes you would like to automatically log out?
-          </H3>
-          <TextInput value={'15'} style={styles.textInput} value={logoutMinutes}
-            keyboardType={"numeric"}
-            onChangeText={(text) => this.onMinutesChange(text)} placeholder='Auto Logout' />
-          <View style={styles.hrLine} />
+            <Item style={{marginBottom: 30}}>
+              <Input
+                style={{color: "#fff", fontSize: 18}}
+                value={'15'}
+                value={logoutMinutes}
+                keyboardType={"numeric"}
+                onChangeText={(text) => this.onMinutesChange(text)}
+                placeholder='Auto Logout' />
+            </Item>
 
-          <Card transparent style={styles.card}>
-            <CardItem>
-              <Button secondary block style={styles.button} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
-                <Text style={styles.buttonText}>Back</Text>
-              </Button>
-              <Button block style={styles.button} onPress={this.onSubmitClicked} disabled={!this.validatePassword() || isImporting} >
-                <Text style={styles.buttonText}>{isImporting ? 'Importing ...' : 'Continue'}</Text>
-              </Button>
-            </CardItem>
-          </Card>
+            <Grid style={{marginBottom: 50}}>
+              <Col>
+                <Button secondary block style={{ marginRight: 5 }} onPress={() => navigation.navigate("ImportOrCreateWallet")} >
+                  <Text style={styles.buttonText}>Back</Text>
+                </Button>
+              </Col>
+              <Col>
+                <Button block style={{ marginLeft: 5 }} onPress={this.onSubmitClicked} disabled={!this.validatePassword() || isImporting} >
+                  <Text style={styles.buttonText}>{isImporting ? 'Importing ...' : 'Continue'}</Text>
+                </Button>
+              </Col>
+            </Grid>
 
-        </Container>
+
+          </Content>
+
       </OnBoardingLayout>
     );
   }
 }
-
-SetPassword.propTypes = {};

@@ -11,14 +11,15 @@ const styles = StyleSheet.create({
     color: "#e6e6e6",
     alignItems: "center",
     flex: 0,
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 10,
   },
   container: {
     backgroundColor: '#121212'
   },
   h1: {
     color: '#e6e6e6',
-    fontSize: 22,
+    fontSize: 20,
     marginLeft: 20,
     marginRight: 20,
     marginTop: 10,
@@ -34,7 +35,9 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#949494',
     opacity: 0.6,
-    margin: 20
+    marginTop: 5,
+    marginLeft: 20,
+    marginRight: 20,
   },
   mnemonicText: {
     fontSize: 20,
@@ -60,7 +63,8 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   textArea: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 18,
   }
 });
 

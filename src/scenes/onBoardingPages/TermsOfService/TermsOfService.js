@@ -3,6 +3,7 @@ import { Container, Card, CardItem, H1, H3, Button, Text, CheckBox } from "nativ
 import OnBoardingLayout from "../Layout/Layout";
 import styles from './styles';
 import { View, ScrollView } from 'react-native';
+import StepIndicator from '../../../components/StepIndicator';
 
 type State = {
 	isApprove: boolean,
@@ -27,6 +28,7 @@ export default class TermsOfService extends Component {
 		return (
 			<OnBoardingLayout className="import-wallet-container" progressStep={5}>
 				<Container style={styles.container}>
+					<StepIndicator currentPosition={4} />
 					<H1 style={styles.h1}>Terms and Conditions</H1>
 					<H3 style={styles.h3}>
 						{" "}
@@ -35,10 +37,9 @@ export default class TermsOfService extends Component {
 					<View style={styles.hrLine} />
 					<ScrollView>
 						<H1 style={styles.h1}>ZEN​ ​PROTOCOL​ ​SOFTWARE​ ​LICENSE</H1>
-						<Text style={styles.h3}>
+						<H3 style={styles.h3}>
 							This Zen Protocol Software License (this "Agreement"​) governs Your use of the computer software (including wallet, miner, tools, compilers, documentation, examples, source code and other files) as may be made available by Zen Protocol Ltd​, a Seychelles company(“Licensor”​) via GitHub at https://github.com/zenprotocol/zen-wallet or from any other distribution source authorized by Licensor from time to time (together with the authorized Community Releases defined below, the “Licensed Software”​). References herein to “You” or “Your” means each person that installs, executes, accesses, stores, copies, modifies (to the extent permitted in this Agreement), distributes or otherwise makes use of the Licensed Software (each a “Use”​). You are only authorized to Use the Licensed Software if You agree fully comply with the terms and conditions of this Agreement. Otherwise, if you do not agree to the terms and conditions of this Agreement, You may not Use the Licensed Software in any manner, and You should in that case immediately delete any copies of the Licensed Software that You may have made.
 							You acknowledge and agree that (A) Licensor has spent considerable time, effort and resources in the development of the Licensed Software, and that the Licensed Software contains valuable intellectual property rights owned by the Licensor, and (B) Your right to Use the Licensed Software (as set forth and limited by this Agreement) constitutes good and valuable consideration exchanged for Your agreement to the terms and conditions herein and the consideration paid for the Purchased Tokens.
-
 							You therefore further agree as follows:
 
 							Definitions. The following terms when used with initial capital letters shall have the meanings stated below:
@@ -87,19 +88,16 @@ export default class TermsOfService extends Component {
 							Governing Law. This Agreement is deemed entered into in Seychelles, and and any disputes hereunder shall be governed by and construed in accordance with the laws of Seychelles, without giving effect to principles of conflict of law of any jurisdiction. Excluding only claims of infringement of intellectual property rights embodied in the Licensed Software (which claims may be brought in any court having valid jurisdiction), the courts of Seychelles shall have exclusive venue and jurisdiction to determine any disputes which may arise out of or in connection with this Agreement. You consent to the personal jurisdiction of, and venue in, the courts within Seychelles and hereby waive any objection to such jurisdiction and venue on any grounds, including the convenience of the forum. Neither the United Nations Convention on Contracts for the International Sale of Goods nor the Uniform Computer Information Transactions Act as enacted shall apply to this Agreement.
 							Export Control Notice. The Licensed Software may be subject to United States or foreign export control laws. You shall ensure that any exports from the United States are in compliance with the U.S. export control laws. You agree that You will not submit the Licensed Software to any government agency for licensing consideration or other regulatory approval without the prior written consent of Licensor.
 								I have read, understand and agree to the Terms and Conditions.
-							Back
-							Accept Terms
-							TESTNET (Switch to Mainnet)
-            </Text>
+            </H3>
 					</ScrollView>
 					<View style={styles.hrLine} />
 					<Card transparent style={styles.card}>
 						<CardItem>
 							<CheckBox checked={isApprove} onPress={() => this.setState({ isApprove: !isApprove })} />
-							<Text style={styles.h3} onPress={() => this.setState({ isApprove: !isApprove })}>&nbsp; I have read, understand and agree to the Terms and Conditions.</Text>
+							<Text style={styles.h3} onPress={() => this.setState({ isApprove: !isApprove })}>I have read, understand and agree to the Terms and Conditions.</Text>
 						</CardItem>
 						<CardItem>
-							<Button block style={styles.button} secondary onPress={() => navigation.navigate("ImportOrCreateWallet")}>
+							<Button block style={styles.button} secondary onPress={() => navigation.navigate("SetPassword")}>
 								<Text style={styles.buttonText}>Back</Text>
 							</Button>
 							<Button block style={styles.button} disabled={!isApprove} onPress={() => navigation.navigate("Portfolio")}>
@@ -112,5 +110,3 @@ export default class TermsOfService extends Component {
 		);
 	}
 }
-
-TermsOfService.propTypes = {};

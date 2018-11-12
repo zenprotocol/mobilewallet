@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     color: '#e6e6e6',
-    fontSize: 22,
+    fontSize: 20,
     marginLeft: 20,
     marginRight: 20,
     marginTop: 10,
@@ -49,9 +49,6 @@ const styles = StyleSheet.create({
   warningText: {
     fontSize: 14,
     color: 'red',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10
   }
 });
 

@@ -16,18 +16,22 @@ class _Wallet {
 
   create(mnemonic) {
     if (this.instance !== null) {
-      global.console.warn("wallet instance already exists");
+      // global.console.warn("wallet instance already exists");
       return;
     }
-    this.instance = Wallet.fromMnemonic(
-      mnemonic,
-      chain.current,
-      new Wallet.RemoteNodeWalletActions(
-        chain.current === MAINNET
-          ? "https://remote-node.zp.io"
-          : "https://testnet-remote-node.zp.io"
-      )
-    );
+    try {
+      this.instance = Wallet.fromMnemonic(
+        mnemonic,
+        chain.current,
+        new Wallet.RemoteNodeWalletActions(
+          chain.current === MAINNET
+            ? "https://remote-node.zp.io"
+            : "https://testnet-remote-node.zp.io"
+        )
+      );
+    } catch (e) {
+      console.log(e);
+    }
     this.fetchPollManager.initPolling();
     return this.instance;
   }

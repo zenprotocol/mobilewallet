@@ -18,7 +18,7 @@ const slides = [
   {
     key: 'what',
     image: Images.blockchainSrc,
-    title: 'What is Zen Protocol?',
+    title: 'What is Zen Protocol?(test)',
     bullets: [
       'Zen Protocol (ZP) is a platform for peer-2-peer finance.',
       'ZP wallet is a free, open-source client interface.',
@@ -80,10 +80,10 @@ export default class WelcomeMessages extends Component {
       <Container
         style={[styles.mainContent, {
           width: props.width,
-          height: props.height + 20
+          hight: props.height + 40
         }]}
       >
-        <Content>
+        <Content style={{hight: props.height + 100}}>
           <H1 style={styles.title}>{props.title}</H1>
           <Image source={props.image} style={styles.image} resizeMode="contain" />
           <FlatList

@@ -12,12 +12,13 @@ type Props = {};
 class CustomHeader extends React.Component<Props> {
 
   render() {
+    console.log(this.props);
     return (
         <Header style={styles.main}>
           <Left>
             <Button
               transparent
-              onPress={() => console.log("Wo")}
+              onPress={() => this.props.navigation.openDrawer()}
               >
               <Icon ios="ios-menu" android="md-menu" />
             </Button>

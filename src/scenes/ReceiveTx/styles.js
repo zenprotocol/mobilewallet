@@ -11,10 +11,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500"
   },
-  cardText: {
+  title: {
     fontSize: 16,
     color: "#e6e6e6",
-    fontWeight: "400"
+    fontWeight: "400",
+    marginBottom: 10,
   },
   buttonText: {
     color: "#fff",

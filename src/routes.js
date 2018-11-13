@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Dimensions, View, Text, Button } from "react-native";
 import { observer, inject } from "mobx-react/native";
-import { StackNavigator, createDrawerNavigator, createStackNavigator, createSwitchNavigator } from "react-navigation";
+import { StackNavigator, DrawerNavigator, createDrawerNavigator, createStackNavigator, createSwitchNavigator } from "react-navigation";
 
 import LoadingApp from "./LoadingApp";
+import SideMenu from "./components/SideMenu";
 
 import WelcomeMessages from "./scenes/onBoardingPages/WelcomeMessages/WelcomeMessages";
 import ImportOrCreateWallet from "./scenes/onBoardingPages/ImportOrCreateWallet/ImportOrCreateWallet";
@@ -47,15 +48,25 @@ const PrivateNavigator = createStackNavigator(
     SendTx: {screen: SendTx },
   },
   {
-    initialRouteName: "UnlockWallet",
+    initialRouteName: "Portfolio",
     headerMode: 'none',
     headerTitleStyle: {color: 'white',},
   }
 );
 
+const Drawer = DrawerNavigator(
+  {
+    PrivateNavigator: {screen: PrivateNavigator}
+  },
+  {
+    contentComponent: SideMenu,
+    drawerWidth: deviceWidth - 100
+  }
+);
+
 export const SwitchNavigator = createSwitchNavigator(
   {
-    Private: PrivateNavigator,
+    Private: Drawer,
     Public: PublicNavigator,
     LoadingApp: LoadingApp
   },

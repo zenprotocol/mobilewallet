@@ -8,8 +8,11 @@ import NetworkStore from "./networkStore";
 import RedeemTokensStore from "./redeemTokensStore";
 import SecretPhraseStore from "./secretPhraseStore";
 import ExecuteContractStore from "./executeContractStore";
+import NavigationStore from './navigationStore';
+
 
 export const appStore = new AppStore();
+export const nav = new NavigationStore();
 export const activeContractsStore = new ActiveContractsStore();
 export const portfolioStore = new PortfolioStore(activeContractsStore);
 export const publicAddressStore = new PublicAddressStore();

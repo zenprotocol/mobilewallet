@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import PortfolioStore from '../../stores/portfolioStore';
 import SendTxStore from '../../stores/sendTxStore';
-import { View } from 'react-native';
+import { View, Modal } from 'react-native';
 import { Text, H1, H2, H3, Card, CardItem, Left, Right, Button, Icon, Body } from 'native-base';
 import Layout from '../../components/Layout';
 
@@ -16,7 +16,9 @@ type Props = {
 @inject('portfolioStore', 'sendTxStore')
 @observer
 class Portfolio extends Component<Props> {
-
+  state = {
+    modalVisible: false
+  }
   // TODO: move into Mobx app.portfolioStore.fetch
   componentDidMount() {
     this.props.portfolioStore.fetch();

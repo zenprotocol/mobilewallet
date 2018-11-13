@@ -48,7 +48,7 @@ const PrivateNavigator = createStackNavigator(
     SendTx: {screen: SendTx },
   },
   {
-    initialRouteName: "Portfolio",
+    initialRouteName: "UnlockWallet",
     headerMode: 'none',
     headerTitleStyle: {color: 'white',},
   }

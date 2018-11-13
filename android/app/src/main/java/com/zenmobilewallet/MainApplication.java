@@ -2,6 +2,7 @@ package com.zenmobilewallet;
 
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.tradle.react.UdpSocketsModule;
 import com.peel.react.TcpSocketsModule;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
               new TcpSocketsModule(),
               new RNOSModule(),
               new VectorIconsPackage(),
-              new MainReactPackage()
+              new MainReactPackage(),
+              new RNCameraPackage()
       );
     }
 

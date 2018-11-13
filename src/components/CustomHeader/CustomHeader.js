@@ -12,7 +12,7 @@ type Props = {};
 class CustomHeader extends React.Component<Props> {
 
   render() {
-    console.log(this.props);
+    
     return (
         <Header style={styles.main}>
           <Left>

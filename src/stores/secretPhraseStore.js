@@ -133,6 +133,7 @@ class secretPhraseStore {
 
   decryptMnemonicPhrase(password) {
     try {
+      console.log(password, this.seedKey);
       // wrong password throws, so returning false to indicate that
       return SecurePhrase.decrypt(password, this.seedKey).toString();
     } catch (err) {

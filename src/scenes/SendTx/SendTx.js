@@ -68,8 +68,9 @@ renderSuccessResponse() {
   if (this.props.sendTxStore.status !== 'success') {
     return null
   }
+  console.log(this.props.sendTxStore.status);
   return (
-    <Text>Transaction sent successfully.</Text>
+    <Text style={styles.cardText}>Transaction sent successfully.</Text>
   )
 }
 
@@ -111,7 +112,6 @@ get isSubmitButtonDisabled() {
   const { inProgress } = this.props.sendTxStore
   return inProgress || !this.areAllFieldsValid
 }
-
 
 closeModal = () => {
   this.setState({

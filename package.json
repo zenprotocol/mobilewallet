@@ -11,7 +11,6 @@
     "build:ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "build:android": "react-native bundle --entry-file index.android.js --platform android --dev false --bundle-output android/main.jsbundle --assets-dest android",
     "postinstall": "./node_modules/.bin/rn-nodeify --install buffer,stream,assert,events,slice --hack && npm i -S buffer@5",
-    "stryker": "./node_modules/.bin/stryker run",
     "flow": "flow"
   },
   "dependencies": {
@@ -60,6 +59,7 @@
     "react-native-bip39": "2.3.0",
     "react-native-camera": "1.4.1",
     "react-native-crypto": "2.1.2",
+    "react-native-dialog": "5.4.0",
     "react-native-dropdown": "0.0.6",
     "react-native-exception-handler": "2.10.2",
     "react-native-level-fs": "3.0.1",

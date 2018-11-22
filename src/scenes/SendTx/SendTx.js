@@ -14,6 +14,7 @@ import PortfolioStore from '../../stores/portfolioStore'
 import Layout from '../../components/Layout';
 import PickerAssets from '../../components/PickerAssets';
 import AmountInput from '../../components/AmountInput';
+import ConfirmPasswordModal from "../../components/ConfirmPasswordModal"
 import styles from "./styles";
 
 type Props = {
@@ -26,7 +27,8 @@ type Props = {
 class SendTx extends Component<Props> {
 
   state = {
-    modalVisible: false
+    modalVisible: false,
+    showConfirmPasswordModal: false
   }
 
   componentDidMount() {
@@ -68,7 +70,6 @@ renderSuccessResponse() {
   if (this.props.sendTxStore.status !== 'success') {
     return null
   }
-  console.log(this.props.sendTxStore.status);
   return (
     <Text style={styles.cardText}>Transaction sent successfully.</Text>
   )
@@ -87,9 +88,17 @@ renderErrorResponse() {
   )
 }
 
-onSubmitButtonClicked = async () => {
+onSubmitButtonClicked = () => {
+  this.setState({
+    showConfirmPasswordModal: true
+  })
+}
+
+transactionApproved = () => {
+  this.setState({
+    showConfirmPasswordModal: false
+  });
   this.props.sendTxStore.createTransaction()
-  // $FlowFixMe
   this.PickerAssets.wrappedInstance.reset()
 }
 
@@ -119,9 +128,16 @@ closeModal = () => {
   })
 }
 
+closeConfirmPasswordModal = () => {
+  this.setState({
+    showConfirmPasswordModal: false
+  });
+}
+
 render() {
   const { portfolioStore } = this.props;
   const { to, asset, amount, amountDisplay, inProgress } = this.props.sendTxStore;
+  const { showConfirmPasswordModal } = this.state;
 
   return (
     <Layout>
@@ -191,6 +207,7 @@ render() {
           </Button>
         </Card>
       </Content>
+      {showConfirmPasswordModal && <ConfirmPasswordModal close={this.closeConfirmPasswordModal} show={showConfirmPasswordModal} transactionApproved={this.transactionApproved} />}
     </Layout>
   );
   }

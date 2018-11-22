@@ -40,6 +40,10 @@ class UnlockWallet extends Component<Props, State> {
     header: null
   };
 
+  componentDidMount(){
+    console.log("UW");
+  }
+
   onClickTogglePasswordVisibility = () => {};
 
   onChange = (text: String) => {

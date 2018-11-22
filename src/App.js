@@ -20,6 +20,10 @@ import StatusBar from './components/StatusBar.js';
 @observer
 export default class App extends Component {
 
+  componentDidMount() {
+      
+  }
+
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "#121212" }}>

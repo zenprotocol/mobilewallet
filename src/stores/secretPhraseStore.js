@@ -85,6 +85,7 @@ class secretPhraseStore {
     console.log(password, this.mnemonicPhraseAsString)
     const encryptedMnemonicPhraseAsString = SecurePhrase.encrypt(password, this.mnemonicPhraseAsString)
     asyncStorageUtils.storeData(this.lsSeedKey, encryptedMnemonicPhraseAsString)
+    this.seedKey = encryptedMnemonicPhraseAsString;
     this.mnemonicPhrase = '';
     this.isLoggedIn = true
     this.networkStore.initPolling()
@@ -104,6 +105,7 @@ class secretPhraseStore {
       return;
     }
     wallet.create(decryptedMnemonicPhraseAsString);
+    await this.getSeed();
     this.isLoggedIn = true;
     this.networkStore.initPolling();
     this.activeContractsStore.fetch();
